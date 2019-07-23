@@ -1,5 +1,6 @@
-package android.rutheford.com.superheroesandvillainscentral;
+package android.rutheford.com.superheroesandvillainscentral.Activitys;
 
+import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
