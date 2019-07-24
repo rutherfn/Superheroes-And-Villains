@@ -3,6 +3,7 @@ package android.rutheford.com.superheroesandvillainscentral.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.rutheford.com.superheroesandvillainscentral.Models.OnBoard;
 import android.rutheford.com.superheroesandvillainscentral.R;
@@ -37,6 +38,7 @@ public class OnBoardAdapter extends PagerAdapter
     {
         Typeface typefaceHeader = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
         Typeface typeFaceBody = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
+        Typeface typeLogo = Typeface.createFromAsset(mContext.getAssets(), "AlegreyaSC-Regular.otf");
         LayoutInflater inflate = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams") View layoutScreen = inflate.inflate(R.layout.layout_onboarding_screen,null);
         ConstraintLayout layoutOnBoarding = layoutScreen.findViewById(R.id.layoutOmBoarding);
@@ -44,10 +46,13 @@ public class OnBoardAdapter extends PagerAdapter
         TextView title = layoutScreen.findViewById(R.id.intro_titles);
         TextView desc = layoutScreen.findViewById(R.id.intro_description);
         TextView titleOne = layoutScreen.findViewById(R.id.intro_title);
-        title.setTypeface(typefaceHeader);
+        title.setTypeface(typeLogo);
         desc.setTypeface(typeFaceBody);
         titleOne.setTypeface(typefaceHeader);
-        titleOne.setVisibility(View.GONE);
+        titleOne.setTextColor(Color.parseColor("#C3A402"));
+        title.setTextColor(Color.parseColor("#0000ff"));
+        desc.setTextColor(Color.parseColor("#696969"));
+        titleOne.setText(onBoardList.get(position).getMainAttentionTitle());
         title.setText(onBoardList.get(position).getTitle());
         desc.setText(onBoardList.get(position).getDesc());
         imageSlide.setImageResource(onBoardList.get(position).getHeaderImage());

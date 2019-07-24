@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity
               //   finish();
                  startActivity(intent);
              }else{
-                 intent = new Intent(getApplicationContext(),OnBoardingActivity.class);
+                 intent = new Intent(getApplicationContext(),MainActivity.class);
                //  finish();
                  startActivity(intent);
              }
