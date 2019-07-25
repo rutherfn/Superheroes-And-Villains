@@ -14,11 +14,11 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private Context mContext;
 
-    public HomeView(Context mContext)
+    public SearchResultsView(Context mContext)
     {
         this.mContext = mContext;
     }
@@ -28,28 +28,27 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_screen,viewGroup,false);
-        return new HomeViewScreen(itemView);
+        return new SearchResultsViewGroup(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
-        HomeViewScreen homeViewScreen = (HomeViewScreen) holder;
-        homeViewScreen.loadPlaceHolderIcon();
+        SearchResultsViewGroup searchResultsViewGroup = (SearchResultsViewGroup) holder;
+        searchResultsViewGroup.loadPlaceHolderIcon();
     }
-
 
     @Override
     public int getItemCount()
     {
-        return 10;
+        return 1;
     }
-    class HomeViewScreen extends RecyclerView.ViewHolder{
+    class SearchResultsViewGroup extends RecyclerView.ViewHolder{
         CircleImageView mainCircleImageView;
         TextView mainTextContent;
         ImageView aboutImageView;
 
-        public HomeViewScreen(@NonNull View itemView)
+        public SearchResultsViewGroup(@NonNull View itemView)
         {
             super(itemView);
             mainCircleImageView = itemView.findViewById(R.id.mainCircleImageView);
@@ -59,6 +58,5 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private void loadPlaceHolderIcon(){
             Picasso.get().load(R.drawable.spiderman).into(mainCircleImageView);
         }
-
     }
 }
