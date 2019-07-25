@@ -4,17 +4,20 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.ViewPagerAdapter;
 import android.rutheford.com.superheroesandvillainscentral.R;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener
+public class MainActivity extends AppCompatActivity
 {
     private ViewPager mainViewPager;
     private ViewPagerAdapter mainAdapter;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected  void Main(){
         setUpIDS();
         setUpToolBar();
+        bottomNavigationViewListener();
     }
     private void setUpIDS(){
         mainActivityToolBar = findViewById(R.id.toolbarMainActivity);
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setSupportActionBar(mainActivityToolBar);
         mainAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mainAdapter);
-        mainViewPager.addOnPageChangeListener(this);
+      //  mainViewPager.addOnPageChangeListener(this);
         System.out.println(mainViewPager.getCurrentItem() + " here is the current item");
     }
     private void setUpToolBar(){
@@ -56,21 +60,32 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    @Override
-    public void onPageScrolled(int i, float v, int i1)
-    {
+    private void bottomNavigationViewListener(){
+        mainBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+        {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+            {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.homeAction:
+                        System.out.println("Search New");
+                        mainViewPager.setCurrentItem(0, false);
 
+                        return true;
+
+                    case R.id.searchAction:
+                        System.out.println("Search Again");
+                        mainViewPager.setCurrentItem(1,false);
+                        return true;
+
+                    case R.id.battleAction:
+                        mainViewPager.setCurrentItem(3,false);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
-    @Override
-    public void onPageSelected(int i)
-    {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int i)
-    {
-
-    }
 }
