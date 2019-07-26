@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.ViewPagerAdapter;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -23,22 +24,30 @@ public class MainActivity extends AppCompatActivity
     private TextView mTextViewToolBar;
     private BottomNavigationView mainBottomNavigationView;
     private String toolBarTitle = "SUPER HEROES AND VILLAINS CENTRAL";
+    private Id idSearch = new Id();
+    public  Id idObject = new Id();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Main();
+
+
+
+
         // testing purpose
        // mainViewPager.setCurrentItem(4,false);
     }
+
     protected  void Main(){
-        setUpIDS();
+        setUpIds();
         setUpToolBar();
         bottomNavigationViewListener();
     }
-    private void setUpIDS(){
+    private void setUpIds(){
         mainActivityToolBar = findViewById(R.id.toolbarMainActivity);
         mTextViewToolBar = findViewById(R.id.toolBarTitle);
         settingsImageView = findViewById(R.id.settingsImageView);
