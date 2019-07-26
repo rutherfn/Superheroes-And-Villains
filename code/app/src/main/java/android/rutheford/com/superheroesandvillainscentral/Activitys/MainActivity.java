@@ -2,20 +2,17 @@ package android.rutheford.com.superheroesandvillainscentral.Activitys;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.ViewPagerAdapter;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -33,6 +30,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Main();
+        // testing purpose
+       // mainViewPager.setCurrentItem(4,false);
     }
     protected  void Main(){
         setUpIDS();
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity
                         return true;
 
                     case R.id.battleAction:
-                        mainViewPager.setCurrentItem(3,false);
+                        mainViewPager.setCurrentItem(2,false);
                         return true;
                 }
                 return false;
