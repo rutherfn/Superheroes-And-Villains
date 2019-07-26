@@ -81,8 +81,9 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }else if(idHome.get(position).getBiography().getAlignment().equals("bad")){
                 mainTextContent.setTextColor(Color.parseColor("#B22222"));
                 mainTextContent.setText(idHome.get(position).getName() + ", Bad");
-            }else{
-                mainTextContent.setText(idHome.get(position).getName() + ", " + idHome.get(position).getBiography().getAlignment());
+            }else
+            {
+                mainTextContent.setText(idHome.get(position).getName() + ", Neutral");
             }
         }
 
