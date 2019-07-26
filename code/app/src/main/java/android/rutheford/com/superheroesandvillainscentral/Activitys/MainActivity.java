@@ -8,6 +8,7 @@ import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -46,6 +47,15 @@ public class MainActivity extends AppCompatActivity
         setUpIds();
         setUpToolBar();
         bottomNavigationViewListener();
+    }
+    public void reloadFragmentAndSetViewPagerForSearch(){
+        Fragment fragment = mainAdapter.getFragment(mainViewPager.getCurrentItem());
+        //  fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+        assert fragment.getFragmentManager() != null;
+        if(fragment != null) {
+            fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+        }
+        mainViewPager.setCurrentItem(1,false);
     }
     private void setUpIds(){
         mainActivityToolBar = findViewById(R.id.toolbarMainActivity);

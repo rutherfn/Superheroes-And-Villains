@@ -53,12 +53,12 @@ public class Home extends Fragment
     }
     private void callApi(){
         for(int i = 0; i < 12; i++){
-            GetDataService apiPowerStats = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
+            GetDataService apiCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
             Random r = new Random();
             int low = 1;
             int high = 731;
             int result = r.nextInt(high-low) + low;
-            final Call<Id> searchById = apiPowerStats.getById("/api/10211183686108194/" + result);
+            final Call<Id> searchById = apiCall.getById("/api/10211183686108194/" + result);
             if(i == idList.size()){
                 showHere = true;
             }
