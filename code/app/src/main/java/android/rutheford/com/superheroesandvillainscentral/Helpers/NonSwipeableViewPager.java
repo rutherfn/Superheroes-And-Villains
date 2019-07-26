@@ -1,4 +1,4 @@
-package android.rutheford.com.superheroesandvillainscentral;
+package android.rutheford.com.superheroesandvillainscentral.Helpers;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
