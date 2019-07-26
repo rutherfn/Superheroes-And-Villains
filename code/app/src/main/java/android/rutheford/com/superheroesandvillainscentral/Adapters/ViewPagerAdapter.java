@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Battle;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Home;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Search;
+import android.rutheford.com.superheroesandvillainscentral.Fragments.Stats;
+import android.rutheford.com.superheroesandvillainscentral.Fragments.Vs;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -32,6 +34,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
             case 0: return Home.newInstance();
             case 1: return Search.newInstance();
             case 2: return Battle.newInstance();
+            case 3: return Stats.newInstance();
+            case 4: return Vs.newInstance();
             default: return Home.newInstance();
         }
     }
@@ -39,7 +43,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
     @Override
     public int getCount()
     {
-        return 3;
+        return 5;
     }
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
