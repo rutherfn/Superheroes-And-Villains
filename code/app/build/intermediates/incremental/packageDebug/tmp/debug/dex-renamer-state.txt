@@ -1,0 +1,4 @@
+#Fri Jul 26 17:29:21 CDT 2019
+base.0=C\:\\Users\\100773\\Desktop\\Superheroes-And-Villains-Central\\code\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+path.0=classes.dex
+renamed.0=classes.dex
