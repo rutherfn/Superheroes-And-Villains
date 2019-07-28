@@ -61,6 +61,12 @@ public class MainActivity extends AppCompatActivity
         mainViewPager.setAdapter(mainAdapter);
         mainViewPager.setOffscreenPageLimit(5);
     }
+    public void switchToVs(){
+        Fragment fragment = mainAdapter.getFragment(4);
+        assert fragment.getFragmentManager() != null;
+        fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+        mainViewPager.setCurrentItem(4,false);
+    }
     private void setUpToolBar(){
         Typeface logoTypeFace = Typeface.createFromAsset(getApplicationContext().getAssets(),"AlegreyaSC-Regular.otf");
         mTextViewToolBar.setTypeface(logoTypeFace);

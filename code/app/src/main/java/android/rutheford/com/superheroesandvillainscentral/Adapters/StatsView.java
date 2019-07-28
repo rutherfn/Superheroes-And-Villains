@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
+import android.rutheford.com.superheroesandvillainscentral.Models.Results;
+import android.rutheford.com.superheroesandvillainscentral.Models.SearchName;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -38,6 +43,9 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewStats.setSuperHeroVillianData();
         viewStats.setUpTypeFace();
         viewStats.setTextColor();
+        viewStats.switchToBattleCharacter();
+        viewStats.assignNewCharacter();
+        viewStats.moreInfoOnCharacter();
     }
 
     @Override
@@ -193,6 +201,61 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 assignNewCharacterButton.setText("Assign Yourself " + HomeData.opponentId.get(0).getName());
                 moreInfoCharacterButton.setText("More Info");
             }
+        }
+        private void assignNewCharacter(){
+            assignNewCharacterButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    ArrayList<Results> resultsList = new ArrayList<>();
+                    Results results = new Results();
+                    SearchName searchName = new SearchName();
+                    HomeData.searchNameList = new ArrayList<>();
+                    results.setName(HomeData.opponentId.get(0).getName());
+                    results.setBiography(HomeData.opponentId.get(0).getBiography());
+                    results.setAppearance(HomeData.opponentId.get(0).getAppearance());
+                    results.setConnections(HomeData.opponentId.get(0).getConnections());
+                    results.setImage(HomeData.opponentId.get(0).getImage());
+                    results.setWork(HomeData.opponentId.get(0).getWork());
+                    results.setPowerStats(HomeData.opponentId.get(0).getPowerStats());
+                    resultsList.add(results);
+                    searchName.setResults(resultsList);
+                    HomeData.searchNameList.add(searchName);
+                    System.out.println(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getFullName() + " here is the alignment");
+                }
+            });
+        }
+        private void moreInfoOnCharacter(){
+            moreInfoCharacterButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                    builder.setTitle("More Info");
+//                    String[] characterInfo = {"Name: " + HomeData.opponentId.get(0).getName(), "cow", "camel", "sheep", "goat"};
+//                    builder.setItems(characterInfo, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                        }
+//                    });
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+                }
+            });
+        }
+        private void switchToBattleCharacter(){
+            battleCharacterButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if(HomeData.searchNameList != null){
+                        ((MainActivity)mContext).switchToVs();
+                    }
+                }
+            });
         }
     }
 }
