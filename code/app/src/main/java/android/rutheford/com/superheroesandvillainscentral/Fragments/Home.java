@@ -83,6 +83,7 @@ public class Home extends Fragment
                 @Override
                 public void onFailure(Call<Id> call, Throwable t)
                 {
+                  //  callApi();
                     System.out.println("Failed");
                 }
             });

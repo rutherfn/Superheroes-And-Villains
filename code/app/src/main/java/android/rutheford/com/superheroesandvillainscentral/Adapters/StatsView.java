@@ -1,12 +1,18 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -28,7 +34,10 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
-
+        ViewStats viewStats = (ViewStats) holder;
+        viewStats.setSuperHeroVillianData();
+        viewStats.setUpTypeFace();
+        viewStats.setTextColor();
     }
 
     @Override
@@ -37,10 +46,153 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return 1;
     }
     class ViewStats extends RecyclerView.ViewHolder{
+        TextView superHeroVillianName;
+        TextView locationTitle;
+        TextView locationText;
+        TextView alignmentTitle;
+        TextView alignmentText;
+        TextView alterEgosTitle;
+        TextView alterEgosText;
+        TextView firstApperanceTitle;
+        TextView firstApperanceText;
+        TextView statsTitle;
+        TextView intelligenceTitle;
+        TextView intelligenceText;
+        TextView strengthTitle;
+        TextView strengthText;
+        TextView speedTitle;
+        TextView speedText;
+        TextView durabilityTitle;
+        TextView durabilityText;
+        TextView powerTitle;
+        TextView powerText;
+        TextView combatTitle;
+        TextView combatText;
+        Button battleCharacterButton,assignNewCharacterButton,moreInfoCharacterButton;
+
 
         public ViewStats(@NonNull View itemView)
         {
             super(itemView);
+            superHeroVillianName = itemView.findViewById(R.id.superHeroVillianName);
+             locationText= itemView.findViewById(R.id.locationTextViewTitle);
+            locationTitle = itemView.findViewById(R.id.locationText);
+            alignmentText = itemView.findViewById(R.id.alignmentTitle);
+            alignmentTitle = itemView.findViewById(R.id.alignmentText);
+            alterEgosTitle = itemView.findViewById(R.id.alterEgosTitle);
+            alterEgosText = itemView.findViewById(R.id.alterEgosText);
+            firstApperanceText = itemView.findViewById(R.id.firstAppearanceText);
+            firstApperanceTitle = itemView.findViewById(R.id.firstAppearanceTitle);
+            statsTitle = itemView.findViewById(R.id.statsTitle);
+            intelligenceTitle = itemView.findViewById(R.id.intelligenceTitle);
+            intelligenceText = itemView.findViewById(R.id.intelligenceText);
+            strengthTitle = itemView.findViewById(R.id.strengthTitle);
+            strengthText = itemView.findViewById(R.id.strengthText);
+            speedTitle = itemView.findViewById(R.id.speedTitle);
+            speedText = itemView.findViewById(R.id.speedText);
+            durabilityTitle = itemView.findViewById(R.id.durabilityTitle);
+            durabilityText = itemView.findViewById(R.id.durabilityText);
+            powerTitle = itemView.findViewById(R.id.powerTitle);
+            powerText = itemView.findViewById(R.id.powerText);
+            combatTitle = itemView.findViewById(R.id.combatTitle);
+            combatText = itemView.findViewById(R.id.combatText);
+            battleCharacterButton = itemView.findViewById(R.id.battleCharacterButton);
+            assignNewCharacterButton = itemView.findViewById(R.id.assignNewCharacterButton);
+            moreInfoCharacterButton = itemView.findViewById(R.id.moreInfoCharacterButton);
+        }
+        private void setUpTypeFace(){
+            Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
+            Typeface mainBody = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
+            superHeroVillianName.setTypeface(mainTextTypeFace);
+            locationText.setTypeface(mainBody);
+            locationTitle.setTypeface(mainTextTypeFace);
+            alignmentTitle.setTypeface(mainTextTypeFace);
+            alignmentText.setTypeface(mainBody);
+            alterEgosTitle.setTypeface(mainTextTypeFace);
+            alterEgosText.setTypeface(mainBody);
+            firstApperanceTitle.setTypeface(mainTextTypeFace);
+            firstApperanceText.setTypeface(mainBody);
+            statsTitle.setTypeface(mainTextTypeFace);
+            intelligenceTitle.setTypeface(mainTextTypeFace);
+            intelligenceText.setTypeface(mainBody);
+            strengthTitle.setTypeface(mainTextTypeFace);
+            strengthText.setTypeface(mainBody);
+            speedTitle.setTypeface(mainTextTypeFace);
+            speedText.setTypeface(mainBody);
+            durabilityTitle.setTypeface(mainTextTypeFace);
+            durabilityText.setTypeface(mainBody);
+            powerTitle.setTypeface(mainTextTypeFace);
+            powerText.setTypeface(mainBody);
+            combatTitle.setTypeface(mainTextTypeFace);
+            combatText.setTypeface(mainBody);
+            battleCharacterButton.setTypeface(mainTextTypeFace);
+            assignNewCharacterButton.setTypeface(mainTextTypeFace);
+            moreInfoCharacterButton.setTypeface(mainTextTypeFace);
+        }
+        private void setTextColor(){
+            superHeroVillianName.setTextColor(Color.parseColor("#0000ff"));
+            locationText.setTextColor(Color.parseColor("#000000"));
+            locationTitle.setTextColor(Color.parseColor("#0000ff"));
+            alignmentText.setTextColor(Color.parseColor("#000000"));
+            alignmentTitle.setTextColor(Color.parseColor("#0000ff"));
+            alterEgosTitle.setTextColor(Color.parseColor("#000000"));
+            alterEgosText.setTextColor(Color.parseColor("#0000ff"));
+            firstApperanceTitle.setTextColor(Color.parseColor("#000000"));
+            firstApperanceText.setTextColor(Color.parseColor("#0000ff"));
+            statsTitle.setTextColor(Color.parseColor("#0000ff"));
+            intelligenceTitle.setTextColor(Color.parseColor("#000000"));
+            intelligenceText.setTextColor(Color.parseColor("#0000ff"));
+            strengthTitle.setTextColor(Color.parseColor("#000000"));
+            strengthText.setTextColor(Color.parseColor("#0000ff"));
+            speedTitle.setTextColor(Color.parseColor("#000000"));
+            speedText.setTextColor(Color.parseColor("#0000ff"));
+            durabilityTitle.setTextColor(Color.parseColor("#000000"));
+            durabilityText.setTextColor(Color.parseColor("#0000ff"));
+            powerTitle.setTextColor(Color.parseColor("#000000"));
+            powerText.setTextColor(Color.parseColor("#0000ff"));
+            combatTitle.setTextColor(Color.parseColor("#000000"));
+            combatText.setTextColor(Color.parseColor("#0000ff"));
+            battleCharacterButton.setBackgroundColor(Color.parseColor("#0000ff"));
+            battleCharacterButton.setTextColor(Color.parseColor("#FFFFFF"));
+            assignNewCharacterButton.setBackgroundColor(Color.parseColor("#0000ff"));
+            assignNewCharacterButton.setTextColor(Color.parseColor("#FFFFFF"));
+            moreInfoCharacterButton.setBackgroundColor(Color.parseColor("#0000ff"));
+            moreInfoCharacterButton.setTextColor(Color.parseColor("#FFFFFF"));
+        }
+        @SuppressLint("SetTextI18n")
+        private void setSuperHeroVillianData(){
+            if(HomeData.opponentId != null){
+                superHeroVillianName.setText(HomeData.opponentId.get(0).getName());
+                if(HomeData.opponentId.get(0).getBiography().getPlaceOfBirth().equals("-")){
+                    locationTitle.setText("Unknown");
+                }else{
+                locationTitle.setText(HomeData.opponentId.get(0).getBiography().getPlaceOfBirth());
+                }
+                if(HomeData.opponentId.get(0).getBiography().getAlignment().equals("good")){
+                    alignmentTitle.setText("Good");
+                }else if(HomeData.opponentId.get(0).getBiography().getAlignment().equals("bad")){
+                    alignmentTitle.setText("Bad");
+                }else{
+                    alignmentTitle.setText("Neutral");
+                }
+                firstApperanceText.setText(HomeData.opponentId.get(0).getBiography().getPublisher());
+                if(HomeData.opponentId.get(0).getBiography().getAlterEgos().equals("No alter egos found.")){
+                    alterEgosText.setText("None");
+                }else
+                {
+                    alterEgosText.setText(HomeData.opponentId.get(0).getBiography().getAlterEgos());
+                }
+              //  System.out.println(HomeData.opponentId.get(0).getPowerStats().getIntelligence() + " here is the intelligence");
+                intelligenceText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getIntelligence()));
+                strengthText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getStrength()));
+                speedText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getSpeed()));
+                durabilityText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getDurability()));
+                powerText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getPower()));
+                combatText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getCombat()));
+                battleCharacterButton.setText("Battle " + HomeData.opponentId.get(0).getName());
+                assignNewCharacterButton.setText("Assign Yourself " + HomeData.opponentId.get(0).getName());
+                moreInfoCharacterButton.setText("More Info");
+            }
         }
     }
 }

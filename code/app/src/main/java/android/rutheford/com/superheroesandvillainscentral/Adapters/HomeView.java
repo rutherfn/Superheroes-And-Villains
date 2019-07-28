@@ -1,9 +1,13 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
+import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
 import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -46,6 +51,8 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         homeViewScreen.setTypeFace();
         homeViewScreen.loadPlaceHolderIcon(i);
         homeViewScreen.loadMainTextContent(i);
+        homeViewScreen.changeToStatsPage(i);
+        homeViewScreen.alertUser();
     }
 
 
@@ -73,6 +80,44 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             mainTextContent.setTypeface(mainTextTypeFace);
         }
+        private void alertUser(){
+            aboutImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                    alertDialog.setTitle("Bio On How To Use This");
+                    alertDialog.setMessage("Here is how to do the thing");
+                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = alertDialog.create();
+                    dialog.show();
+                }
+            });
+        }
+        private void changeToStatsPage(final int i ){
+            mainCircleImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    setArrayListForStatsPage(i);
+                }
+            });
+            mainTextContent.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    setArrayListForStatsPage(i);
+                }
+            });
+        }
         @SuppressLint("SetTextI18n")
         private void loadMainTextContent(int position){
             if(idHome.get(position).getBiography().getAlignment().equals("good")){
@@ -85,6 +130,11 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             {
                 mainTextContent.setText(idHome.get(position).getName() + ", Neutral");
             }
+        }
+        private void setArrayListForStatsPage(int i){
+            HomeData.opponentId = new ArrayList<>();
+            HomeData.opponentId.add(idHome.get(i));
+            ((MainActivity)mContext).changeToStatsView();
         }
 
     }

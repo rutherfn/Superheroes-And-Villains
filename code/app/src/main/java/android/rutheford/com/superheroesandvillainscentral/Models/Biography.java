@@ -20,7 +20,7 @@ public class Biography
     private List<String> aliases;
     @SerializedName("place-of-birth")
     private String placeOfBirth;
-    @SerializedName("first-apperance")
+    @SerializedName("first-appearance")
     private String firstApperance;
     @SerializedName("publisher")
     private String publisher;
