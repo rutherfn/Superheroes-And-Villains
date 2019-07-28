@@ -99,7 +99,7 @@ public class Search extends Fragment
             @Override
             public void onFailure(Call<SearchName> call, Throwable t)
             {
-
+                System.out.println("Failed");
             }
         });
 

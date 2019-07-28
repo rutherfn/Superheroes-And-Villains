@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,28 +34,20 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Main();
-
-
-
-
-        // testing purpose
-       // mainViewPager.setCurrentItem(4,false);
     }
 
     protected  void Main(){
         setUpIds();
         setUpToolBar();
         bottomNavigationViewListener();
+        settingsOnTouchListener();
     }
+
     public void reloadFragmentAndSetViewPagerForSearch(){
         Fragment fragment = mainAdapter.getFragment(mainViewPager.getCurrentItem());
-        //  fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
         assert fragment.getFragmentManager() != null;
-        if(fragment != null) {
-            fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
-        }
+        fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
         mainViewPager.setCurrentItem(1,false);
     }
     private void setUpIds(){
@@ -66,8 +59,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(mainActivityToolBar);
         mainAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mainAdapter);
-      //  mainViewPager.addOnPageChangeListener(this);
-        System.out.println(mainViewPager.getCurrentItem() + " here is the current item");
+        mainViewPager.setOffscreenPageLimit(5);
     }
     private void setUpToolBar(){
         Typeface logoTypeFace = Typeface.createFromAsset(getApplicationContext().getAssets(),"AlegreyaSC-Regular.otf");
@@ -76,6 +68,22 @@ public class MainActivity extends AppCompatActivity
         mTextViewToolBar.setText(toolBarTitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+    public void changeToStatsView(){
+        Fragment fragment = mainAdapter.getFragment(3);
+        assert fragment.getFragmentManager() != null;
+        fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+        mainViewPager.setCurrentItem(3,false);
+    }
+    private void settingsOnTouchListener(){
+        settingsImageView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mainViewPager.setCurrentItem(5,false);
+            }
+        });
     }
 
     private void bottomNavigationViewListener(){
