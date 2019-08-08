@@ -4,52 +4,52 @@ import com.google.gson.annotations.SerializedName;
 
 public class Image
 {
-    @SerializedName("response")
-    private String response;
-    @SerializedName("id")
-    private int id;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("url")
-    private String url;
+    @SerializedName("xs")
+    private String xs;
+    @SerializedName("sm")
+    private String sm;
+    @SerializedName("md")
+    private String md;
+    @SerializedName("lg")
+    private String lg;
 
-    public String getResponse()
+    public String getXs()
     {
-        return response;
+        return xs;
     }
 
-    public void setResponse(String response)
+    public void setXs(String xs)
     {
-        this.response = response;
+        this.xs = xs;
     }
 
-    public int getId()
+    public String getSm()
     {
-        return id;
+        return sm;
     }
 
-    public void setId(int id)
+    public void setSm(String sm)
     {
-        this.id = id;
+        this.sm = sm;
     }
 
-    public String getName()
+    public String getMd()
     {
-        return name;
+        return md;
     }
 
-    public void setName(String name)
+    public void setMd(String md)
     {
-        this.name = name;
+        this.md = md;
     }
 
-    public String getUrl()
+    public String getLg()
     {
-        return url;
+        return lg;
     }
 
-    public void setUrl(String url)
+    public void setLg(String lg)
     {
-        this.url = url;
+        this.lg = lg;
     }
 }

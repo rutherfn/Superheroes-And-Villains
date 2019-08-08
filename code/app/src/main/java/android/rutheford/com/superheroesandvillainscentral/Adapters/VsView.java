@@ -80,7 +80,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         private void loadMainUserSuperHeroOrVillain(){
             if(HomeData.searchNameList != null){
-                Picasso.get().load(HomeData.searchNameList.get(0).getResults().get(0).getImage().getUrl()).into(mainUserSuperHeroOrVillain, new Callback()
+                Picasso.get().load(HomeData.searchNameList.get(0).getResults().get(0).getImage().getMd()).into(mainUserSuperHeroOrVillain, new Callback()
                 {
                     @Override
                     public void onSuccess()
@@ -108,7 +108,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         private void loadOpposingSuperHeroOrVillain(){
             if(HomeData.opponentId != null){
-                Picasso.get().load(HomeData.opponentId.get(0).getImage().getUrl()).into(opposingMainImageView, new Callback()
+                Picasso.get().load(HomeData.opponentId.get(0).getImage().getMd()).into(opposingMainImageView, new Callback()
                 {
                     @Override
                     public void onSuccess()

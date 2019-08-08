@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class Search extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+      //  loadJSONFromAsset();
         searchNameList.clear();
         mainView = inflater.inflate(R.layout.search_recycler_view,container,false);
         if(HomeData.searchBoolean)
@@ -66,6 +69,22 @@ public class Search extends Fragment
         secondaryRecyclerView.setAdapter(searchResultsView);
         return mainView;
     }
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getActivity().getAssets().open("all.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        System.out.println(json + " here is the json");
+        return json;
+    }
     private void loadASearchByName(String name){
         GetDataService apiSearchByNameCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
         final Call<SearchName> searchByName = apiSearchByNameCall.getSearchByName("/api/10211183686108194/search/" + name);
@@ -75,25 +94,25 @@ public class Search extends Fragment
             public void onResponse(Call<SearchName> call, Response<SearchName> response)
             {
 
-                searchName = response.body();
-                if(searchName.getResponse().equals("error")){
-                    searchNameList.clear();
-                        }else{
-                searchNameList.add(searchName);
-                if(searchNameList.size() == 1)
-                {
-                    mainRecyclerView.setNestedScrollingEnabled(false);
-                    mainRecyclerView.setFocusable(false);
-                    secondaryRecyclerView.setNestedScrollingEnabled(false);
-                    secondaryRecyclerView.setFocusable(false);
-                    searchView = new SearchView(getContext());
-                    searchResultsView = new SearchResultsView(getContext(), searchNameList);
-                    mainRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    secondaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    mainRecyclerView.setAdapter(searchView);
-                    secondaryRecyclerView.setAdapter(searchResultsView);
-                }
-            }
+//                searchName = response.body();
+//                if(searchName.getResponse().equals("error")){
+//                    searchNameList.clear();
+//                        }else{
+//                searchNameList.add(searchName);
+//                if(searchNameList.size() == 1)
+//                {
+//                    mainRecyclerView.setNestedScrollingEnabled(false);
+//                    mainRecyclerView.setFocusable(false);
+//                    secondaryRecyclerView.setNestedScrollingEnabled(false);
+//                    secondaryRecyclerView.setFocusable(false);
+//                    searchView = new SearchView(getContext());
+//                    searchResultsView = new SearchResultsView(getContext(), searchNameList);
+//                    mainRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                    secondaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                    mainRecyclerView.setAdapter(searchView);
+//                    secondaryRecyclerView.setAdapter(searchResultsView);
+//                }
+//            }
             }
 
             @Override

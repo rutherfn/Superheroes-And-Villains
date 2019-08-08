@@ -52,7 +52,7 @@ public class StatsImage extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         private void loadDataIntoImageView(){
             if(HomeData.opponentId != null){
-                Picasso.get().load(HomeData.opponentId.get(0).getImage().getUrl()).into(statsImageView);
+                Picasso.get().load(HomeData.opponentId.get(0).getImage().getMd()).into(statsImageView);
             }
         }
     }

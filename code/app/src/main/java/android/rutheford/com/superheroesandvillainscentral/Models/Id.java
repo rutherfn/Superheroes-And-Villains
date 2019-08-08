@@ -4,34 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Id
 {
-    @SerializedName("response")
-    private String response;
     @SerializedName("id")
     private int id;
     @SerializedName("name")
     private String name;
+    @SerializedName("slug")
+    private String slug;
     @SerializedName("powerstats")
     private PowerStats powerStats;
-    @SerializedName("biography")
-    private Biography biography;
     @SerializedName("appearance")
     private Appearance appearance;
+    @SerializedName("biography")
+    private Biography biography;
     @SerializedName("work")
     private Work work;
     @SerializedName("connections")
     private Connections connections;
-    @SerializedName("image")
+    @SerializedName("images")
     private Image image;
-
-    public String getResponse()
-    {
-        return response;
-    }
-
-    public void setResponse(String response)
-    {
-        this.response = response;
-    }
 
     public int getId()
     {

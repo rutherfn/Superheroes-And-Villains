@@ -4,12 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class PowerStats
 {
-    @SerializedName("response")
-    private String response;
-    @SerializedName("id")
-    private int id;
-    @SerializedName("name")
-    private String name;
     @SerializedName("intelligence")
     private int intelligence;
     @SerializedName("strength")
@@ -23,25 +17,6 @@ public class PowerStats
     @SerializedName("combat")
     private int combat;
 
-    public String getResponse()
-    {
-        return response;
-    }
-
-    public void setResponse(String response)
-    {
-        this.response = response;
-    }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
 
     public int getIntelligence()
     {
@@ -101,15 +76,5 @@ public class PowerStats
     public void setCombat(int combat)
     {
         this.combat = combat;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
     }
 }

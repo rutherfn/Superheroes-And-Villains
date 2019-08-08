@@ -6,56 +6,20 @@ import java.util.List;
 
 public class Biography
 {
-    @SerializedName("response")
-    private String response;
-    @SerializedName("id")
-    private int id;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("full-name")
+    @SerializedName("fullName")
     private String fullName;
-    @SerializedName("alter-egos")
+    @SerializedName("alterEgos")
     private String alterEgos;
     @SerializedName("aliases")
     private List<String> aliases;
-    @SerializedName("place-of-birth")
+    @SerializedName("placeOfBirth")
     private String placeOfBirth;
-    @SerializedName("first-appearance")
+    @SerializedName("firstAppearance")
     private String firstApperance;
     @SerializedName("publisher")
     private String publisher;
     @SerializedName("alignment")
     private String alignment;
-
-    public String getResponse()
-    {
-        return response;
-    }
-
-    public void setResponse(String response)
-    {
-        this.response = response;
-    }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
 
     public String getFullName()
     {

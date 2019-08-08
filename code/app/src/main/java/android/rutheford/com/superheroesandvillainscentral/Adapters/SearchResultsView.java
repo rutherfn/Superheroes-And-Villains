@@ -71,7 +71,7 @@ public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHol
             aboutImageView = itemView.findViewById(R.id.imageView3);
         }
         private void loadPlaceHolderIcon(int position){
-            Picasso.get().load(searchName.get(position).getResults().get(position).getImage().getUrl()).into(mainCircleImageView);
+            Picasso.get().load(searchName.get(position).getResults().get(position).getImage().getMd()).into(mainCircleImageView);
         }
         private void setTypeFace(){
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
