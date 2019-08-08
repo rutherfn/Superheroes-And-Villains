@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity
         mTextViewToolBar.setTypeface(logoTypeFace);
         mTextViewToolBar.setTextColor(Color.parseColor("#0000ff"));
         mTextViewToolBar.setText(toolBarTitle);
+    }
+    public void showBackStack(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }

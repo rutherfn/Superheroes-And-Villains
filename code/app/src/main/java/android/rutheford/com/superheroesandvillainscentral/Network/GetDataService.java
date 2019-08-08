@@ -6,6 +6,7 @@ import android.rutheford.com.superheroesandvillainscentral.Models.Connections;
 import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.Models.Image;
 import android.rutheford.com.superheroesandvillainscentral.Models.PowerStats;
+import android.rutheford.com.superheroesandvillainscentral.Models.Results;
 import android.rutheford.com.superheroesandvillainscentral.Models.SearchName;
 import android.rutheford.com.superheroesandvillainscentral.Models.Work;
 
@@ -30,6 +31,9 @@ public interface GetDataService
 
     @GET
     Call<Id> getById (@Url String url);
+
+    @GET
+    Call<Results> getByResults(@Url String url);
 
     @GET
     Call<SearchName> getSearchByName(@Url String url);

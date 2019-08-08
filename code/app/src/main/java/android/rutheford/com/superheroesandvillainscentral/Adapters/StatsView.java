@@ -1,9 +1,14 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
 import android.rutheford.com.superheroesandvillainscentral.Models.Results;
@@ -19,9 +24,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
+
 public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     Context mContext;
+    private SharedPreferences sp;
 
     public StatsView(Context mContext)
     {
@@ -190,7 +198,6 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 {
                     alterEgosText.setText(HomeData.opponentId.get(0).getBiography().getAlterEgos());
                 }
-              //  System.out.println(HomeData.opponentId.get(0).getPowerStats().getIntelligence() + " here is the intelligence");
                 intelligenceText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getIntelligence()));
                 strengthText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getStrength()));
                 speedText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getSpeed()));
@@ -208,21 +215,59 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v)
                 {
-                    ArrayList<Results> resultsList = new ArrayList<>();
-                    Results results = new Results();
-                    SearchName searchName = new SearchName();
-                    HomeData.searchNameList = new ArrayList<>();
-                    results.setName(HomeData.opponentId.get(0).getName());
-                    results.setBiography(HomeData.opponentId.get(0).getBiography());
-                    results.setAppearance(HomeData.opponentId.get(0).getAppearance());
-                    results.setConnections(HomeData.opponentId.get(0).getConnections());
-                    results.setImage(HomeData.opponentId.get(0).getImage());
-                    results.setWork(HomeData.opponentId.get(0).getWork());
-                    results.setPowerStats(HomeData.opponentId.get(0).getPowerStats());
-                    resultsList.add(results);
-                    searchName.setResults(resultsList);
-                    HomeData.searchNameList.add(searchName);
-                    System.out.println(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getFullName() + " here is the alignment");
+                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                    alertDialog.setTitle("Assigning New Character ");
+                    alertDialog.setMessage("Are you sure you want to assign this character as your new character?");
+                    alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            dialog.cancel();
+                        }
+                    });
+                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            ArrayList<Results> resultsList = new ArrayList<>();
+                            Results results = new Results();
+                            SearchName searchName = new SearchName();
+                            HomeData.searchNameList = new ArrayList<>();
+                            results.setId(HomeData.opponentId.get(0).getId());
+                            results.setName(HomeData.opponentId.get(0).getName());
+                            results.setBiography(HomeData.opponentId.get(0).getBiography());
+                            results.setAppearance(HomeData.opponentId.get(0).getAppearance());
+                            results.setConnections(HomeData.opponentId.get(0).getConnections());
+                            results.setImage(HomeData.opponentId.get(0).getImage());
+                            results.setWork(HomeData.opponentId.get(0).getWork());
+                            results.setPowerStats(HomeData.opponentId.get(0).getPowerStats());
+                            resultsList.add(results);
+                            sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("uniqueId", results.getId());
+                            System.out.println(HomeData.opponentId.get(0).getId());
+                            editor.apply();
+                            searchName.setResults(resultsList);
+                            HomeData.searchNameList.add(searchName);
+                            final AlertDialog.Builder alertDialogAdd = new AlertDialog.Builder(mContext);
+                            alertDialogAdd.setTitle("Character Switched");
+                            alertDialogAdd.setMessage(HomeData.opponentId.get(0).getName() + " is your new character!");
+                            alertDialogAdd.setPositiveButton("CONTINUE", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog alertDialog1 = alertDialogAdd.create();
+                            alertDialog1.show();
+                        }
+                    });
+                    AlertDialog dialog = alertDialog.create();
+                    dialog.show();
+
                 }
             });
         }
@@ -252,7 +297,74 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 public void onClick(View v)
                 {
                     if(HomeData.searchNameList != null){
-                        ((MainActivity)mContext).switchToVs();
+                        if(HomeData.searchNameList.get(0).getResults().get(0).getName().equals(HomeData.opponentId.get(0).getName())){
+                            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                            alertDialog.setTitle("Cant Battle Yourself");
+                            alertDialog.setMessage(HomeData.searchNameList.get(0).getResults().get(0).getName() + " vs " + HomeData.opponentId.get(0).getName() + " is not a option, switch character or find a new character to battle!");
+                            alertDialog.setNegativeButton("CONTINUE", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+                        }else
+                        {
+                            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                            alertDialog.setTitle("Get Ready For Battle");
+                            alertDialog.setMessage("Are you sure your ready for battle?");
+                            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.cancel();
+                                }
+                            });
+                            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.cancel();
+                                    final AlertDialog alertDialog= new
+                                            SpotsDialog.Builder().setContext(mContext).build();
+                                    alertDialog.setTitle("Loading Battle");
+                                    alertDialog.setMessage("Please wait.....");
+                                    alertDialog.show();
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable()
+                                    {
+
+                                        @Override
+                                        public void run()
+                                        {
+                                            alertDialog.dismiss();
+                                            ((MainActivity) mContext).switchToVs();
+                                        }
+                                    },3000);
+                                }
+                            });
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+                        }
+                    }else{
+                        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                        alertDialog.setTitle("Please Choose A Character");
+                        alertDialog.setMessage("Seems like we you don't have a character set, please choose a character in order to battle!");
+                        alertDialog.setNegativeButton("CONTINUE", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog dialog = alertDialog.create();
+                        dialog.show();
                     }
                 }
             });

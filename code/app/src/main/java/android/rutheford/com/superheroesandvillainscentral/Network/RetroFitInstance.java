@@ -11,7 +11,7 @@ public class RetroFitInstance
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl("https://www.superheroapi.com")
+                    .baseUrl("https://raw.githubusercontent.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

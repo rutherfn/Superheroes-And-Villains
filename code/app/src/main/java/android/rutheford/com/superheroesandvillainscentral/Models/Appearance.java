@@ -6,12 +6,6 @@ import java.util.List;
 
 public class Appearance
 {
-    @SerializedName("response")
-    private String response;
-    @SerializedName("id")
-    private int id;
-    @SerializedName("name")
-    private String name;
     @SerializedName("gender")
     private String gender;
     @SerializedName("race")
@@ -20,40 +14,10 @@ public class Appearance
     private List<String> height;
     @SerializedName("weight")
     private List<String> weight;
-    @SerializedName("eye-color")
+    @SerializedName("eyeColor")
     private String eyeColor;
-    @SerializedName("hair-color")
+    @SerializedName("hairColor")
     private String hairColor;
-
-    public String getResponse()
-    {
-        return response;
-    }
-
-    public void setResponse(String response)
-    {
-        this.response = response;
-    }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
 
     public String getGender()
     {

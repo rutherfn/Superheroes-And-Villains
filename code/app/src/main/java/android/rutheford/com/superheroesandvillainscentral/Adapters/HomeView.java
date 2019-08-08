@@ -74,7 +74,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             aboutImageView = itemView.findViewById(R.id.imageView3);
         }
         private void loadPlaceHolderIcon(int position){
-            Picasso.get().load(idHome.get(position).getImage().getUrl()).into(mainCircleImageView);
+            Picasso.get().load(idHome.get(position).getImage().getMd()).into(mainCircleImageView);
         }
         private void setTypeFace(){
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
@@ -87,9 +87,9 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 public void onClick(View v)
                 {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-                    alertDialog.setTitle("Bio On How To Use This");
-                    alertDialog.setMessage("Here is how to do the thing");
-                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    alertDialog.setTitle("Time To Fight");
+                    alertDialog.setMessage("Welcome to Superheroes And Villains Central! Random Superheros and Villians have been called to challenge your character in a fight! Click on the Superhero or Villain name or picture to battle, view their stats, or even make the character your own! ");
+                    alertDialog.setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
@@ -117,6 +117,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     setArrayListForStatsPage(i);
                 }
             });
+            ((MainActivity)mContext).showBackStack();
         }
         @SuppressLint("SetTextI18n")
         private void loadMainTextContent(int position){
