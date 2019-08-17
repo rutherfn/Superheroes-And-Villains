@@ -113,7 +113,7 @@ public class OnBoardingActivity extends AppCompatActivity
             mList.add(new OnBoard("WELCOME TO","SUPER HEROES AND VILLIANS CENTRAL","Welcome To Super Heroes And Villians,\n" +
                     "please feel free to explore the app by searching for Super Heroes And Villians.",R.drawable.onboardimageone));
             mList.add(new OnBoard("View","Character Stats","Once you select a character, you will be able to then view the character stats. Once you view the stats, that's where the real fun begins!",R.drawable.onboardimagetwo));
-            mList.add(new OnBoard("Get Ready To","Prepare For Battle", "From there make sure to prepare for battle, as you\n" +
+            mList.add(new OnBoard("Get Ready To","Prepare For Battle", "From there make sure to prepare for battle, as you" +
                     "will do battle with your favorite superhero! Last man superhero or villain standing, will win!", R.drawable.onboardimagethree));
         onBoardAdapter = new OnBoardAdapter(this, mList);
         tabLayout.setupWithViewPager(screenViewPager,true);
