@@ -1,14 +1,9 @@
-# Superheroes And Villains Central
-
-One Paragraph of project description goes here
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-
-What things you need to install the software and how to install them
+Be sure to run `git clone https://github.com/rutherfn/Superheroes-And-Villains.git`, on the given repo. From there, you will be able to check out the master branch to get up to date version of features! From there open the project up through android studio, then open the code folder, and then 
 
 ```
 Give examples
