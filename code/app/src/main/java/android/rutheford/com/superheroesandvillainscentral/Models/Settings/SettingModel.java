@@ -4,9 +4,9 @@ public class SettingModel
 {
     private String title;
     private String desc;
-    private String imageSetting;
+    private int imageSetting;
 
-    public SettingModel(String title, String desc, String imageSetting)
+    public SettingModel(String title, String desc, int imageSetting)
     {
         this.title = title;
         this.desc = desc;
@@ -33,12 +33,12 @@ public class SettingModel
         this.desc = desc;
     }
 
-    public String getImageSetting()
+    public int getImageSetting()
     {
         return imageSetting;
     }
 
-    public void setImageSetting(String imageSetting)
+    public void setImageSetting(int imageSetting)
     {
         this.imageSetting = imageSetting;
     }

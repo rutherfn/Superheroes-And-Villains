@@ -117,7 +117,6 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     setArrayListForStatsPage(i);
                 }
             });
-            ((MainActivity)mContext).showBackStack();
         }
         @SuppressLint("SetTextI18n")
         private void loadMainTextContent(int position){

@@ -48,7 +48,15 @@ public class Settings extends Fragment
         return new Settings();
     }
     private void addToList(){
-        sizeOfSettings.add(new SettingModel("dad","one directions","https://cnet2.cbsistatic.com/img/l2Hh3-frh-RCCmE2FCZIY8PeUdQ=/1092x0/2019/03/26/d50717a6-5f2d-418e-9fa4-caaf7c6faea5/spider-man-far-from-home-og-size-image.jpg"));
-        sizeOfSettings.add(new SettingModel("dad","one directions","https://cnet2.cbsistatic.com/img/l2Hh3-frh-RCCmE2FCZIY8PeUdQ=/1092x0/2019/03/26/d50717a6-5f2d-418e-9fa4-caaf7c6faea5/spider-man-far-from-home-og-size-image.jpg"));
+        if(sizeOfSettings.size() > 1)
+        {
+        }else{
+            sizeOfSettings.add(new SettingModel("Replay OnBoarding", "Replay on-boarding for questions and concerns; to get answered thorough the app! ", R.drawable.onboard));
+            sizeOfSettings.add(new SettingModel("Dark Mode", "Change the app the dark mode, based on your preferences!", R.drawable.darkeye));
+            sizeOfSettings.add(new SettingModel("View API Website", "View Website API, in order to view all Superheros and Villains!", R.drawable.website));
+            sizeOfSettings.add(new SettingModel("View Character", "View your Character Stats or change current Character!", R.drawable.cape));
+            sizeOfSettings.add(new SettingModel("View Record", "See how many times you have fallen, and how many times you have been victorious. ", R.drawable.trophy));
+            sizeOfSettings.add(new SettingModel("Terms Of Conditions", "Take a quick pick of terms of conditions for app!", R.drawable.tc));
+        }
     }
 }

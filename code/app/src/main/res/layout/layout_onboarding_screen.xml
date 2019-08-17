@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:text="TextView"
+        android:layout_marginTop="20sp"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/intro_titles" />

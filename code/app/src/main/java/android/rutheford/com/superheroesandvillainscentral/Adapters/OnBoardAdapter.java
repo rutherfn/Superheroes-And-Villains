@@ -2,7 +2,6 @@ package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.rutheford.com.superheroesandvillainscentral.Models.OnBoard;
@@ -15,9 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,7 +34,6 @@ public class OnBoardAdapter extends PagerAdapter
     {
         Typeface typefaceHeader = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
         Typeface typeFaceBody = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
-        Typeface typeLogo = Typeface.createFromAsset(mContext.getAssets(), "AlegreyaSC-Regular.otf");
         LayoutInflater inflate = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams") View layoutScreen = inflate.inflate(R.layout.layout_onboarding_screen,null);
         ConstraintLayout layoutOnBoarding = layoutScreen.findViewById(R.id.layoutOmBoarding);
@@ -46,7 +41,7 @@ public class OnBoardAdapter extends PagerAdapter
         TextView title = layoutScreen.findViewById(R.id.intro_titles);
         TextView desc = layoutScreen.findViewById(R.id.intro_description);
         TextView titleOne = layoutScreen.findViewById(R.id.intro_title);
-        title.setTypeface(typeLogo);
+        title.setTypeface(typefaceHeader);
         desc.setTypeface(typeFaceBody);
         titleOne.setTypeface(typefaceHeader);
         titleOne.setTextColor(Color.parseColor("#C3A402"));

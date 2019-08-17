@@ -207,6 +207,35 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 battleCharacterButton.setText("Battle " + HomeData.opponentId.get(0).getName());
                 assignNewCharacterButton.setText("Assign Yourself " + HomeData.opponentId.get(0).getName());
                 moreInfoCharacterButton.setText("More Info");
+            }else if(HomeData.searchNameList != null){
+                superHeroVillianName.setText(HomeData.searchNameList.get(0).getResults().get(0).getName());
+                if(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getPlaceOfBirth().equals("-")){
+                    locationTitle.setText("Unknown");
+                }else{
+                    locationTitle.setText(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getPlaceOfBirth());
+                }
+                if(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getAlignment().equals("good")){
+                    alignmentTitle.setText("Good");
+                }else if(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getAlignment().equals("bad")){
+                    alignmentTitle.setText("Bad");
+                }else{
+                    alignmentTitle.setText("Neutral");
+                }
+                firstApperanceText.setText(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getPublisher());
+                if(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getAlterEgos().equals("No alter egos found.")){
+                    alterEgosText.setText("None");
+                }else{
+                    alterEgosText.setText(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getAlterEgos());
+                }
+                intelligenceText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getIntelligence()));
+                strengthText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getStrength()));
+                speedText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getSpeed()));
+                durabilityText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getDurability()));
+                powerText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getPower()));
+                combatText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getCombat()));
+                battleCharacterButton.setText("Randomize New Character");
+                assignNewCharacterButton.setText("Search New Character");
+                moreInfoCharacterButton.setText("More Info");
             }
         }
         private void assignNewCharacter(){
