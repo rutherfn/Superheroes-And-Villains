@@ -102,4 +102,14 @@ public class Id
     {
         this.image = image;
     }
+
+    public String getSlug()
+    {
+        return slug;
+    }
+
+    public void setSlug(String slug)
+    {
+        this.slug = slug;
+    }
 }

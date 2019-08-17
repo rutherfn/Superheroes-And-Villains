@@ -16,7 +16,6 @@
         android:gravity="center"
         android:backgroundTint="#C3A402"
         android:layout_marginTop="10sp"
-        android:text="dada"
         android:layout_alignParentTop="true"
         android:layout_marginRight="?android:attr/actionBarSize"
         android:textColor="@color/colorAccent"

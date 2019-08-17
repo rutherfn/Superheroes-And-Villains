@@ -306,16 +306,29 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v)
                 {
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-//                    builder.setTitle("More Info");
-//                    String[] characterInfo = {"Name: " + HomeData.opponentId.get(0).getName(), "cow", "camel", "sheep", "goat"};
-//                    builder.setItems(characterInfo, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                        }
-//                    });
-//                    AlertDialog dialog = builder.create();
-//                    dialog.show();
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle(superHeroVillianName.getText().toString());
+
+// add a list
+                    String[] statsForCharacter = {"Publisher: " + HomeData.opponentId.get(0).getBiography().getPublisher(), "Gender: " + HomeData.opponentId.get(0).getAppearance().getGender(), "Race: " + HomeData.opponentId.get(0).getAppearance().getRace(), "Work: " + HomeData.opponentId.get(0).getWork().getOccupation(), "Group-Affiliation: " + HomeData.opponentId.get(0).getConnections().getGroupAffiliation()};
+
+                    builder.setItems(statsForCharacter, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                            }
+                        }
+                    });
+                    builder.setPositiveButton("OKAY", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
         }

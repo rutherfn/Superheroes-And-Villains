@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity
         fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
         mainViewPager.setCurrentItem(3,false);
     }
+    public void setViewPagerHome(){
+        mainViewPager.setCurrentItem(0,false);
+    }
     private void settingsOnTouchListener(){
         settingsImageView.setOnClickListener(new View.OnClickListener()
         {

@@ -1,10 +1,14 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.rutheford.com.superheroesandvillainscentral.Models.SearchName;
+import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
+import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +28,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private Context mContext;
-    private List<SearchName> searchName = new ArrayList<>();
+    private List<Id> searchName;
 
-    public SearchResultsView(Context mContext, List<SearchName> searchName)
+    public SearchResultsView(Context mContext, List<Id> searchName)
     {
         this.mContext = mContext;
         this.searchName = searchName;
@@ -44,19 +48,22 @@ public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
         SearchResultsViewGroup searchResultsViewGroup = (SearchResultsViewGroup) holder;
-        if(searchName.size() == 1)
-        {
             searchResultsViewGroup.loadPlaceHolderIcon(i);
             searchResultsViewGroup.setTypeFace();
             searchResultsViewGroup.loadMainTextContentForTitle(i);
-        }
-
+            searchResultsViewGroup.selectImageViewOrTextView(i);
+            searchResultsViewGroup.aboutFights();
     }
 
     @Override
     public int getItemCount()
     {
-        return searchName.size();
+        if(searchName.size() == 1){
+            return 1;
+        }else
+        {
+            return 10;
+        }
     }
     class SearchResultsViewGroup extends RecyclerView.ViewHolder{
         CircleImageView mainCircleImageView;
@@ -71,22 +78,76 @@ public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHol
             aboutImageView = itemView.findViewById(R.id.imageView3);
         }
         private void loadPlaceHolderIcon(int position){
-            Picasso.get().load(searchName.get(position).getResults().get(position).getImage().getMd()).into(mainCircleImageView);
+            Picasso.get().load(searchName.get(position).getImage().getMd()).into(mainCircleImageView);
         }
         private void setTypeFace(){
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             mainTextContent.setTypeface(mainTextTypeFace);
         }
+        private void passData(int pos){
+            HomeData.opponentId = new ArrayList<>();
+            HomeData.opponentId.add(searchName.get(pos));
+            HomeData.searchBoolean = true;
+            ((MainActivity)mContext).changeToStatsView();
+        }
+        private void selectImageViewOrTextView(final int pos){
+            mainCircleImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    passData(pos);
+                }
+            });
+            mainTextContent.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    passData(pos);
+                }
+            });
+        }
+        private void aboutFights(){
+            aboutImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    alertUser();
+                }
+            });
+        }
+        private void alertUser(){
+            aboutImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                    alertDialog.setTitle("Time To Fight");
+                    alertDialog.setMessage("Welcome to Superheroes And Villains Central! Random Superheros and Villians have been called to challenge your character in a fight! Click on the Superhero or Villain name or picture to battle, view their stats, or even make the character your own! ");
+                    alertDialog.setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = alertDialog.create();
+                    dialog.show();
+                }
+            });
+        }
         @SuppressLint("SetTextI18n")
         private void loadMainTextContentForTitle(int position){
-            if(searchName.get(position).getResults().get(position).getBiography().getAlignment().equals("good")){
+            if(searchName.get(position).getBiography().getAlignment().equals("good")){
                 mainTextContent.setTextColor(Color.parseColor("#006400"));
-                mainTextContent.setText(searchName.get(position).getResults().get(position).getName() + ", Good");
-            }else if(searchName.get(position).getResults().get(position).getBiography().getAlignment().equals("bad")){
+                mainTextContent.setText(searchName.get(position).getName() + ", Good");
+            }else if(searchName.get(position).getBiography().getAlignment().equals("bad")){
                 mainTextContent.setTextColor(Color.parseColor("#B22222"));
-                mainTextContent.setText(searchName.get(position).getResults().get(position).getName() + ", Bad");
+                mainTextContent.setText(searchName.get(position).getName() + ", Bad");
             }else{
-                mainTextContent.setText(searchName.get(position).getResults().get(position).getName() + ", Neutral");
+                mainTextContent.setText(searchName.get(position).getName() + ", Neutral");
             }
         }
 
