@@ -64,13 +64,12 @@ public class SplashActivity extends AppCompatActivity
             {
              if(sharedPreferences.getInt("totalCount",0) == 1){
                  intent = new Intent(getApplicationContext(),OnBoardingActivity.class);
-              //   finish();
                  startActivity(intent);
              }else{
-                 intent = new Intent(getApplicationContext(),MainActivity.class);
-               //  finish();
+                 intent = new Intent(getApplicationContext(),OnBoardingActivity.class);
                  startActivity(intent);
              }
+             finish();
             }
         },3400);
     }

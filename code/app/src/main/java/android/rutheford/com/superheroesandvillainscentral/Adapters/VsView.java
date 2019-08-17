@@ -1,8 +1,13 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
@@ -57,7 +62,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             vsItemView.generateScore(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getIntelligence(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getStrength(),
                     HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getSpeed(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getDurability(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getPower(),
                     HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getCombat());
-            vsItemView.chooseWinner();
+                    vsItemView.displayWhoWon();
         }
     }
 
@@ -77,6 +82,17 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             opposingMainImageView = itemView.findViewById(R.id.opposingMainImageView);
             mainUserText = itemView.findViewById(R.id.mainUserTextView);
             opposingUserText = itemView.findViewById(R.id.mainOpposingTextView);
+        }
+        private void displayWhoWon(){
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+
+                }
+            },2000);
+            chooseWinner();
         }
         private void loadMainUserSuperHeroOrVillain(){
             if(HomeData.searchNameList != null){
@@ -134,18 +150,62 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 userScores.add(totalScore);
         }
         private void chooseWinner(){
-            System.out.println(userScores.get(1) + "user score and  computer score " + userScores.get(0));
-
-                if (userScores.get(1) > userScores.get(0))
+            SharedPreferences sp1 = mContext.getSharedPreferences("key", 0);
+            SharedPreferences.Editor editor1 = sp1.edit();
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+            alertDialog.setTitle("Battle Results");
+            if (userScores.get(1) > userScores.get(0))
+            {
+                editor1.putInt("wins", sp1.getInt("wins",0) + 1);
+                editor1.apply();
+                alertDialog.setMessage("You Won This Battle! Do you want to see how? Press YES to view full results!");
+            } else if (userScores.get(0) > userScores.get(1))
+            {
+                editor1.putInt("loses", + sp1.getInt("loses",0) + 1);
+                editor1.apply();
+                System.out.println(sp1.getInt("loses",0) + " here they are");
+                alertDialog.setMessage("Computer won this battle! Do you want to see how? Press YES to view full results!");
+            } else
+            {
+                editor1.putInt("ties", + sp1.getInt("ties",0) + 1);
+                editor1.apply();
+                alertDialog.setMessage("We have a tie! Do you want to see how? Press YES to view full results!");
+            }
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
                 {
-                    System.out.println("User Wins");
-                } else if (userScores.get(0) > userScores.get(1))
-                {
-                    System.out.println("Computer Wins");
-                } else
-                {
-                    System.out.println("Tie?");
+                    dialog.cancel();
+                    ((MainActivity)mContext).setViewPagerHome();
+                    ((MainActivity)mContext).setBottomColor();
                 }
+            });
+            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    dialog.cancel();
+                    final AlertDialog.Builder alertDialog= new
+                            AlertDialog.Builder(mContext);
+                    alertDialog.setTitle("Battle Stats");
+                    alertDialog.setMessage("Your Character:  " +  mainUserText.getText().toString() + "\nFinal Score:  "  +  userScores.get(1) + "\n\nYour Enemy:  " + opposingUserText.getText().toString() +
+                            "\nFinal Score:  "+ userScores.get(0));
+                    alertDialog.setPositiveButton("OKAY", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            dialog.cancel();
+                            ((MainActivity)mContext).setViewPagerHome();
+                        }
+                    });
+                    alertDialog.show();
+                }
+            });
+            AlertDialog dialog = alertDialog.create();
+            dialog.show();
             }
 
     }

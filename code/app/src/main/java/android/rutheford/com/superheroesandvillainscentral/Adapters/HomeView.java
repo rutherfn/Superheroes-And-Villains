@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
@@ -53,6 +54,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         homeViewScreen.loadMainTextContent(i);
         homeViewScreen.changeToStatsPage(i);
         homeViewScreen.alertUser();
+        homeViewScreen.checkForDarkMode();
     }
 
 
@@ -72,6 +74,12 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             mainCircleImageView = itemView.findViewById(R.id.mainCircleImageView);
             mainTextContent = itemView.findViewById(R.id.mainTitle);
             aboutImageView = itemView.findViewById(R.id.imageView3);
+        }
+        private void checkForDarkMode(){
+            SharedPreferences sp1 = mContext.getSharedPreferences("key", 0);
+            if(sp1.getInt("darkMode",0) == 1){
+                mainTextContent.setBackgroundColor(mContext.getResources().getColor(R.color.colorWwhite));
+            }
         }
         private void loadPlaceHolderIcon(int position){
             Picasso.get().load(idHome.get(position).getImage().getMd()).into(mainCircleImageView);
@@ -135,6 +143,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             HomeData.opponentId = new ArrayList<>();
             HomeData.opponentId.add(idHome.get(i));
             ((MainActivity)mContext).changeToStatsView();
+            ((MainActivity)mContext).setBackStackVisible();
         }
 
     }
