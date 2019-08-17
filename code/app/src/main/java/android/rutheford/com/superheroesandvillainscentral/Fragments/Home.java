@@ -93,7 +93,38 @@ public class Home extends Fragment
                 }
             });
         }
+    }
+    private void callUserCharacterFirstTimePaul(){
+        SharedPreferences sp;
+        sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if(sp.getInt("totalCount",0) == 1)
+        {
+            GetDataService userCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
+            final Call<Results> userSearchById = userCall.getByResults("akabab/superhero-api/0.2.0/api//id/" + sp.getInt("totalCount",0) + ".json");
+            userSearchById.enqueue(new Callback<Results>()
+            {
+                @Override
+                public void onResponse(Call<Results> call, Response<Results> response)
+                {
+                    if(response.isSuccessful()){
+                        idObjectTwo = response.body();
+                        System.out.println(idObjectTwo.getImage().getSm());
+                        resultsList.add(idObjectTwo);
+                        SearchName searchName = new SearchName();
+                        searchName.setResults(resultsList);
+                        HomeData.searchNameList = new ArrayList<>();
+                        HomeData.searchNameList.add(searchName);
+                        System.out.println(HomeData.searchNameList.get(0).getResults().get(0).getName() + " like a g6");
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<Results> call, Throwable t)
+                {
+
+                }
+            });
+        }
     }
     private void callApi(){
         Random r = new Random();

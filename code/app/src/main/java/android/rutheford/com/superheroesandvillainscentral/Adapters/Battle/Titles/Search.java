@@ -1,12 +1,14 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Titles;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class Search extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -28,7 +30,8 @@ public class Search extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
-
+        SearchTextView searchTextView = (SearchTextView) holder;
+        searchTextView.setTitleAndTypeFaceOfTitle();
     }
 
     @Override
@@ -37,10 +40,17 @@ public class Search extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return 1;
     }
     class SearchTextView extends RecyclerView.ViewHolder{
+        TextView title;
 
         public SearchTextView(@NonNull View itemView)
         {
             super(itemView);
+            title = itemView.findViewById(R.id.titleTextView);
+        }
+        private void setTitleAndTypeFaceOfTitle(){
+            Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
+            title.setTypeface(mainTextTypeFace);
+            title.setText("Battle");
         }
     }
 }

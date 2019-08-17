@@ -55,7 +55,6 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         homeViewScreen.changeToStatsPage(i);
         homeViewScreen.alertUser();
         homeViewScreen.checkForDarkMode();
-        System.out.println("Peach");
     }
 
 
@@ -144,6 +143,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             HomeData.opponentId = new ArrayList<>();
             HomeData.opponentId.add(idHome.get(i));
             ((MainActivity)mContext).changeToStatsView();
+            ((MainActivity)mContext).setBackStackVisible();
         }
 
     }

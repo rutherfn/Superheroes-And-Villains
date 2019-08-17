@@ -178,6 +178,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 {
                     dialog.cancel();
                     ((MainActivity)mContext).setViewPagerHome();
+                    ((MainActivity)mContext).setBottomColor();
                 }
             });
             alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()

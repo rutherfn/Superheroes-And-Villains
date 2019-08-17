@@ -71,10 +71,10 @@ public class Battle extends Fragment
         fourthRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fifthRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sixRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mainRecyclerViewBattle.setAdapter(textViewTourney);
-        secondaryBattleRecyclerView.setAdapter(battleTourney);
-        thirdRecyclerView.setAdapter(textViewRandom);
-        fourthRecyclerView.setAdapter(battleRandom);
+//        mainRecyclerViewBattle.setAdapter(textViewTourney);
+//        secondaryBattleRecyclerView.setAdapter(battleTourney);
+//        thirdRecyclerView.setAdapter(textViewRandom);
+  //     fourthRecyclerView.setAdapter(battleRandom);
         fifthRecyclerView.setAdapter(searchTextView);
         sixRecyclerView.setAdapter(battleSearchAadapter);
         return viewBattle;
