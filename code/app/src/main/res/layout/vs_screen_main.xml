@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mainUserSuperHeroOrVillain"
+        android:layout_marginTop="10sp"
+        android:layout_width="300sp"
+        android:layout_height="200sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spiderman" />
+
+    <TextView
+        android:id="@+id/mainUserTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:layout_marginTop="4sp"
+        android:text="Spider-Man"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainUserSuperHeroOrVillain" />
+
+    <ImageView
+        android:id="@+id/vsImageView"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainUserTextView"
+        app:srcCompat="@drawable/vsimage" />
+
+    <ImageView
+        android:id="@+id/opposingMainImageView"
+        android:layout_width="300sp"
+        android:layout_height="200sp"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vsImageView"
+        app:srcCompat="@drawable/spiderman" />
+
+    <TextView
+        android:id="@+id/mainOpposingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spider-Man"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opposingMainImageView" />
+</android.support.constraint.ConstraintLayout>

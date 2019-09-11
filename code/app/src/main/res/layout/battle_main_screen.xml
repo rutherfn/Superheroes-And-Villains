@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/tourneyHeadImage"
+        android:layout_width="170sp"
+        android:layout_height="170sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spiderman" />
+
+    <TextView
+        android:id="@+id/tourneyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marvel Tourney"
+        android:layout_marginTop="20sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tourneyHeadImage" />
+
+    <TextView
+        android:id="@+id/tourneyDesc"
+        android:layout_width="399dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="20sp"
+        android:text="Lorem ipsum dolor sit amet, in ius elitr nihil populo. Qui facete iisque ei. Dicant exerci delenit ut sed, nostrum ocurreret eos ne. Consul commune dissentiet eu vis. Ei has vivendo similique democritum."
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tourneyTitle" />
+
+    <Button
+        android:id="@+id/startToruneyBattle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textSize="20sp"
+        android:padding="18sp"
+        android:gravity="center"
+        android:background="#0000FF"
+        android:textColor="@color/colorWwhite"
+        android:layout_marginTop="20dp"
+        android:text="Start Tourney"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tourneyDesc" />
+</android.support.constraint.ConstraintLayout>
