@@ -39,4 +39,9 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 * Hat tip to anyone whose code was used
 * Inspiration
+<<<<<<< HEAD
+Changing Something
+* etc
+=======
 * etc -->
+>>>>>>> 7b92ffc0302a5e45ef6cf1458fab868f605d4891
