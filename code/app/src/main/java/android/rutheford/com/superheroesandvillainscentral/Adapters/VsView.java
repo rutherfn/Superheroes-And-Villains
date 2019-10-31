@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -28,13 +29,18 @@ import java.util.Random;
 
 public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    private int score = 0;
     private Context mContext;
     private int totalScore;
+    private List<Id> listId;
     private List<Integer> userScores = new ArrayList<>();
+    private SharedPreferences sp1;
+    private SharedPreferences.Editor editor;
 
-    public VsView(Context mContext)
+    public VsView(Context mContext,List<Id> listId)
     {
         this.mContext = mContext;
+        this.listId = listId;
     }
 
     @NonNull
@@ -49,21 +55,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
         VsItemView vsItemView = (VsItemView) holder;
-        vsItemView.setUpTypeFace();
-        vsItemView.setUpColor();
-        vsItemView.loadMainUserSuperHeroOrVillain();
-        vsItemView.loadOpposingSuperHeroOrVillain();
-        if(HomeData.opponentId != null && HomeData.searchNameList != null)
-        {
-
-            vsItemView.generateScore( HomeData.opponentId.get(0).getPowerStats().getIntelligence(), HomeData.opponentId.get(0).getPowerStats().getStrength(),
-                    HomeData.opponentId.get(0).getPowerStats().getSpeed(), HomeData.opponentId.get(0).getPowerStats().getDurability(), HomeData.opponentId.get(0).getPowerStats().getPower(), HomeData.opponentId.get(0).getPowerStats().getCombat());
-
-            vsItemView.generateScore(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getIntelligence(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getStrength(),
-                    HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getSpeed(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getDurability(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getPower(),
-                    HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getCombat());
-                    vsItemView.displayWhoWon();
-        }
+        vsItemView.Main();
     }
 
     @Override
@@ -72,7 +64,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return 1;
     }
     class VsItemView extends RecyclerView.ViewHolder{
-        ImageView mainUserSuperHeroOrVillain, opposingMainImageView;
+        ImageView mainUserSuperHeroOrVillain, opposingMainImageView,vsImageView;
         TextView mainUserText, opposingUserText;
 
         public VsItemView(@NonNull View itemView)
@@ -82,6 +74,40 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             opposingMainImageView = itemView.findViewById(R.id.opposingMainImageView);
             mainUserText = itemView.findViewById(R.id.mainUserTextView);
             opposingUserText = itemView.findViewById(R.id.mainOpposingTextView);
+            vsImageView = itemView.findViewById(R.id.vsImageView);
+        }
+        private void Main(){
+            setUpSharedPrefs();
+            setUpTypeFace();
+            setUpColor();
+            loadMainUserSuperHeroOrVillain();
+            loadOpposingSuperHeroOrVillain();
+            generateWhoWon();
+            checkForDarkMode();
+        }
+        private void checkForDarkMode(){
+            if(sp1.getInt("darkMode",0) == 1){
+                mainUserText.setTextColor(Color.parseColor("#FFFFFF"));
+                opposingUserText.setTextColor(Color.parseColor("#FFFFFF"));
+                vsImageView.setVisibility(View.INVISIBLE);
+            }
+        }
+        private void setUpSharedPrefs(){
+            sp1 = mContext.getSharedPreferences("key", 0);
+            editor = sp1.edit();
+        }
+        private void generateWhoWon(){
+            if(listId != null && HomeData.searchNameList != null)
+            {
+
+                generateScore( listId.get(0).getPowerStats().getIntelligence(), listId.get(0).getPowerStats().getStrength(),
+                        listId.get(0).getPowerStats().getSpeed(), listId.get(0).getPowerStats().getDurability(), listId.get(0).getPowerStats().getPower(), listId.get(0).getPowerStats().getCombat());
+
+                generateScore(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getIntelligence(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getStrength(),
+                        HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getSpeed(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getDurability(), HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getPower(),
+                        HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getCombat());
+                displayWhoWon();
+            }
         }
         private void displayWhoWon(){
             new Handler().postDelayed(new Runnable()
@@ -89,10 +115,9 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void run()
                 {
-
+                    chooseWinner();
                 }
             },2000);
-            chooseWinner();
         }
         private void loadMainUserSuperHeroOrVillain(){
             if(HomeData.searchNameList != null){
@@ -123,8 +148,8 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             opposingUserText.setTypeface(mainTextTypeFace);
         }
         private void loadOpposingSuperHeroOrVillain(){
-            if(HomeData.opponentId != null){
-                Picasso.get().load(HomeData.opponentId.get(0).getImage().getMd()).into(opposingMainImageView, new Callback()
+            if(listId != null){
+                Picasso.get().load(listId.get(0).getImage().getMd()).into(opposingMainImageView, new Callback()
                 {
                     @Override
                     public void onSuccess()
@@ -138,7 +163,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                     }
                 });
-                opposingUserText.setText(HomeData.opponentId.get(0).getName());
+                opposingUserText.setText(listId.get(0).getName());
             }
         }
         private void generateScore(int intelligence, int strength, int speed, int durability, int power, int combat){
@@ -150,24 +175,29 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 userScores.add(totalScore);
         }
         private void chooseWinner(){
-            SharedPreferences sp1 = mContext.getSharedPreferences("key", 0);
+            final SharedPreferences sp1 = mContext.getSharedPreferences("key", 0);
             SharedPreferences.Editor editor1 = sp1.edit();
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
             alertDialog.setTitle("Battle Results");
             if (userScores.get(1) > userScores.get(0))
             {
+                score = 150;
                 editor1.putInt("wins", sp1.getInt("wins",0) + 1);
+                editor1.putInt("xp",sp1.getInt("xp",0) + 150); // when user wins they get 60 xp
                 editor1.apply();
                 alertDialog.setMessage("You Won This Battle! Do you want to see how? Press YES to view full results!");
             } else if (userScores.get(0) > userScores.get(1))
             {
+                score = 80;
                 editor1.putInt("loses", + sp1.getInt("loses",0) + 1);
+                editor1.putInt("xp",sp1.getInt("xp",0) + 80); // when user loses they get 30 xp
                 editor1.apply();
-                System.out.println(sp1.getInt("loses",0) + " here they are");
                 alertDialog.setMessage("Computer won this battle! Do you want to see how? Press YES to view full results!");
             } else
             {
+                score = 100;
                 editor1.putInt("ties", + sp1.getInt("ties",0) + 1);
+                editor1.putInt("xp",sp1.getInt("xp",0) + 100); // when user ties they get 40 xp
                 editor1.apply();
                 alertDialog.setMessage("We have a tie! Do you want to see how? Press YES to view full results!");
             }
@@ -191,7 +221,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             AlertDialog.Builder(mContext);
                     alertDialog.setTitle("Battle Stats");
                     alertDialog.setMessage("Your Character:  " +  mainUserText.getText().toString() + "\nFinal Score:  "  +  userScores.get(1) + "\n\nYour Enemy:  " + opposingUserText.getText().toString() +
-                            "\nFinal Score:  "+ userScores.get(0));
+                            "\nFinal Score:  "+ userScores.get(0) +  "\n\nYour XP Earned:  " + score + "\n\nTotal XP Earned:  " + sp1.getInt("xp",0));
                     alertDialog.setPositiveButton("OKAY", new DialogInterface.OnClickListener()
                     {
                         @Override

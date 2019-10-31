@@ -2,6 +2,7 @@ package android.rutheford.com.superheroesandvillainscentral.Fragments;
 
 import android.os.Bundle;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.VsView;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 public class Vs extends Fragment
 {
+    private List<Id> idList;
     View vsView;
     VsView vsViewAdapter;
     RecyclerView mainVsRecyclerView;
@@ -29,11 +33,14 @@ public class Vs extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        if(getArguments() != null){
+            idList = getArguments().getParcelableArrayList("vsList");
+         }
         vsView = inflater.inflate(R.layout.vs_recycler_view,container,false);
         mainVsRecyclerView = vsView.findViewById(R.id.vs_recyclerview);
         mainVsRecyclerView.setFocusable(false);
         mainVsRecyclerView.setNestedScrollingEnabled(false);
-        vsViewAdapter = new VsView(getContext());
+        vsViewAdapter = new VsView(getContext(),idList);
         mainVsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mainVsRecyclerView.setAdapter(vsViewAdapter);
         return vsView;

@@ -1,5 +1,6 @@
 package android.rutheford.com.superheroesandvillainscentral.Helpers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -8,6 +9,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Scroller;
 
 import java.lang.reflect.Field;
+
+/**
+ * Created by Nick R.
+ */
 
 public class NonSwipeableViewPager extends ViewPager
 {
@@ -28,6 +33,7 @@ public class NonSwipeableViewPager extends ViewPager
         return false;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // Never allow swiping to switch between pages
@@ -49,7 +55,7 @@ public class NonSwipeableViewPager extends ViewPager
 
     public class MyScroller extends Scroller
     {
-        public MyScroller(Context context) {
+        MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
         }
 

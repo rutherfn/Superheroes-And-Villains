@@ -2,6 +2,7 @@ package android.rutheford.com.superheroesandvillainscentral.Adapters.ImageView;
 
 import android.content.Context;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,14 +13,18 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class StatsImage extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
     Context mContext;
+    private List<Id> listId;
 
-    public StatsImage(Context mContext)
+    public StatsImage(Context mContext,List<Id> listId)
     {
         this.mContext = mContext;
+        this.listId = listId;
     }
 
     @NonNull
@@ -51,8 +56,8 @@ public class StatsImage extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             statsImageView = itemView.findViewById(R.id.imageViewStats);
         }
         private void loadDataIntoImageView(){
-            if(HomeData.opponentId != null){
-                Picasso.get().load(HomeData.opponentId.get(0).getImage().getMd()).into(statsImageView);
+            if(listId!= null){
+                Picasso.get().load(listId.get(0).getImage().getMd()).into(statsImageView);
             }else if(HomeData.searchNameList != null){
                 Picasso.get().load(HomeData.searchNameList.get(0).getResults().get(0).getImage().getMd()).into(statsImageView);
             }

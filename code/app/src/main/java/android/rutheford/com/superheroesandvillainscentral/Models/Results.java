@@ -2,8 +2,13 @@ package android.rutheford.com.superheroesandvillainscentral.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Created by Nick R.
+ */
+
 public class Results
 {
+    // declarations
     @SerializedName("id")
     private int id;
     @SerializedName("name")

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10sp"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mainUserSuperHeroOrVillain"
+        android:layout_marginTop="10sp"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spiderman" />
+
+    <ImageView
+        android:id="@+id/mainUserSuperHeroOrVillain2"
+        android:layout_marginTop="10sp"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vsImageView"
+        app:srcCompat="@drawable/spiderman" />
+
+    <TextView
+        android:id="@+id/mainUserTextViewcurrentHealth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:layout_marginTop="4sp"
+        android:text="Current Health 200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainUserSuperHeroOrVillain" />
+
+    <TextView
+        android:id="@+id/mainUserTextViewcurrentHealth2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Health 200"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainUserSuperHeroOrVillain2" />
+
+    <Button
+        android:id="@+id/attackUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textSize="20sp"
+        android:padding="18sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:text="ATTACK"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainUserTextViewcurrentHealth" />
+
+    <Button
+        android:id="@+id/defendUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textSize="20sp"
+        android:padding="18sp"
+        android:text="DEFEND"
+        app:layout_constraintEnd_toEndOf="@+id/mainUserTextViewcurrentHealth"
+        app:layout_constraintStart_toEndOf="@+id/attackUserButton"
+        app:layout_constraintTop_toTopOf="@+id/attackUserButton" />
+
+    <Button
+        android:id="@+id/specialUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textSize="20sp"
+        android:padding="18sp"
+        android:text="SPECIAL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/defendUserButton"
+        app:layout_constraintTop_toTopOf="@+id/defendUserButton" />
+
+    <ImageView
+        android:id="@+id/vsImageView"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:layout_marginTop="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defendUserButton"
+        app:srcCompat="@drawable/vsimage" />
+
+    <TextView
+        android:id="@+id/currentRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:text="Current Round"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainUserTextViewcurrentHealth2" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,8 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
 import android.rutheford.com.superheroesandvillainscentral.R;
@@ -13,6 +15,9 @@ import android.view.ViewGroup;
 public class SearchView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private Context mContext;
+    private HomeData homeData = new HomeData();
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     public SearchView(Context mContext)
     {
@@ -33,7 +38,7 @@ public class SearchView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
         SearchViewHolder searchViewHolder = (SearchViewHolder) holder;
-        searchViewHolder.listenToSearchView();
+        searchViewHolder.Main();
     }
 
     @Override
@@ -48,15 +53,27 @@ public class SearchView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             mainSearchView = itemView.findViewById(R.id.mainSearchView);
         }
+        private void setUpSharedPrefs(){
+            sp = mContext.getSharedPreferences("key", 0);
+            editor = sp.edit();
+        }
+        private void Main(){
+            setUpSharedPrefs();
+            listenToSearchView();
+            checkForDarkMode();
+        }
+        private void checkForDarkMode(){
+            if(sp.getInt("darkMode",0) == 1){
+                mainSearchView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        }
         private void listenToSearchView(){
             mainSearchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener()
             {
                 @Override
                 public boolean onQueryTextSubmit(String s)
                 {
-                    HomeData.searchFromUser = s;
-                    HomeData.searchBoolean = true;
-                    ((MainActivity)mContext).reloadFragmentAndSetViewPagerForSearch();
+                    ((MainActivity)mContext).reloadFragmentAndSetViewPagerForSearch(s);
                     return false;
                 }
 

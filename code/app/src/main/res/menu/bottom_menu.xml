@@ -11,10 +11,12 @@
         android:icon="@drawable/search"
         android:title="Search" />
 
+
     <item
-        android:id="@+id/battleAction"
-        android:icon="@drawable/battle"
-        android:title="Battle" />
+        android:id="@+id/settingsAction"
+        android:icon="@drawable/settingsicon"
+        android:title="Settings" />
+
 
 
 </menu>

@@ -1,9 +1,17 @@
 package android.rutheford.com.superheroesandvillainscentral.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Id
+/**
+ * Created by Nick R.
+ */
+
+public class Id implements Parcelable
 {
+    // declarations
     @SerializedName("id")
     private int id;
     @SerializedName("name")
@@ -22,6 +30,33 @@ public class Id
     private Connections connections;
     @SerializedName("images")
     private Image image;
+
+    public Id(Parcel in)
+    {
+        id = in.readInt();
+        name = in.readString();
+        slug = in.readString();
+    }
+
+    public static final Creator<Id> CREATOR = new Creator<Id>()
+    {
+        @Override
+        public Id createFromParcel(Parcel in)
+        {
+            return new Id(in);
+        }
+
+        @Override
+        public Id[] newArray(int size)
+        {
+            return new Id[size];
+        }
+    };
+
+    public Id()
+    {
+
+    }
 
     public int getId()
     {
@@ -111,5 +146,19 @@ public class Id
     public void setSlug(String slug)
     {
         this.slug = slug;
+    }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(slug);
     }
 }

@@ -7,33 +7,39 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
-import android.rutheford.com.superheroesandvillainscentral.Models.Results;
-import android.rutheford.com.superheroesandvillainscentral.Models.SearchName;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dmax.dialog.SpotsDialog;
+import io.paperdb.Paper;
 
 public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-    Context mContext;
-    private SharedPreferences sp;
+    private int totalStatsForUser;
+    private Context mContext;
+    private List<Id> listId;
+    private SharedPreferences sp1;
+    private SharedPreferences.Editor editor;
 
-    public StatsView(Context mContext)
+    public StatsView(Context mContext,List<Id> listId)
     {
         this.mContext = mContext;
+        this.listId = listId;
     }
 
     @NonNull
@@ -48,12 +54,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
         ViewStats viewStats = (ViewStats) holder;
-        viewStats.setSuperHeroVillianData();
-        viewStats.setUpTypeFace();
-        viewStats.setTextColor();
-        viewStats.switchToBattleCharacter();
-        viewStats.assignNewCharacter();
-        viewStats.moreInfoOnCharacter();
+        viewStats.Main(i);
     }
 
     @Override
@@ -116,6 +117,57 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             assignNewCharacterButton = itemView.findViewById(R.id.assignNewCharacterButton);
             moreInfoCharacterButton = itemView.findViewById(R.id.moreInfoCharacterButton);
         }
+        private void Main(int i){
+            setUpSharedPrefs();
+            setSuperHeroVillianData();
+            setUpTypeFace();
+            setTextColor();
+            switchToBattleCharacter(i);
+            moreInfoOnCharacter();
+            checkDarkMode();
+            totalStatsOfVsCharacter();
+            purchaseCharacterButton();
+        }
+        private void totalStatsOfVsCharacter(){
+            if(listId != null){
+                totalStatsForUser = listId.get(0).getPowerStats().getIntelligence() +
+                        listId.get(0).getPowerStats().getStrength() + listId.get(0).getPowerStats().getSpeed() +
+                        listId.get(0).getPowerStats().getSpeed() + listId.get(0).getPowerStats().getDurability() +
+                        listId.get(0).getPowerStats().getPower() + listId.get(0).getPowerStats().getCombat();
+                editor.putInt("totalStatForVsCharacter",totalStatsForUser);
+                editor.apply();
+            }
+        }
+        private void setUpSharedPrefs(){
+            sp1 = mContext.getSharedPreferences("key", 0);
+            editor = sp1.edit();
+        }
+        private void checkDarkMode(){
+            if(sp1.getInt("darkMode",0) == 1){
+                superHeroVillianName.setTextColor(Color.parseColor("#FFFFFF"));
+                locationText.setTextColor(Color.parseColor("#FFFFFF"));
+                locationTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                alignmentText.setTextColor(Color.parseColor("#FFFFFF"));
+                alignmentTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                alterEgosText.setTextColor(Color.parseColor("#FFFFFF"));
+                firstApperanceText.setTextColor(Color.parseColor("#FFFFFF"));
+                firstApperanceTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                statsTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                intelligenceText.setTextColor(Color.parseColor("#FFFFFF"));
+                strengthText.setTextColor(Color.parseColor("#FFFFFF"));
+                strengthTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                speedTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                speedText.setTextColor(Color.parseColor("#FFFFFF"));
+                durabilityTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                durabilityText.setTextColor(Color.parseColor("#FFFFFF"));
+                powerTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                powerText.setTextColor(Color.parseColor("#FFFFFF"));
+                combatTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                combatText.setTextColor(Color.parseColor("#FFFFFF"));
+                intelligenceTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                alterEgosTitle.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+        }
         private void setUpTypeFace(){
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             Typeface mainBody = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
@@ -177,35 +229,52 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         @SuppressLint("SetTextI18n")
         private void setSuperHeroVillianData(){
-            if(HomeData.opponentId != null){
-                superHeroVillianName.setText(HomeData.opponentId.get(0).getName());
-                if(HomeData.opponentId.get(0).getBiography().getPlaceOfBirth().equals("-")){
+            if(listId != null){
+                superHeroVillianName.setText(listId.get(0).getName());
+                if(listId.get(0).getBiography().getPlaceOfBirth().equals("-")){
                     locationTitle.setText("Unknown");
                 }else{
-                locationTitle.setText(HomeData.opponentId.get(0).getBiography().getPlaceOfBirth());
+                locationTitle.setText(listId.get(0).getBiography().getPlaceOfBirth());
                 }
-                if(HomeData.opponentId.get(0).getBiography().getAlignment().equals("good")){
+                if(listId.get(0).getBiography().getAlignment().equals("good")){
                     alignmentTitle.setText("Good");
-                }else if(HomeData.opponentId.get(0).getBiography().getAlignment().equals("bad")){
+                }else if(listId.get(0).getBiography().getAlignment().equals("bad")){
                     alignmentTitle.setText("Bad");
                 }else{
                     alignmentTitle.setText("Neutral");
                 }
-                firstApperanceText.setText(HomeData.opponentId.get(0).getBiography().getPublisher());
-                if(HomeData.opponentId.get(0).getBiography().getAlterEgos().equals("No alter egos found.")){
+                firstApperanceText.setText(listId.get(0).getBiography().getPublisher());
+                if(listId.get(0).getBiography().getAlterEgos().equals("No alter egos found.")){
                     alterEgosText.setText("None");
                 }else
                 {
-                    alterEgosText.setText(HomeData.opponentId.get(0).getBiography().getAlterEgos());
+                    alterEgosText.setText(listId.get(0).getBiography().getAlterEgos());
                 }
-                intelligenceText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getIntelligence()));
-                strengthText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getStrength()));
-                speedText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getSpeed()));
-                durabilityText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getDurability()));
-                powerText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getPower()));
-                combatText.setText(String.valueOf(HomeData.opponentId.get(0).getPowerStats().getCombat()));
-                battleCharacterButton.setText("Battle " + HomeData.opponentId.get(0).getName());
-                assignNewCharacterButton.setText("Assign Yourself " + HomeData.opponentId.get(0).getName());
+                intelligenceText.setText(String.valueOf(listId.get(0).getPowerStats().getIntelligence()));
+                strengthText.setText(String.valueOf(listId.get(0).getPowerStats().getStrength()));
+                speedText.setText(String.valueOf(listId.get(0).getPowerStats().getSpeed()));
+                durabilityText.setText(String.valueOf(listId.get(0).getPowerStats().getDurability()));
+                powerText.setText(String.valueOf(listId.get(0).getPowerStats().getPower()));
+                combatText.setText(String.valueOf(listId.get(0).getPowerStats().getCombat()));
+                battleCharacterButton.setText("Battle Character");
+                if(HomeData.listPurchaseCharacters.size() > 0){
+                    for(int i = 0; i < HomeData.listPurchaseCharacters.size(); i++){
+                        if(HomeData.listPurchaseCharacters.get(i).getName().equals(listId.get(0).getName())){
+                           assignNewCharacterButton.setVisibility(View.GONE);
+                           // assignNewCharacterButton.setText("Assign Yourself Character");
+                        }else{
+                            assignNewCharacterButton.setText("Purchase Character");
+                        }
+                    }
+                }else{
+                    assignNewCharacterButton.setText("Purchase Character");
+                }
+                System.out.println("Visibilty " + assignNewCharacterButton.getVisibility());
+                if(assignNewCharacterButton.getVisibility() == View.GONE){
+                    assignNewCharacterButton.setVisibility(View.VISIBLE);
+                    assignNewCharacterButton.setText("Assign Yourself Character");
+                }
+              //  assignNewCharacterButton.setText("Assign Yourself " + HomeData.opponentId.get(0).getName());
                 moreInfoCharacterButton.setText("More Info");
             }else if(HomeData.searchNameList != null){
                 superHeroVillianName.setText(HomeData.searchNameList.get(0).getResults().get(0).getName());
@@ -221,7 +290,12 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }else{
                     alignmentTitle.setText("Neutral");
                 }
-                firstApperanceText.setText(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getPublisher());
+                if(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getPublisher().equals("")){
+                    firstApperanceText.setText("None");
+                }else
+                {
+                    firstApperanceText.setText(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getPublisher());
+                }
                 if(HomeData.searchNameList.get(0).getResults().get(0).getBiography().getAlterEgos().equals("No alter egos found.")){
                     alterEgosText.setText("None");
                 }else{
@@ -233,80 +307,10 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 durabilityText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getDurability()));
                 powerText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getPower()));
                 combatText.setText(String.valueOf(HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getCombat()));
-                battleCharacterButton.setText("Randomize New Character");
-                assignNewCharacterButton.setText("Search New Character");
+                battleCharacterButton.setVisibility(View.GONE);
+                assignNewCharacterButton.setVisibility(View.GONE);
                 moreInfoCharacterButton.setText("More Info");
             }
-        }
-        private void assignNewCharacter(){
-            assignNewCharacterButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    if (((MainActivity) mContext).returnCurrentViewPagerItem() == 3)
-                    {
-                        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-                        alertDialog.setTitle("Assigning New Character ");
-                        alertDialog.setMessage("Are you sure you want to assign this character as your new character?");
-                        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                dialog.cancel();
-                            }
-                        });
-                        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                dialog.cancel();
-                                ArrayList<Results> resultsList = new ArrayList<>();
-                                Results results = new Results();
-                                SearchName searchName = new SearchName();
-                                HomeData.searchNameList = new ArrayList<>();
-                                results.setId(HomeData.opponentId.get(0).getId());
-                                results.setName(HomeData.opponentId.get(0).getName());
-                                results.setBiography(HomeData.opponentId.get(0).getBiography());
-                                results.setAppearance(HomeData.opponentId.get(0).getAppearance());
-                                results.setConnections(HomeData.opponentId.get(0).getConnections());
-                                results.setImage(HomeData.opponentId.get(0).getImage());
-                                results.setWork(HomeData.opponentId.get(0).getWork());
-                                results.setPowerStats(HomeData.opponentId.get(0).getPowerStats());
-                                resultsList.add(results);
-                                sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt("uniqueId", results.getId());
-                                System.out.println(HomeData.opponentId.get(0).getId());
-                                editor.apply();
-                                searchName.setResults(resultsList);
-                                HomeData.searchNameList.add(searchName);
-                                final AlertDialog.Builder alertDialogAdd = new AlertDialog.Builder(mContext);
-                                alertDialogAdd.setTitle("Character Switched");
-                                alertDialogAdd.setMessage(HomeData.opponentId.get(0).getName() + " is your new character!");
-                                alertDialogAdd.setPositiveButton("CONTINUE", new DialogInterface.OnClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
-                                        dialog.cancel();
-                                    }
-                                });
-                                AlertDialog alertDialog1 = alertDialogAdd.create();
-                                alertDialog1.show();
-                            }
-                        });
-                        AlertDialog dialog = alertDialog.create();
-                        dialog.show();
-
-                    }else{
-                        ((MainActivity)mContext).setSearchPager();
-                    }
-                }
-            });
-
         }
         private void moreInfoOnCharacter(){
             moreInfoCharacterButton.setOnClickListener(new View.OnClickListener()
@@ -318,9 +322,9 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     builder.setTitle(superHeroVillianName.getText().toString());
 
 // add a list
-                    if(((MainActivity)mContext).returnCurrentViewPagerItem() == 4)
+                    if(((MainActivity)mContext).returnCurrentViewPagerItem() == 3)
                     {
-                        String[] statsForCharacter = {"Publisher: " + HomeData.opponentId.get(0).getBiography().getPublisher(), "Gender: " + HomeData.opponentId.get(0).getAppearance().getGender(), "Race: " + HomeData.opponentId.get(0).getAppearance().getRace(), "Work: " + HomeData.opponentId.get(0).getWork().getOccupation(), "Group-Affiliation: " + HomeData.opponentId.get(0).getConnections().getGroupAffiliation()};
+                        String[] statsForCharacter = {"Publisher: " + listId.get(0).getBiography().getPublisher(), "Gender: " + listId.get(0).getAppearance().getGender(), "Race: " + listId.get(0).getAppearance().getRace(), "Work: " + listId.get(0).getWork().getOccupation(), "Group-Affiliation: " + listId.get(0).getConnections().getGroupAffiliation()};
                         builder.setItems(statsForCharacter, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -362,7 +366,105 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
         }
-        private void switchToBattleCharacter(){
+        private void purchaseCharacterButton(){
+            assignNewCharacterButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (assignNewCharacterButton.getText().toString().equals("Assign Yourself Character"))
+                    {
+                        final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                        alert.setTitle("Change Characters");
+                        alert.setMessage("Are you sure you want to switch to " + listId.get(0).getName());
+                        alert.setNegativeButton("No", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                dialog.cancel();
+                                ((MainActivity)mContext).callApiForNewCharacterAssign(listId.get(0).getId());
+                                editor.putInt("uniqueId",listId.get(0).getId());
+                                editor.apply();
+                                Toast.makeText(mContext,listId.get(0).getName() + " is now your new main character!",Toast.LENGTH_SHORT).show();
+                                ((MainActivity)mContext).reloadSettings();
+                            }
+                        });
+                        AlertDialog dialogs = alert.create();
+                        dialogs.show();
+                    } else
+                    {
+                        if (sp1.getInt("xp", 0) > sp1.getInt("totalStatForVsCharacter", 0) ||
+                                sp1.getInt("xp", 0) == sp1.getInt("totalStatForVsCharacter", 0))
+                        {
+                            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                            //                    alertDialog.setTitle("Get Ready For Battle");
+                            alertDialog.setMessage("Are you sure you want to purchase " + listId.get(0).getName());
+                            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.cancel();
+
+                                }
+                            });
+                            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    Paper.book().write(listId.get(0).getName(), listId);
+                                    editor.putInt("xp", sp1.getInt("xp", 0) - sp1.getInt("totalStatForVsCharacter", 0));
+                                    editor.apply();
+                                    final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                                    alert.setTitle("Character Purchased");
+                                    alert.setMessage(listId.get(0).getName() + " has been purchased, heading back to the home screen! Please visit the settings screen to view purchase characters, press OK to continue!");
+                                    alert.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                            ((MainActivity) mContext).restartMainActivity();
+                                        }
+                                    });
+                                    AlertDialog alertThis = alert.create();
+                                    alertThis.show();
+                                }
+                            });
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+
+                        } else
+                        {
+                            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                            //                    alertDialog.setTitle("Get Ready For Battle");
+                            alertDialog.setMessage("You do not have enough XP to purchase " + listId.get(0).getName() + "." + "\n\nCurrent XP: " + sp1.getInt("xp", 0) + "\n\n" + listId.get(0).getName() + " Current XP: " + sp1.getInt("totalStatForVsCharacter", 0) + "\n\nEarn more XP by battling other characters, and come back when you have enough XP!");
+                            alertDialog.setNegativeButton("OKAY", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.cancel();
+
+                                }
+                            });
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+                        }
+                    }
+                }
+            });
+        }
+        private void switchToBattleCharacter(final int pos){
             battleCharacterButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -372,11 +474,11 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     {
                         if (HomeData.searchNameList != null)
                         {
-                            if (HomeData.searchNameList.get(0).getResults().get(0).getName().equals(HomeData.opponentId.get(0).getName()))
+                            if (HomeData.searchNameList.get(0).getResults().get(0).getName().equals(listId.get(0).getName()))
                             {
                                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
                                 alertDialog.setTitle("Cant Battle Yourself");
-                                alertDialog.setMessage(HomeData.searchNameList.get(0).getResults().get(0).getName() + " vs " + HomeData.opponentId.get(0).getName() + " is not a option, switch character or find a new character to battle!");
+                                alertDialog.setMessage(HomeData.searchNameList.get(0).getResults().get(0).getName() + " vs " + listId.get(0).getName() + " is not a option, switch character or find a new character to battle!");
                                 alertDialog.setNegativeButton("CONTINUE", new DialogInterface.OnClickListener()
                                 {
                                     @Override
@@ -415,11 +517,12 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                         handler.postDelayed(new Runnable()
                                         {
 
+                                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                             @Override
                                             public void run()
                                             {
                                                 alertDialog.dismiss();
-                                                ((MainActivity) mContext).switchToVs();
+                                                ((MainActivity) mContext).switchToVs(listId,pos);
                                             }
                                         }, 3000);
                                     }
@@ -443,42 +546,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             AlertDialog dialog = alertDialog.create();
                             dialog.show();
                         }
-                    }else{
-                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-                                alertDialog.setTitle("Assign New Character");
-                                alertDialog.setMessage("Are you sure you want to assign a new character?");
-                                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
-                                        dialog.cancel();
-                                    }
-                                });
-                                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
-                                        dialog.cancel();
-                                        ((MainActivity)mContext).callApiForNewCharacter();
-                                        final AlertDialog.Builder alertDialogAdd = new AlertDialog.Builder(mContext);
-                                        alertDialogAdd.setTitle("Character Switched");
-                                        alertDialogAdd.setPositiveButton("CONTINUE", new DialogInterface.OnClickListener()
-                                        {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which)
-                                            {
-                                                dialog.cancel();
-                                            }
-                                        });
-                                        AlertDialog alertDialog1 = alertDialogAdd.create();
-                                        alertDialog1.show();
-                                    }
-                                });
-                                AlertDialog dialog = alertDialog.create();
-                                dialog.show();
-                            }
+                    }
 
                 }
             });

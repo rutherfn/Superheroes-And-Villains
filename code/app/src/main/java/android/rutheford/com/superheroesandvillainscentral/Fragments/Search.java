@@ -33,12 +33,13 @@ import java.util.List;
 
 public class Search extends Fragment
 {
-     RecyclerView mainRecyclerView, secondaryRecyclerView;
-        SearchView searchView;
-        SearchResultsView searchResultsView;
-        View mainView;
-        private SearchName searchName = new SearchName();
-        private List<SearchName> searchNameList = new ArrayList<>();
+    RecyclerView mainRecyclerView, secondaryRecyclerView;
+    SearchView searchView;
+    SearchResultsView searchResultsView;
+    View mainView;
+    private SearchName searchName = new SearchName();
+    private List<SearchName> searchNameList = new ArrayList<>();
+    private String searchString;
 
     public Search()
     {
@@ -55,11 +56,13 @@ public class Search extends Fragment
     {
         searchNameList.clear();
         mainView = inflater.inflate(R.layout.search_recycler_view,container,false);
-        System.out.println(HomeData.searchFromUser + " data");
+        if(getArguments() != null){
+            searchString = getArguments().getString("searchString");
+        }
         loopThorughJson();
-        if(HomeData.searchFromUser != null)
+        if(searchString != null)
         {
-            loadASearchByName(HomeData.searchFromUser);
+            loadASearchByName(searchString);
         }
         mainRecyclerView = mainView.findViewById(R.id.search_recycler_view);
         secondaryRecyclerView = mainView.findViewById(R.id.secondary_recycler_view);
@@ -259,7 +262,46 @@ public class Search extends Fragment
                 id.setImage(image);
                 newList.add(id);
                 HomeData.searchCharacterData = newList;
-                HomeData.searchFromUser = null;
+                searchString = null;
+            }else{
+//                Id id = new Id();
+//                id.setId(0);
+//                id.setName("");
+//                id.setSlug("");
+//                PowerStats powerStats = new PowerStats();
+//                powerStats.setIntelligence(0);
+//                powerStats.setStrength(0);
+//                powerStats.setSpeed(0);
+//                powerStats.setDurability(0);
+//                powerStats.setPower(0);
+//                powerStats.setCombat(0);
+//                id.setPowerStats(powerStats);
+//                Appearance appearance = new Appearance();
+//                appearance.setGender("");
+//                appearance.setRace("");
+//                appearance.setHairColor("");
+//                appearance.setEyeColor("");
+//                id.setAppearance(appearance);
+//                Biography biography = new Biography();
+//                biography.setFullName("");
+//                biography.setAlterEgos("");
+//                biography.setPublisher("");
+//                biography.setAlignment("");
+//                biography.setPlaceOfBirth("");
+//                id.setBiography(biography);
+//                Work work = new Work();
+//                work.setOccupation("");
+//                id.setWork(work);
+//                Connections connections = new Connections();
+//                connections.setGroupAffiliation("");
+//                id.setConnections(connections);
+//                Image image = new Image();
+//                image.setMd("");
+//                List<Id> newList = new ArrayList<>();
+//                id.setImage(image);
+//                newList.add(id);
+//                HomeData.searchCharacterData = newList;
+//                searchString =null;
             }
         }
     }

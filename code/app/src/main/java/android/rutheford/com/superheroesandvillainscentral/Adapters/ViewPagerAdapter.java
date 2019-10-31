@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Battle;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Home;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.PrivatePolicy;
+import android.rutheford.com.superheroesandvillainscentral.Fragments.PurchaseCharacters;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Search;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Settings;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Stats;
+import android.rutheford.com.superheroesandvillainscentral.Fragments.TacticalVs;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.Vs;
 import android.rutheford.com.superheroesandvillainscentral.Fragments.YourCharacter;
 import android.support.v4.app.Fragment;
@@ -42,6 +44,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
             case 5: return Settings.newInstance();
             case 6: return YourCharacter.newInstance();
             case 7: return PrivatePolicy.newInstance();
+            case 8: return PurchaseCharacters.newInstance();
+            case 9: return TacticalVs.newInstance();
             default: return Home.newInstance();
         }
     }
@@ -49,7 +53,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
     @Override
     public int getCount()
     {
-        return 8;
+        return 10;
     }
     @Override
     public Object instantiateItem(ViewGroup container, int position) {

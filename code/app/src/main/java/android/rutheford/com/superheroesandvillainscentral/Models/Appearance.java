@@ -4,8 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Created by Nick R.
+ */
+
 public class Appearance
 {
+    // declarations
     @SerializedName("gender")
     private String gender;
     @SerializedName("race")

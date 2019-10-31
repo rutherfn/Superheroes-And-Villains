@@ -25,10 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25sp"
-        android:layout_marginLeft="10sp"
+        android:padding="10sp"
         android:textSize="16sp"
         android:text="@string/introtext"
-        android:ems="20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

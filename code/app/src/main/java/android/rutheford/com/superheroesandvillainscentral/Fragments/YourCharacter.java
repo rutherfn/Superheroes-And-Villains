@@ -1,10 +1,9 @@
 package android.rutheford.com.superheroesandvillainscentral.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.ImageView.StatsImage;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.StatsView;
-import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,14 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 public class YourCharacter extends Fragment
 {
-    private StatsImage statsImage;
-    private Context mContext;
-    private View v;
+    private View view;
+    private RecyclerView mainCharacterRecycler, viewYourCharacterRecycler;
     private StatsView viewYourCharacter;
-    private RecyclerView viewYourCharacterRecycler;
-    private RecyclerView mainCharacterRecycler;
+    private StatsImage statsImage;
+    private List<Id> list;
+
     public YourCharacter()
     {
     }
@@ -31,23 +32,36 @@ public class YourCharacter extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        v = inflater.inflate(R.layout.yourcharacter_recyclerview,container,false);
-        mainCharacterRecycler = v.findViewById(R.id.yourcharacter_main_recyclerview);
-        viewYourCharacterRecycler = v.findViewById(R.id.yourcharacter_secondary_recyclerview);
+        view = inflater.inflate(R.layout.yourcharacter_recyclerview, container, false);
+        Main();
+        return view;
+    }
+    protected  void Main(){
+        setUpIds();
+        setUpRecyclerViews();
+        setUpAdapters();
+        setAdaptersToRecyclerView();
+    }
+    private void setUpIds(){
+        mainCharacterRecycler = view.findViewById(R.id.yourcharacter_main_recyclerview);
+        viewYourCharacterRecycler = view.findViewById(R.id.yourcharacter_secondary_recyclerview);
+    }
+    private void setUpAdapters(){
+        viewYourCharacter = new StatsView(getContext(),list);
+
+        statsImage = new StatsImage(getContext(),list);
+    }
+    private void setUpRecyclerViews(){
         viewYourCharacterRecycler.setFocusable(false);
         viewYourCharacterRecycler.setNestedScrollingEnabled(false);
         mainCharacterRecycler.setFocusable(false);
         mainCharacterRecycler.setNestedScrollingEnabled(false);
-        if(HomeData.opponentId != null){
-            HomeData.opponentId = null;
-        }
         mainCharacterRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         viewYourCharacterRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        viewYourCharacter = new StatsView(getContext());
-        statsImage = new StatsImage(getContext());
+    }
+    private void setAdaptersToRecyclerView(){
         mainCharacterRecycler.setAdapter(statsImage);
         viewYourCharacterRecycler.setAdapter(viewYourCharacter);
-        return v;
     }
     public static YourCharacter newInstance(){
         return new YourCharacter();

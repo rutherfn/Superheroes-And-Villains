@@ -2,8 +2,13 @@ package android.rutheford.com.superheroesandvillainscentral.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Created by NickR.
+ */
+
 public class Work
 {
+    // declarations
     @SerializedName("occupation")
     private String occupation;
     @SerializedName("base")

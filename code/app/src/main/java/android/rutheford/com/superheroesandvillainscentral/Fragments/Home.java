@@ -2,7 +2,6 @@ package android.rutheford.com.superheroesandvillainscentral.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.HomeView;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
 import android.rutheford.com.superheroesandvillainscentral.Models.Id;
@@ -32,7 +31,9 @@ import retrofit2.Response;
 
 public class Home extends Fragment
 {
-    private List<Integer> randomNumbers = new ArrayList<>();
+    private boolean saveString;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
     private boolean showHere;
     private RecyclerView mainRecyclerView;
     private HomeView homeView;
@@ -56,19 +57,29 @@ public class Home extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        idList.clear();
         mainLayout = inflater.inflate(R.layout.main_recylcer_view,container,false);
-        callUserCharacter();
-        callApi();
+        Main();
         return mainLayout;
     }
+    protected void Main(){
+        sp = (getContext()).getSharedPreferences("key",0);
+        editor = sp.edit();
+        idList.clear();
+        callUserCharacter();
+        callApi();
+      //  callUserCharacterFirstTimePaul();
+    }
     private void callUserCharacter(){
-        SharedPreferences sp;
-        sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        int numberTracker = 0;
+        System.out.println(sp.getInt("uniqueId",0) + " here is the unique id ");
         if(sp.getInt("uniqueId",0) != 0)
         {
+            numberTracker = sp.getInt("uniqueId",0);
+        }else{
+            numberTracker = 510;
+        }
             GetDataService userCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
-            final Call<Results> userSearchById = userCall.getByResults("akabab/superhero-api/0.2.0/api//id/" + sp.getInt("uniqueId",0) + ".json");
+            final Call<Results> userSearchById = userCall.getByResults("akabab/superhero-api/0.2.0/api//id/" + numberTracker + ".json");
             userSearchById.enqueue(new Callback<Results>()
             {
                 @Override
@@ -92,15 +103,13 @@ public class Home extends Fragment
 
                 }
             });
-        }
+
     }
     private void callUserCharacterFirstTimePaul(){
-        SharedPreferences sp;
-        sp = PreferenceManager.getDefaultSharedPreferences(getContext());
         if(sp.getInt("totalCount",0) == 1)
         {
             GetDataService userCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
-            final Call<Results> userSearchById = userCall.getByResults("akabab/superhero-api/0.2.0/api//id/" + sp.getInt("totalCount",0) + ".json");
+            final Call<Results> userSearchById = userCall.getByResults("akabab/superhero-api/0.2.0/api//id/" + 510 + ".json");
             userSearchById.enqueue(new Callback<Results>()
             {
                 @Override
@@ -108,13 +117,12 @@ public class Home extends Fragment
                 {
                     if(response.isSuccessful()){
                         idObjectTwo = response.body();
-                        System.out.println(idObjectTwo.getImage().getSm());
+                        System.out.println("Test this");
                         resultsList.add(idObjectTwo);
                         SearchName searchName = new SearchName();
                         searchName.setResults(resultsList);
                         HomeData.searchNameList = new ArrayList<>();
                         HomeData.searchNameList.add(searchName);
-                        System.out.println(HomeData.searchNameList.get(0).getResults().get(0).getName() + " like a g6");
                     }
                 }
 
@@ -125,6 +133,10 @@ public class Home extends Fragment
                 }
             });
         }
+        editor.putInt("uniqueId",510);
+        editor.putInt("directionsTactical",0);
+        editor.putInt("simOrTac",0);
+        editor.apply();
     }
     private void callApi(){
         Random r = new Random();
@@ -134,10 +146,16 @@ public class Home extends Fragment
         }
         List<Integer> listOfNumbers = new ArrayList<>(uniqueNumbers);
         for (int i =0; i < listOfNumbers.size(); i++ ){
+            System.out.println(" here is i " + i);
             GetDataService apiCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
             final Call<Id> searchById = apiCall.getById("akabab/superhero-api/0.2.0/api//id/" + listOfNumbers.get(i) + ".json");
-            if(i == idList.size()){
+            if(i == 19){
                 showHere = true;
+            }
+            if(i == 0){
+                saveString = true;
+            }else{
+                saveString = false;
             }
             searchById.enqueue(new Callback<Id>()
             {
@@ -145,6 +163,10 @@ public class Home extends Fragment
                 public void onResponse(Call<Id> call, Response<Id> response)
                 {
                     if(response.body() != null){
+                        if(saveString){
+                            editor.putString("nameValue",response.body().getName());
+                            editor.apply();;
+                        }
                         idObject= response.body();
                         idList.add(idObject);
                     }
@@ -156,6 +178,8 @@ public class Home extends Fragment
                         homeView = new HomeView(idList, getContext());
                         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         mainRecyclerView.setAdapter(homeView);
+                        mainRecyclerView.setVisibility(View.VISIBLE);
+
                     }
                 }
 

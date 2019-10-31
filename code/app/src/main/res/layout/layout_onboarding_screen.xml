@@ -1,66 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/layoutOmBoarding"
     android:layout_height="match_parent"
-    android:background="#ffffff">
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" />
-
-    <TextView
-        android:id="@+id/intro_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:text="WELCOME TO THE"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-    <TextView
-        android:id="@+id/intro_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="TextView"
-        android:layout_marginTop="20sp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/intro_titles" />
+    android:background="@color/colorWwhite"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/intro_img"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/intro_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:contentDescription="image"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20sp"
+        android:layout_gravity="center"
+        android:layout_height="350dp" />
+
 
     <TextView
-        android:id="@+id/intro_titles"
-        android:layout_width="wrap_content"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:id="@+id/intro_title"
+        android:layout_width="match_parent"
+        android:textSize="26sp"
+        android:padding="5sp"
+        android:gravity="center"
+        android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/intro_titles"
+            android:layout_width="match_parent"
+            android:textSize="26sp"
+            android:padding="5sp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+     />
+    <TextView
+        android:id="@+id/intro_description"
+        android:layout_width="match_parent"
         android:layout_marginTop="10sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/intro_title" />
+        android:gravity="center"
+        android:padding="10sp"
+        android:textSize="18sp"
+        android:layout_height="wrap_content"/>
 
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -1,7 +1,12 @@
 package android.rutheford.com.superheroesandvillainscentral.Models.Settings;
 
+/**
+ * Created by Nick R.
+ */
+
 public class SettingModel
 {
+    // declarations
     private String title;
     private String desc;
     private int imageSetting;

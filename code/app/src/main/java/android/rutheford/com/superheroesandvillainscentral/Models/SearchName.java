@@ -4,8 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+/**
+ * Created by NickR.
+ */
+
 public class SearchName
 {
+    // declarations
     @SerializedName("response")
     private String response;
     @SerializedName("results-for")

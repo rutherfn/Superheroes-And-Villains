@@ -1,5 +1,9 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +14,15 @@ import android.widget.TextView;
 
 public class SettingsTitle extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    private Context mContext;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
+    public SettingsTitle(Context mContext)
+    {
+        this.mContext = mContext;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
@@ -22,7 +35,7 @@ public class SettingsTitle extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
         SettingsTitleView settingsTitleView = (SettingsTitleView) holder;
-        settingsTitleView.setMainSettingsTextView();
+        settingsTitleView.Main();
     }
 
     @Override
@@ -38,11 +51,29 @@ public class SettingsTitle extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             mainSettingsTextView = itemView.findViewById(R.id.titleTextView);
         }
+        private void Main(){
+            setUpSharedPrefs();
+            setMainSettingsTextView();
+            setTypeFaceMainTitle();
+            setTextViewToDarkMode();
+        }
+        private void setTextViewToDarkMode(){
+            if(sp.getInt("darkMode",0) == 1){
+                mainSettingsTextView.setTextColor(Color.parseColor("#FFFFFF"));
+            }else{
+                mainSettingsTextView.setTextColor(Color.parseColor("#000000"));
+            }
+        }
+        private void setUpSharedPrefs(){
+            sp = mContext.getSharedPreferences("key", 0);
+            editor = sp.edit();
+        }
         private void setMainSettingsTextView(){
             mainSettingsTextView.setText("Settings");
         }
         private void setTypeFaceMainTitle(){
-
+            Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
+            mainSettingsTextView.setTypeface(mainTextTypeFace);
         }
     }
 }

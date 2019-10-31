@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_marginTop="10sp"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/mainUserSuperHeroOrVillain"
         android:layout_marginTop="10sp"
-        android:layout_width="300sp"
+        android:layout_width="200sp"
         android:layout_height="200sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
 
     <ImageView
         android:id="@+id/opposingMainImageView"
-        android:layout_width="300sp"
+        android:layout_width="200sp"
         android:layout_height="200sp"
         android:backgroundTint="@color/colorAccent"
         android:layout_marginTop="8dp"
@@ -54,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Spider-Man"
+        android:layout_marginTop="9sp"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

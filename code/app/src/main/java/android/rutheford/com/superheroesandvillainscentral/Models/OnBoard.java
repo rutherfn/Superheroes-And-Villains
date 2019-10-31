@@ -1,7 +1,12 @@
 package android.rutheford.com.superheroesandvillainscentral.Models;
 
+/**
+ * Created by Nick R.
+ */
+
 public class OnBoard
 {
+    // declarations
     private String mainAttentionTitle;
     private String title;
     private String desc;

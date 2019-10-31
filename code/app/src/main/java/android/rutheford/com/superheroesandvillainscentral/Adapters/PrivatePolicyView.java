@@ -1,16 +1,22 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class PrivatePolicyView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private Context mContext;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     public PrivatePolicyView(Context mContext)
     {
@@ -30,7 +36,8 @@ public class PrivatePolicyView extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
-
+        PrivatePolicyViews privatePolicyViews = (PrivatePolicyViews) holder;
+        privatePolicyViews.Main();
     }
 
     @Override
@@ -39,10 +46,38 @@ public class PrivatePolicyView extends RecyclerView.Adapter<RecyclerView.ViewHol
         return 1;
     }
     class PrivatePolicyViews extends RecyclerView.ViewHolder{
+        private TextView title;
+        private TextView body;
 
         public PrivatePolicyViews(@NonNull View itemView)
         {
             super(itemView);
+            title = itemView.findViewById(R.id.textView);
+            body = itemView.findViewById(R.id.textView2);
         }
+        private void Main(){
+            setUpSharedPrefs();
+            setUpTypeFace();
+            checkDarkMode();
+        }
+        private void setUpTypeFace(){
+            Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
+            title.setTypeface(mainTextTypeFace);
+            Typeface bodyTypeFace = Typeface.createFromAsset(mContext.getAssets(),"OpenSans-Regular.ttf");
+            body.setTypeface(bodyTypeFace);
+        }
+        private void checkDarkMode(){
+            if(sp.getInt("darkMode",0) == 1){
+                title.setTextColor(Color.parseColor("#FFFFFF"));
+                body.setTextColor(Color.parseColor("#FFFFFF"));
+            }else{
+                title.setTextColor(Color.parseColor("#000000"));
+                body.setTextColor(Color.parseColor("#000000"));
+            }
+        }
+        private void setUpSharedPrefs(){
+            sp = mContext.getSharedPreferences("key", 0);
+        }
+
     }
 }

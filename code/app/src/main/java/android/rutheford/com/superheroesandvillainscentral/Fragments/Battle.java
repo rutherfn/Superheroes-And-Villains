@@ -1,12 +1,8 @@
 package android.rutheford.com.superheroesandvillainscentral.Fragments;
 
 import android.os.Bundle;
-import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Recyclers.BattleSearch;
-import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Recyclers.BattleTourney;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Recyclers.BattleRandom;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Titles.Random;
-import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Titles.Search;
-import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Titles.Tourney;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,12 +19,8 @@ public class Battle extends Fragment
             thirdRecyclerView,fourthRecyclerView,fifthRecyclerView,
             sixRecyclerView;
     View viewBattle;
-    BattleTourney battleTourney;
-    Tourney textViewTourney;
     Random textViewRandom;
     BattleRandom battleRandom;
-    Search searchTextView;
-    BattleSearch battleSearchAadapter;
 
 
     public Battle()
@@ -59,12 +51,8 @@ public class Battle extends Fragment
         fifthRecyclerView.setFocusable(false);
         sixRecyclerView.setNestedScrollingEnabled(false);
         sixRecyclerView.setFocusable(false);
-        battleTourney = new BattleTourney(getContext());
-        textViewTourney = new Tourney(getContext());
         textViewRandom = new Random(getContext());
         battleRandom = new BattleRandom(getContext());
-        searchTextView = new Search(getContext());
-        battleSearchAadapter = new BattleSearch(getContext());
         mainRecyclerViewBattle.setLayoutManager(new LinearLayoutManager(getContext()));
         secondaryBattleRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         thirdRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -75,8 +63,7 @@ public class Battle extends Fragment
 //        secondaryBattleRecyclerView.setAdapter(battleTourney);
 //        thirdRecyclerView.setAdapter(textViewRandom);
   //     fourthRecyclerView.setAdapter(battleRandom);
-        fifthRecyclerView.setAdapter(searchTextView);
-        sixRecyclerView.setAdapter(battleSearchAadapter);
+//        fifthRecyclerView.setAdapter(searchTextView);
         return viewBattle;
     }
 
