@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="SHAVC"
-        android:roundIcon="@mipmap/shavc"
+        android:icon="@mipmap/shav"
+        android:label="SHAV"
+
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">

@@ -478,7 +478,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             {
                                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
                                 alertDialog.setTitle("Cant Battle Yourself");
-                                alertDialog.setMessage(HomeData.searchNameList.get(0).getResults().get(0).getName() + " vs " + listId.get(0).getName() + " is not a option, switch character or find a new character to battle!");
+                                alertDialog.setMessage(HomeData.searchNameList.get(0).getResults().get(0).getName() + " vsme " + listId.get(0).getName() + " is not a option, switch character or find a new character to battle!");
                                 alertDialog.setNegativeButton("CONTINUE", new DialogInterface.OnClickListener()
                                 {
                                     @Override

@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainUserTextView"
-        app:srcCompat="@drawable/vsimage" />
+        app:srcCompat="@drawable/vsme" />
 
     <ImageView
         android:id="@+id/opposingMainImageView"
