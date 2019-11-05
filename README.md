@@ -27,3 +27,5 @@ git clone https://github.com/rutherfn/Superheroes-And-Villains.git
 * **Nicholas Rutherford** - *Initial work/Connect With Me* - [Linkedin](https://www.linkedin.com/in/nicholas-rutherford-49a45514b/)
 
 ## Acknowledgments
+
+* **SuperHERO API** - *Great API to pull in data set for different characters set.* - [Website](https://superheroapi.com/)
