@@ -1,9 +1,8 @@
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+## Brief Overview
+This is a current android application that follows the SuperHero API. You will be able to collect superheroes and villains from the the the application, by battling them! As you battle them you will receive experience points, to which you can use to purchase the characters! Will you be to win over all of the characters? Enjoy the application with dark mode, the ability to search for characters, and more!
 
 ### Prerequisites
-Be sure to `clone`, on the given repo. From there, you will be able to check out the master branch to get up to date version of features! From there open the project up through android studio, then open the code folder, and then press run in order to run the actual project. 
+Be sure to `clone`, on the given repo. From there, you will be able to check out the master branch to get up to date version of features! From there open the project up through android studio, then open the code folder, and then press run in order to run the actual project. Thats all! 
 
 ```
 git clone https://github.com/rutherfn/Superheroes-And-Villains.git
@@ -11,9 +10,7 @@ git clone https://github.com/rutherfn/Superheroes-And-Villains.git
 
 ## Deployment
 
-...
-Link For Live Product Here: 
-...
+* **Download And Try Out App Here**  https://play.google.com/store/apps/details?id=rutheford.com.superheroesandvillainscentral
 
 ## Built With
 
@@ -22,26 +19,11 @@ Link For Live Product Here:
 * [Picasso](https://square.github.io/picasso/) - Used to cache images via network
 * [Glide](https://github.com/bumptech/glide) - Image loading for smooth scrolling
 * [RetroFit](https://square.github.io/retrofit/) - Type safe HTTP Client
-
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView) - Flexible view for providing a limited window into a large data set.
+* [SuperHero API](https://superheroapi.com/) - Get all SuperHeroes and Villians data from all universes under a single API 
 
 ## Authors
 
 * **Nicholas Rutherford** - *Initial work/Connect With Me* - [Linkedin](https://www.linkedin.com/in/nicholas-rutherford-49a45514b/)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-
-<!-- ## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-<<<<<<< HEAD
-Changing Something
-* etc
-=======
-* etc -->
->>>>>>> 7b92ffc0302a5e45ef6cf1458fab868f605d4891
+## Acknowledgments
