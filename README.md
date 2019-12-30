@@ -1,8 +1,8 @@
-## Brief Overview
+## Brief Overview 
 This is a current android application that follows the SuperHero API. You will be able to collect superheroes and villains from the the the application, by battling them! As you battle them you will receive experience points, to which you can use to purchase the characters! Will you be to win over all of the characters? Enjoy the application with dark mode, the ability to search for characters, and more!
 
 ### Prerequisites
-Be sure to `clone`, on the given repo. From there, you will be able to check out the master branch to get up to date version of features! From there open the project up through android studio, then open the code folder, and then press run in order to run the actual project. Thats all! 
+Be sure to `clone`, on the given repo. From there, you will be able to check out the master branch to get up to date version of features! From there open the project up through android studio, then open the code folder, and then press run in order to run the actual project. Thats changed all! 
 
 ```
 git clone https://github.com/rutherfn/Superheroes-And-Villains.git
