@@ -9,10 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.webkit.WebViewClient;
 
+/**
+ * Created by Nick R.
+ */
+
 public class WebView extends AppCompatActivity
 {
-    private Toolbar toolBarForWebView;
+    // declaration
     private android.webkit.WebView webView;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -22,11 +27,21 @@ public class WebView extends AppCompatActivity
         Main();
     }
     public void Main(){
-        toolBarForWebView = findViewById(R.id.toolBarForWebView);
+        setUpIds();
+        setUpSupportActionBar();
+        setUpWebView();
+    }
+    private void setUpIds(){ // set up ids
+        webView = findViewById(R.id.webview);
+    }
+    private void setUpSupportActionBar(){ // set up support action bar
+        Toolbar toolBarForWebView = findViewById(R.id.toolBarForWebView);
         setSupportActionBar(toolBarForWebView);
         getSupportActionBar().setTitle("Superheroes And Villains Central");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        webView = findViewById(R.id.webview);
+    }
+    @SuppressLint("SetJavaScriptEnabled")
+    private void setUpWebView(){ // load in the url for web view, that shows the index of all the characters from the api.
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
@@ -42,7 +57,7 @@ public class WebView extends AppCompatActivity
 
     @Override
     public void onBackPressed()
-    {
+    { // when the tool bar hits back you override method goes back to previous page.
         if (webView.canGoBack()) {
             webView.goBack();
         } else {

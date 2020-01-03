@@ -43,7 +43,7 @@ public class Stats extends Fragment
         mainRecyclerViewStats.setNestedScrollingEnabled(false);
         secondaryRecyclerViewStats.setFocusable(false);
         secondaryRecyclerViewStats.setNestedScrollingEnabled(false);
-        statsImage = new StatsImage(getContext(),listId);
+        statsImage = new StatsImage(listId);
         statsAdapter = new StatsView(getContext(),listId);
         mainRecyclerViewStats.setLayoutManager(new LinearLayoutManager(getContext()));
         secondaryRecyclerViewStats.setLayoutManager(new LinearLayoutManager(getContext()));

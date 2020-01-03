@@ -80,7 +80,6 @@ public class SearchView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public boolean onQueryTextChange(String s)
                 {
-                  //System.out.println("String " + s);
                     return false;
                 }
             });

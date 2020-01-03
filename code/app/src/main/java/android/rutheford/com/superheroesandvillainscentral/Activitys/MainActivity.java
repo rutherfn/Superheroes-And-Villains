@@ -37,9 +37,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by Nick R.
+ */
+
 public class MainActivity extends AppCompatActivity
 {
     // declarations
+    private int[][] states;
+    private int[] colors;
     private Bundle opponentBundle = new Bundle();
     private Bundle putBool = new Bundle();
     private Bundle vsBundle = new Bundle();
@@ -47,7 +53,6 @@ public class MainActivity extends AppCompatActivity
     private RelativeLayout relativeLayoutMain;
     private ViewPager mainViewPager;
     private ViewPagerAdapter mainAdapter;
-    Id IdOpp = new Id();
     private TextView mTextViewToolBar;
     private BottomNavigationView mainBottomNavigationView;
     private SharedPreferences sp1;
@@ -57,7 +62,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Main();
     }
 
@@ -89,30 +93,21 @@ public class MainActivity extends AppCompatActivity
         editor.putInt("reloadForPurchaseCharacters",0);
         editor.apply();;
     }
-    public void restartActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-        finish();
-        editor.putInt("reloadForDarkMode",0);
-        editor.putInt("reloadForNewCharacters",0);
-        editor.putInt("reloadForPurchaseCharacters",1);
-        editor.apply();
-    }
-    private void setUpSharedPres(){
+    private void setUpSharedPres(){ // method that setups shared prefs
         sp1 = getApplicationContext().getSharedPreferences("key",0);
         editor = sp1.edit();
     }
     public int returnCurrentViewPagerItem(){
-        return mainViewPager.getCurrentItem(); // return vurrent view pager item.
+        return mainViewPager.getCurrentItem(); // return current view pager item.
     }
-    private void checkDarkMode(){
+    private void checkDarkMode(){ // method to check if dark mode is enabled, and if it is change backgrounds from black or white.
         if(sp1.getInt("darkMode",0) == 1){
             relativeLayoutMain.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorBlack));
             mainBottomNavigationView.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorBlack));
-            mTextViewToolBar.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWwhite));
+            mTextViewToolBar.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
         }else{
-            relativeLayoutMain.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorWwhite));
-            mainBottomNavigationView.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorWwhite));
+            relativeLayoutMain.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+            mainBottomNavigationView.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
             mTextViewToolBar.setTextColor(Color.parseColor("#0000ff"));
         }
     }
@@ -134,66 +129,56 @@ public class MainActivity extends AppCompatActivity
         fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
         mainViewPager.setCurrentItem(6,false);
     }
-
-
     public void reloadFragmentPurchaseCharacters(){
         mainViewPager.setCurrentItem(8,false);
     }
-    private void SetBottomColorFirst(BottomNavigationView bottomNavigationView)
+    private void setColorStateList(BottomNavigationView bottomNavigationView){
+        ColorStateList ColorStateList = new ColorStateList(states, colors);
+        bottomNavigationView.setItemTextColor(ColorStateList);
+        bottomNavigationView.setItemIconTintList(ColorStateList);
+    }
+    private void setBottomColorFirst(BottomNavigationView bottomNavigationView)
     {
-        int[] colors = new int[]{
+        colors = new int[]{
                 Color.BLUE,
                 Color.GRAY,
                 Color.GRAY
         };
 
-        int[][] states = new int[][]{
+        states = new int[][]{
                 new int[]{android.R.attr.state_enabled, android.R.attr.state_checked},
                 new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked},
                 new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}
         };
-
-        ColorStateList ColorStateList = new ColorStateList(states, colors);
-        bottomNavigationView.setItemTextColor(ColorStateList);
-        bottomNavigationView.setItemIconTintList(ColorStateList);
+        setColorStateList(bottomNavigationView);
     }
-    private void SetBottomColorSecond(BottomNavigationView bottomNavigationView)
+    private void setBottomColorSecond(BottomNavigationView bottomNavigationView)
     {
-        int[] colors = new int[]{
+        colors = new int[]{
                 Color.GRAY,
                 Color.BLUE,
                 Color.GRAY
         };
-
-        int[][] states = new int[][]{
+        states = new int[][]{
                 new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked},
                 new int[]{android.R.attr.state_enabled, android.R.attr.state_checked},
                 new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}
         };
-
-
-        ColorStateList ColorStateList = new ColorStateList(states, colors);
-        bottomNavigationView.setItemTextColor(ColorStateList);
-        bottomNavigationView.setItemIconTintList(ColorStateList);
+        setColorStateList(bottomNavigationView);
     }
-    private void SetBottomColorThird(BottomNavigationView bottomNavigationView)
+    private void setBottomColorThird(BottomNavigationView bottomNavigationView)
     {
-        int[] colors = new int[]{
+        colors = new int[]{
                 Color.GRAY,
                 Color.GRAY,
                 Color.BLUE
         };
-
-        int[][] states = new int[][]{
+        states = new int[][]{
                 new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked},
                 new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked},
                 new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}
         };
-
-
-        ColorStateList ColorStateList = new ColorStateList(states, colors);
-        bottomNavigationView.setItemTextColor(ColorStateList);
-        bottomNavigationView.setItemIconTintList(ColorStateList);
+        setColorStateList(bottomNavigationView);
     }
     private void setUpIds(){
        mainActivityToolBar = findViewById(R.id.toolbarMainActivity);
@@ -205,7 +190,7 @@ public class MainActivity extends AppCompatActivity
         mainAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mainAdapter);
         mainViewPager.setOffscreenPageLimit(10);
-        SetBottomColorFirst(mainBottomNavigationView);
+        setBottomColorFirst(mainBottomNavigationView);
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void switchToVs(List<Id> idList, int pos){
@@ -263,11 +248,11 @@ public class MainActivity extends AppCompatActivity
         mainViewPager.setCurrentItem(3,false);
     }
     public void setViewPagerHome(){
-        SetBottomColorFirst(mainBottomNavigationView);
+        setBottomColorFirst(mainBottomNavigationView);
        mainViewPager.setCurrentItem(0,false);
     }
     public void setBottomColor(){
-        SetBottomColorFirst(mainBottomNavigationView);
+        setBottomColorFirst(mainBottomNavigationView);
     }
 
     public void reloadForDarkMode(){
@@ -295,7 +280,7 @@ public class MainActivity extends AppCompatActivity
         }else if(mainViewPager.getCurrentItem() == 2){
             mainViewPager.setCurrentItem(0,false);
         }else if(mainViewPager.getCurrentItem() == 3){
-            SetBottomColorFirst(mainBottomNavigationView);
+            setBottomColorFirst(mainBottomNavigationView);
             mTextViewToolBar.setVisibility(View.VISIBLE);
             mainViewPager.setCurrentItem(0,false);
         }else if(mainViewPager.getCurrentItem() == 4){
@@ -346,7 +331,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     case R.id.homeAction:
                         mTextViewToolBar.setVisibility(View.VISIBLE);
-                        SetBottomColorFirst(mainBottomNavigationView);
+                        setBottomColorFirst(mainBottomNavigationView);
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         getSupportActionBar().setDisplayShowHomeEnabled(false);
                         mainViewPager.setCurrentItem(0, false);
@@ -355,7 +340,7 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.searchAction:
                         mTextViewToolBar.setVisibility(View.VISIBLE);
-                        SetBottomColorSecond(mainBottomNavigationView);
+                        setBottomColorSecond(mainBottomNavigationView);
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         getSupportActionBar().setDisplayShowHomeEnabled(false);
                         mainViewPager.setCurrentItem(1,false);
@@ -363,7 +348,7 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.settingsAction:
                         mTextViewToolBar.setVisibility(View.VISIBLE);
-                        SetBottomColorThird(mainBottomNavigationView);
+                        setBottomColorThird(mainBottomNavigationView);
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         getSupportActionBar().setDisplayShowHomeEnabled(false);
                         mainViewPager.setCurrentItem(5,false);
@@ -391,10 +376,8 @@ public class MainActivity extends AppCompatActivity
                         searchName.setResults(resultsList);
                         HomeData.searchNameList = new ArrayList<>();
                         HomeData.searchNameList.add(searchName);
-
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Results> call, Throwable t)
                 {

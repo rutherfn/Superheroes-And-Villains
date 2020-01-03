@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.florent37:materialimageloading:1.0.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/090be343767f914dd5d3b6bc25ee6d95/materialimageloading-1.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/090be343767f914dd5d3b6bc25ee6d95/materialimageloading-1.0.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c5db67783665a509685f3270f9c1d288/materialimageloading-1.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c5db67783665a509685f3270f9c1d288/materialimageloading-1.0.2/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.florent37/materialimageloading/1.0.2/46210967d968fc845efbe72fab147a90917c3712/materialimageloading-1.0.2-javadoc.jar!/" />

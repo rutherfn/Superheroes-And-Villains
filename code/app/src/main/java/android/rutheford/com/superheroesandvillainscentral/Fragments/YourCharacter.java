@@ -49,7 +49,7 @@ public class YourCharacter extends Fragment
     private void setUpAdapters(){
         viewYourCharacter = new StatsView(getContext(),list);
 
-        statsImage = new StatsImage(getContext(),list);
+        statsImage = new StatsImage(list);
     }
     private void setUpRecyclerViews(){
         viewYourCharacterRecycler.setFocusable(false);

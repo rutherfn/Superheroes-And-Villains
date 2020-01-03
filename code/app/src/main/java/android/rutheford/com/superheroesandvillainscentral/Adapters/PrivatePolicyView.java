@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * Created by Nick R.
+ */
+
 public class PrivatePolicyView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    // declarations
     private Context mContext;
     private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
 
     public PrivatePolicyView(Context mContext)
     {
@@ -60,13 +64,13 @@ public class PrivatePolicyView extends RecyclerView.Adapter<RecyclerView.ViewHol
             setUpTypeFace();
             checkDarkMode();
         }
-        private void setUpTypeFace(){
+        private void setUpTypeFace(){ // set up type face for view
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             title.setTypeface(mainTextTypeFace);
             Typeface bodyTypeFace = Typeface.createFromAsset(mContext.getAssets(),"OpenSans-Regular.ttf");
             body.setTypeface(bodyTypeFace);
         }
-        private void checkDarkMode(){
+        private void checkDarkMode(){ // switch to dark mode, if user has it enabled.
             if(sp.getInt("darkMode",0) == 1){
                 title.setTextColor(Color.parseColor("#FFFFFF"));
                 body.setTextColor(Color.parseColor("#FFFFFF"));
@@ -75,7 +79,7 @@ public class PrivatePolicyView extends RecyclerView.Adapter<RecyclerView.ViewHol
                 body.setTextColor(Color.parseColor("#000000"));
             }
         }
-        private void setUpSharedPrefs(){
+        private void setUpSharedPrefs(){ // set up shared prefs
             sp = mContext.getSharedPreferences("key", 0);
         }
 

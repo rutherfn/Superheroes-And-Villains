@@ -1,12 +1,10 @@
 package android.rutheford.com.superheroesandvillainscentral.Activitys;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.rutheford.com.superheroesandvillainscentral.Adapters.OnBoardAdapter;
+import android.rutheford.com.superheroesandvillainscentral.Adapters.OnBoardAdapt;
 import android.rutheford.com.superheroesandvillainscentral.Models.OnBoard;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.Nullable;
@@ -20,12 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by NickR.
+ * Created by Nick R.
  */
 
 public class OnBoardingActivity extends AppCompatActivity
 {
     // declarations
+    private OnBoardAdapt onBoardAdapter;
     private SharedPreferences sp;
     private ViewPager screenViewPager;
     private TabLayout tabLayout;
@@ -44,9 +43,8 @@ public class OnBoardingActivity extends AppCompatActivity
         checkScreenPager();
         setUpListAndAdapter();
         buttonContinueView();
-      //  displayAlertForPaul();
     }
-    private void setUpSharedPrefs(){
+    private void setUpSharedPrefs(){ // setup shared prefs
         sp = getApplicationContext().getSharedPreferences("key", 0); //  set shared prefs
     }
     private void setUpIds(){ // sets up all of the ids for my class.
@@ -125,26 +123,7 @@ public class OnBoardingActivity extends AppCompatActivity
             finish();
             startActivity(intent);
         }
-    private void displayAlertForPaul(){
-        if(sp.getInt("totalCount",0) == 1){
-            alertForPaulBlartFirstTimeUser();
-        }
-    }
-    private void alertForPaulBlartFirstTimeUser(){
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
-        alertDialog.setTitle("Welcome To SUPER HEROES AND VILLAIN'S!");
-        alertDialog.setMessage("Hello First Time User! Your character assigned to you is Paul Blart, the weakest character of all the hero's and villain's. Fight characters, in order to unlock new characters! Head Over To Your Character in settings, to review details! ");
-        alertDialog.setPositiveButton("CONTINUE", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.cancel();
-            }
-        });
-        AlertDialog dialog = alertDialog.create();
-        dialog.show();
-    }
+
     private void setUpListAndAdapter(){
         // fill list screen, with the adapter class and size.
         List<OnBoard> mList = new ArrayList<>(); // adding data to list.
@@ -153,8 +132,8 @@ public class OnBoardingActivity extends AppCompatActivity
             mList.add(new OnBoard("Simulation Mode","Will Your Character Win?","Once you are ready, go into battle with other characters with a Simulation experience! Simply head into battle, where your character stats will determine the winner!",R.drawable.simvsrealbattle));
             mList.add(new OnBoard("Earn XP","For Rewards","Battle other characters in order to earn XP. You will then be able to use that XP, to purchase new characters for you to use on the app! Do you have what it takes to unlock all of them?",R.drawable.coinbag));
             mList.add(new OnBoard("View","Settings", "Please visit the setting's screen to replay on boarding experience, change to dark mode, and more! Without further a do, Prepare for battle!", R.drawable.onboardimagethree));
-        OnBoardAdapter onBoardAdapter = new OnBoardAdapter(this, mList);
-        tabLayout.setupWithViewPager(screenViewPager,true);
+        onBoardAdapter = new OnBoardAdapt(this, mList);
+        //tabLayout.setupWithViewPager(screenViewPager,true);
         screenViewPager.setAdapter(onBoardAdapter); // setting view pager up with list item.
     }
 }

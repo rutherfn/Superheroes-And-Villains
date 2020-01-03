@@ -1,8 +1,10 @@
 package android.rutheford.com.superheroesandvillainscentral.Fragments;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.TacView;
+import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 public class TacticalVs extends Fragment
 {
     private View view;
@@ -20,6 +24,7 @@ public class TacticalVs extends Fragment
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private TacView tacView;
+    private List<Id> idList;
 
     public TacticalVs(){
 
@@ -39,6 +44,7 @@ public class TacticalVs extends Fragment
     protected void Main(){
         setUpSharedPrefs();
         setUpRecyclers();
+        setUpArrayList();
         setUpAdaptersToRecyclers();
     }
     private void setUpSharedPrefs(){
@@ -51,8 +57,13 @@ public class TacticalVs extends Fragment
         mainRecyclerView.setFocusable(false);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
+    private void setUpArrayList(){
+        if(getArguments() != null){
+            idList = getArguments().getParcelableArrayList("vsListTac");
+        }
+    }
     private void setUpAdaptersToRecyclers(){
-        tacView = new TacView(getContext());
+        tacView = new TacView(getContext(),idList);
         mainRecyclerView.setAdapter(tacView);
     }
 }

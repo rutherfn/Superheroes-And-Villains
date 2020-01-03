@@ -15,15 +15,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * Created by Nick R.
+ */
+
 public class StatsImage extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-
-    Context mContext;
+    // declarations
     private List<Id> listId;
 
-    public StatsImage(Context mContext,List<Id> listId)
-    {
-        this.mContext = mContext;
+    public StatsImage(List<Id> listId)
+    { // constructor that takes in a list of id.
         this.listId = listId;
     }
 
@@ -37,9 +39,9 @@ public class StatsImage extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
-    {
+    { // calling main method .
         StatsImageView statsImageView = (StatsImageView)holder;
-        statsImageView.loadDataIntoImageView();
+        statsImageView.Main();
     }
 
     @Override
@@ -55,7 +57,10 @@ public class StatsImage extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             statsImageView = itemView.findViewById(R.id.imageViewStats);
         }
-        private void loadDataIntoImageView(){
+        protected void Main(){
+            loadDataIntoImageView();
+        }
+        private void loadDataIntoImageView(){ // if the search name list, is equal to null then go ahead and load the default list id array, otherwise load in results data from api.
             if(listId!= null){
                 Picasso.get().load(listId.get(0).getImage().getMd()).into(statsImageView);
             }else if(HomeData.searchNameList != null){
