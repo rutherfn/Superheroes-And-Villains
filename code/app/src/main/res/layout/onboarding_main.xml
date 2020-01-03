@@ -41,7 +41,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:text="Get Started"
-        android:textColor="@color/colorWwhite"
+        android:textColor="@color/colorWhite"
         android:background="#C3A402"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

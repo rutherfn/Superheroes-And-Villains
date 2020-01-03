@@ -53,8 +53,9 @@ public class Settings extends Fragment
             sizeOfSettings.add(new SettingModel("View Record / XP", "See how many times you have fallen, and how many times you have been victorious. Also view XP, for proper spending!", R.drawable.trophy));
             sizeOfSettings.add(new SettingModel("Terms Of Conditions", "Take a quick pick of terms of conditions for app!", R.drawable.tc));
             sizeOfSettings.add(new SettingModel("Generate New Characters","Battle new characters from the home screen, and see if you have what it takes!",R.drawable.boysuperhero));
-            sizeOfSettings.add(new SettingModel("View Purchase Characters","View current characters purchase throughout the app, and have the ability to switch between characters! ",R.drawable.trophy));
-            sizeOfSettings.add(new SettingModel("Reset Game","Reset Stats To Start From The Ground Up!",R.drawable.trophy));
+            sizeOfSettings.add(new SettingModel("View Purchase Characters","View current characters purchase throughout the app, and have the ability to switch between characters! ",R.drawable.characters));
+            sizeOfSettings.add(new SettingModel("Change Game Mode","Choose Between Simulation Mode Or Battle Mode",R.drawable.fighting));
+            sizeOfSettings.add(new SettingModel("Reset Game","Reset Stats To Start From The Ground Up!",R.drawable.restart));
            // sizeOfSettings.add(new SettingModel("Simulation Or Tactical?","Click here to choose between Tactical battle or Simulation!",R.drawable.sword));
           //  sizeOfSettings.add(new SettingModel("Show Directions For Tactical ","Click here to choose whether or not we give you directions on how to defeat your opponents in Tactical battles!",R.drawable.directions));
         }

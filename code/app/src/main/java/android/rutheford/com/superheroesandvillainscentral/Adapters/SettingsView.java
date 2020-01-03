@@ -151,6 +151,10 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 setUpTacOrSimSharedPrefs();
             }else if(pos == 9){
                 setUpDirectionsSharedPrefs();
+            }else if(pos == 10){
+
+            }else if(pos == 11){
+
             }
         }
         private void takeMeToASettingSectionConstriant(final int pos){

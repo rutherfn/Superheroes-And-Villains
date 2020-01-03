@@ -48,7 +48,7 @@
         android:padding="18sp"
         android:gravity="center"
         android:background="#0000FF"
-        android:textColor="@color/colorWwhite"
+        android:textColor="@color/colorWhite"
         android:layout_marginTop="20dp"
         android:text="Start Tourney"
         app:layout_constraintEnd_toEndOf="parent"

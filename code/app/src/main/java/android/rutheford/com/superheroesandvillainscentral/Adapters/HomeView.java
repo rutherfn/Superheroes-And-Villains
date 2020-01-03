@@ -22,14 +22,19 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * Created by Nick R.
+ */
+
 public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    // declarations
     private List<Id> idHome;
     private Context mContext;
     private SharedPreferences sp1;
 
     public HomeView(List<Id> idHome, Context mContext)
-    {
+    { // constructor
         this.idHome = idHome;
         this.mContext = mContext;
     }
@@ -44,7 +49,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
-    {
+    { // calling main method from the home view.
         HomeViewScreen homeViewScreen = (HomeViewScreen) holder;
         homeViewScreen.Main(i);
     }
@@ -70,27 +75,27 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         protected void Main(int i){
             setUpSharedPrefs();
             setTypeFace();
-            loadPlaceHolderIcon(i);
+            loadIcon(i);
             loadMainTextContent(i);
             changeToStatsPage(i);
             checkForDarkMode();
         }
-        private void setUpSharedPrefs(){
+        private void setUpSharedPrefs(){ // set up shared prefs
             sp1 = mContext.getSharedPreferences("key", 0);
         }
-        private void checkForDarkMode(){
+        private void checkForDarkMode(){ // check for dark mode, if dark mode is enabled set text color
             if(sp1.getInt("darkMode",0) == 1){
-                mainTextContent.setTextColor(mContext.getResources().getColor(R.color.colorWwhite));
+                mainTextContent.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
             }
         }
-        private void loadPlaceHolderIcon(int position){
+        private void loadIcon(int position){ // load ImageView From Data Set
             Picasso.get().load(idHome.get(position).getImage().getMd()).into(mainCircleImageView);
         }
-        private void setTypeFace(){
+        private void setTypeFace(){ // set up type face from type face helper method
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             mainTextContent.setTypeface(mainTextTypeFace);
         }
-        private void changeToStatsPage(final int i ){
+        private void changeToStatsPage(final int i ){ // if the user clicks on any part of the cons layout, read in the index and take user to stats page.
             mainScreenCons.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -101,7 +106,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
         }
         @SuppressLint("SetTextI18n")
-        private void loadMainTextContent(int position){
+        private void loadMainTextContent(int position){ // set text and color based of there alignment stats.
             if(idHome.get(position).getBiography().getAlignment().equals("good")){
                 mainTextContent.setTextColor(Color.parseColor("#006400"));
                 mainTextContent.setText(idHome.get(position).getName() + ", Good");
@@ -113,7 +118,7 @@ public class HomeView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 mainTextContent.setText(idHome.get(position).getName() + ", Neutral");
             }
         }
-        private void setArrayListForStatsPage(int i,List<Id> list){
+        private void setArrayListForStatsPage(int i,List<Id> list){ // change to stats page.
             ((MainActivity)mContext).changeToStatsView(list,i,false);
             ((MainActivity)mContext).setBackStackVisible();
         }

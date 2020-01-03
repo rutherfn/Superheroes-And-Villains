@@ -1,8 +1,6 @@
 package android.rutheford.com.superheroesandvillainscentral.Fragments;
 
 import android.os.Bundle;
-import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Recyclers.BattleRandom;
-import android.rutheford.com.superheroesandvillainscentral.Adapters.Battle.Titles.Random;
 import android.rutheford.com.superheroesandvillainscentral.R;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,8 +17,6 @@ public class Battle extends Fragment
             thirdRecyclerView,fourthRecyclerView,fifthRecyclerView,
             sixRecyclerView;
     View viewBattle;
-    Random textViewRandom;
-    BattleRandom battleRandom;
 
 
     public Battle()
@@ -51,19 +47,12 @@ public class Battle extends Fragment
         fifthRecyclerView.setFocusable(false);
         sixRecyclerView.setNestedScrollingEnabled(false);
         sixRecyclerView.setFocusable(false);
-        textViewRandom = new Random(getContext());
-        battleRandom = new BattleRandom(getContext());
         mainRecyclerViewBattle.setLayoutManager(new LinearLayoutManager(getContext()));
         secondaryBattleRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         thirdRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fourthRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fifthRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sixRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mainRecyclerViewBattle.setAdapter(textViewTourney);
-//        secondaryBattleRecyclerView.setAdapter(battleTourney);
-//        thirdRecyclerView.setAdapter(textViewRandom);
-  //     fourthRecyclerView.setAdapter(battleRandom);
-//        fifthRecyclerView.setAdapter(searchTextView);
         return viewBattle;
     }
 

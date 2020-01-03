@@ -19,12 +19,12 @@
 
     <ImageView
         android:id="@+id/mainUserSuperHeroOrVillain2"
-        android:layout_marginTop="10sp"
         android:layout_width="200sp"
         android:layout_height="200sp"
+        android:layout_marginTop="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vsImageView"
+        app:layout_constraintTop_toBottomOf="@+id/specialUserButton"
         app:srcCompat="@drawable/spiderman" />
 
     <TextView
@@ -64,15 +64,27 @@
         app:layout_constraintTop_toBottomOf="@+id/mainUserTextViewcurrentHealth" />
 
     <Button
-        android:id="@+id/defendUserButton"
+        android:id="@+id/restoreUserButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:textSize="20sp"
         android:padding="18sp"
+        android:layout_marginTop="10sp"
+        android:text="RESTORE"
+        app:layout_constraintStart_toStartOf="@id/attackUserButton"
+        app:layout_constraintTop_toBottomOf="@id/attackUserButton" />
+
+    <Button
+        android:id="@+id/defendUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:padding="18sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="20sp"
         android:text="DEFEND"
-        app:layout_constraintEnd_toEndOf="@+id/mainUserTextViewcurrentHealth"
-        app:layout_constraintStart_toEndOf="@+id/attackUserButton"
-        app:layout_constraintTop_toTopOf="@+id/attackUserButton" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainUserTextViewcurrentHealth" />
 
     <Button
         android:id="@+id/specialUserButton"
@@ -80,20 +92,11 @@
         android:layout_height="0dp"
         android:textSize="20sp"
         android:padding="18sp"
+        android:layout_marginTop="10sp"
         android:text="SPECIAL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/defendUserButton"
-        app:layout_constraintTop_toTopOf="@+id/defendUserButton" />
+        app:layout_constraintStart_toStartOf="@id/defendUserButton"
+        app:layout_constraintTop_toBottomOf="@id/defendUserButton" />
 
-    <ImageView
-        android:id="@+id/vsImageView"
-        android:layout_width="90sp"
-        android:layout_height="90sp"
-        android:layout_marginTop="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/defendUserButton"
-        app:srcCompat="@drawable/vsme" />
 
     <TextView
         android:id="@+id/currentRound"

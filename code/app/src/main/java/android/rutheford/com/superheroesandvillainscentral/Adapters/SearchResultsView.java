@@ -21,12 +21,16 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * Created by Nick R.
+ */
+
 public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    // declarations
     private Context mContext;
     private List<Id> searchName;
     private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
 
     public SearchResultsView(Context mContext, List<Id> searchName)
     {
@@ -70,44 +74,40 @@ public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         private void Main(){
             setUpSharedPrefs();
-            loadPlaceHolderIcon(0);
+            loadIcon();
             setTypeFace();
             loadMainTextContentForTitle(0);
-            selectImageViewOrTextView(0);
+            selectImageViewOrTextView();
             checkDarkMode();
         }
 
-        private void setUpSharedPrefs(){
+        private void setUpSharedPrefs(){ // set up shared prefs
             sp = mContext.getSharedPreferences("key", 0);
-            editor = sp.edit();
         }
-        private void checkDarkMode(){
+        private void checkDarkMode(){ // check input for dark mode, and set text content
             if(sp.getInt("darkMode",0) == 1){
                 mainTextContent.setTextColor(Color.parseColor("#FFFFFF"));
             }
         }
-        private void loadPlaceHolderIcon(int position){
-            if(searchName.get(position).getImage().getMd().equals("")){
-
-            }else
-            {
-                Picasso.get().load(searchName.get(position).getImage().getMd()).into(mainCircleImageView);
+        private void loadIcon(){ // load in character Icon
+            if(!searchName.get(0).getImage().getMd().equals("")){
+                Picasso.get().load(searchName.get(0).getImage().getMd()).into(mainCircleImageView);
             }
         }
-        private void setTypeFace(){
+        private void setTypeFace(){ // set type face
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             mainTextContent.setTypeface(mainTextTypeFace);
         }
-        private void passData(int pos){
+        private void passData(int pos){ // change to stats view for the user.
             ((MainActivity)mContext).changeToStatsView(searchName,pos,true);
         }
-        private void selectImageViewOrTextView(final int pos){
+        private void selectImageViewOrTextView(){
             mainCircleImageView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-                    passData(pos);
+                    passData(0);
                 }
             });
             mainTextContent.setOnClickListener(new View.OnClickListener()
@@ -115,12 +115,12 @@ public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View v)
                 {
-                    passData(pos);
+                    passData(0);
                 }
             });
         }
         @SuppressLint("SetTextI18n")
-        private void loadMainTextContentForTitle(int position){
+        private void loadMainTextContentForTitle(int position){ // set up text view, based on character alignment
             if(searchName.get(position).getBiography().getAlignment().equals("good")){
                 mainTextContent.setTextColor(Color.parseColor("#006400"));
                 mainTextContent.setText(searchName.get(position).getName() + ", Good");

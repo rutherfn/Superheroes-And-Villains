@@ -121,7 +121,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             setUpSharedPrefs();
             setSuperHeroVillianData();
             setUpTypeFace();
-            setTextColor();
+            setUpTextColorBasedOnGoodOrBadGuy();
             switchToBattleCharacter(i);
             moreInfoOnCharacter();
             checkDarkMode();
@@ -197,35 +197,48 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             assignNewCharacterButton.setTypeface(mainTextTypeFace);
             moreInfoCharacterButton.setTypeface(mainTextTypeFace);
         }
-        private void setTextColor(){
-            superHeroVillianName.setTextColor(Color.parseColor("#0000ff"));
-            locationText.setTextColor(Color.parseColor("#000000"));
-            locationTitle.setTextColor(Color.parseColor("#0000ff"));
-            alignmentText.setTextColor(Color.parseColor("#000000"));
-            alignmentTitle.setTextColor(Color.parseColor("#0000ff"));
-            alterEgosTitle.setTextColor(Color.parseColor("#000000"));
-            alterEgosText.setTextColor(Color.parseColor("#0000ff"));
-            firstApperanceTitle.setTextColor(Color.parseColor("#000000"));
-            firstApperanceText.setTextColor(Color.parseColor("#0000ff"));
-            statsTitle.setTextColor(Color.parseColor("#0000ff"));
-            intelligenceTitle.setTextColor(Color.parseColor("#000000"));
-            intelligenceText.setTextColor(Color.parseColor("#0000ff"));
-            strengthTitle.setTextColor(Color.parseColor("#000000"));
-            strengthText.setTextColor(Color.parseColor("#0000ff"));
-            speedTitle.setTextColor(Color.parseColor("#000000"));
-            speedText.setTextColor(Color.parseColor("#0000ff"));
-            durabilityTitle.setTextColor(Color.parseColor("#000000"));
-            durabilityText.setTextColor(Color.parseColor("#0000ff"));
-            powerTitle.setTextColor(Color.parseColor("#000000"));
-            powerText.setTextColor(Color.parseColor("#0000ff"));
-            combatTitle.setTextColor(Color.parseColor("#000000"));
-            combatText.setTextColor(Color.parseColor("#0000ff"));
-            battleCharacterButton.setBackgroundColor(Color.parseColor("#0000ff"));
-            battleCharacterButton.setTextColor(Color.parseColor("#FFFFFF"));
-            assignNewCharacterButton.setBackgroundColor(Color.parseColor("#0000ff"));
-            assignNewCharacterButton.setTextColor(Color.parseColor("#FFFFFF"));
-            moreInfoCharacterButton.setBackgroundColor(Color.parseColor("#0000ff"));
-            moreInfoCharacterButton.setTextColor(Color.parseColor("#FFFFFF"));
+        private void setTextColor(String colorOne, String colorTwo,String colorThree){
+            superHeroVillianName.setTextColor(Color.parseColor(colorOne));
+            locationText.setTextColor(Color.parseColor(colorTwo));
+            locationTitle.setTextColor(Color.parseColor(colorOne));
+            alignmentText.setTextColor(Color.parseColor(colorTwo));
+            alignmentTitle.setTextColor(Color.parseColor(colorOne));
+            alterEgosTitle.setTextColor(Color.parseColor(colorTwo));
+            alterEgosText.setTextColor(Color.parseColor(colorOne));
+            firstApperanceTitle.setTextColor(Color.parseColor(colorTwo));
+            firstApperanceText.setTextColor(Color.parseColor(colorOne));
+            statsTitle.setTextColor(Color.parseColor(colorOne));
+            intelligenceTitle.setTextColor(Color.parseColor(colorTwo));
+            intelligenceText.setTextColor(Color.parseColor(colorOne));
+            strengthTitle.setTextColor(Color.parseColor(colorTwo));
+            strengthText.setTextColor(Color.parseColor(colorOne));
+            speedTitle.setTextColor(Color.parseColor(colorTwo));
+            speedText.setTextColor(Color.parseColor(colorOne));
+            durabilityTitle.setTextColor(Color.parseColor(colorTwo));
+            durabilityText.setTextColor(Color.parseColor(colorOne));
+            powerTitle.setTextColor(Color.parseColor(colorTwo));
+            powerText.setTextColor(Color.parseColor(colorOne));
+            combatTitle.setTextColor(Color.parseColor(colorTwo));
+            combatText.setTextColor(Color.parseColor(colorOne));
+            battleCharacterButton.setBackgroundColor(Color.parseColor(colorOne));
+            battleCharacterButton.setTextColor(Color.parseColor(colorThree));
+            assignNewCharacterButton.setBackgroundColor(Color.parseColor(colorOne));
+            assignNewCharacterButton.setTextColor(Color.parseColor(colorThree));
+            moreInfoCharacterButton.setBackgroundColor(Color.parseColor(colorOne));
+            moreInfoCharacterButton.setTextColor(Color.parseColor(colorThree));
+        }
+        private void setUpTextColorBasedOnGoodOrBadGuy(){
+            if(listId != null)
+            {
+                if (listId.get(0).getBiography().getAlignment().equals("good"))
+                {
+                    setTextColor("#0000ff", "#000000", "#FFFFFF");
+                }else if(listId.get(0).getBiography().getAlignment().equals("bad")){
+                    setTextColor("#B22222", "#000000", "#FFFFFF");
+                }else{
+                    setTextColor("#0000ff", "#000000", "#FFFFFF");
+                }
+            }
         }
         @SuppressLint("SetTextI18n")
         private void setSuperHeroVillianData(){
@@ -522,7 +535,12 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                             public void run()
                                             {
                                                 alertDialog.dismiss();
-                                                ((MainActivity) mContext).switchToVs(listId,pos);
+                                                if(sp1.getInt("simOrTac",0) == 0)
+                                                {
+                                                    ((MainActivity) mContext).switchToVs(listId, pos);
+                                                }else if(sp1.getInt("simOrTac",0) == 1){
+                                                    ((MainActivity)mContext).switchToTac(listId,pos);
+                                                }
                                             }
                                         }, 3000);
                                     }
