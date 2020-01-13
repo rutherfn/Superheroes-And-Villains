@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.rutheford.com.superheroesandvillainscentral.Activitys.MainActivity;
 import android.rutheford.com.superheroesandvillainscentral.Models.Adapter.HomeData;
 import android.rutheford.com.superheroesandvillainscentral.Models.Id;
 import android.rutheford.com.superheroesandvillainscentral.R;
@@ -33,6 +34,7 @@ import java.util.Random;
 public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     // declarations
+    private int compChoice;
     private Context mContext;
     private List<Id> listId;
     private SharedPreferences sp;
@@ -41,9 +43,11 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private int userHealth = 200;
     private int currentRoundValue = 0;
     private int randomNumberForAttackLost;
-    private int specialAttackForUserLost;
+    private int specialAttack;
+    private int randomNumberForRestoreAmount;
     private String secondaryTitle;
     private String secondaryDesc;
+    private int computerChoice;
 
     public TacView(Context mContext, List<Id> listId)
     { // constructor for context and array list.
@@ -102,6 +106,9 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             defendUserButton();
             restoreUserButton();
             specialUserButton();
+            editor.putBoolean("userSpecialUsed",false);
+            editor.putBoolean("oppSpecialUsed",false);
+            editor.apply();
         }
         private void setUpSharedPrefs(){ // set up shared prefs
             sp = mContext.getSharedPreferences("key", 0);
@@ -216,6 +223,18 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         @SuppressLint("SetTextI18n")
         private void setDataContent(){ // setting data content for each score updated.
+            if(userHealth < 0){
+                userHealth = 0;
+            }
+            if(oppHealth < 0){
+                oppHealth = 0;
+            }
+            if(userHealth > 200){
+                userHealth = 200;
+            }
+            if(oppHealth > 200){
+                oppHealth = 200;
+            }
             if(HomeData.searchNameList != null){
                 mainUserTextViewcurrentHealth.setText(HomeData.searchNameList.get(0).getResults().get(0).getName() + " \t\nCurrent Health: " + userHealth);
             }
@@ -224,17 +243,121 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
             currentRound.setText("Current Round: " + currentRoundValue);
         }
+        private void decidedWhatComputerShouldDo(){
+            if(oppHealth <= 30){
+                compChoice = 1;
+            }
+            if(userHealth <= 100){
+                if(!sp.getBoolean("oppSpecialUsed",false)){
+                    compChoice = 0;
+                }else
+                {
+                    compChoice = 2;
+                }
+            }
+            else if(sp.getInt("userChoice",0) == 0){
+                if(oppHealth == 200){
+                    if(!sp.getBoolean("oppSpecialUsed",false)){
+                        commandForRandomChoiceComputer(2,4);
+                    }else{
+                        commandForRandomChoiceComputer(2,3);
+                    }
+                }else{
+                    commandForRandomChoiceComputer(1,3);
+                }
+            }else if(sp.getInt("userChoice",0) == 1){
+                if(oppHealth == 200){
+                    if(!sp.getBoolean("oppSpecialUsed",false)){
+                        commandForRandomChoiceComputer(2,4);
+                    }else{
+                        commandForRandomChoiceComputer(2,3);
+                    }
+                }else
+                {
+                    if (!sp.getBoolean("oppSpecialUsed", false))
+                    {
+                        commandForRandomChoiceComputer(1, 4);
+                    } else
+                    {
+                        commandForRandomChoiceComputer(1, 3);
+                    }
+                }
+            }else if(sp.getInt("userChoice",0) == 2){
+                if(sp.getBoolean("oppSpecialUsed", false)){
+                    commandForRandomChoiceComputer(1,3);
+                }else{
+                    commandForRandomChoiceComputer(0,4);
+                }
+            }else if(sp.getInt("userChoice",0) == 3){
+                if(sp.getBoolean("oppSpecialUsed", false)){
+                    commandForRandomChoiceComputer(1,2);
+                }else{
+                    commandForRandomChoiceComputer(0,3);
+                }
+            }
+            System.out.println("Here is the value " + compChoice);
+            // 0 = special
+            // 1 == restore
+            // 2 == attack
+            // 3 == defend
+        }
+        private void computerMove(){ // list id == comp, Homedata = user
+            if(compChoice == 0){
+                putInForSpecialForCompActivate();
+                specialCommandForComputer();
+                userHealth = userHealth - specialAttack;
+                secondaryTitle = listId.get(0).getName() + " uses their special!";
+                secondaryDesc = listId.get(0).getName() + " has used their special on " + HomeData.searchNameList.get(0).getResults().get(0).getName() + "." + HomeData.searchNameList.get(0).getResults().get(0).getName() + " has lost " + specialAttack + " points for health.";
+
+            }else if(compChoice == 1){
+                restoreCommandForComputer();
+                oppHealth = oppHealth + randomNumberForRestoreAmount;
+                secondaryTitle = listId.get(0).getName() + " has taken the time to restore Health!";
+                secondaryDesc = listId.get(0).getName() + " has restored " + randomNumberForRestoreAmount + " making a new total health of " + oppHealth;
+            }else if(compChoice == 2){
+                attackCommandForComputer();
+                userHealth = userHealth - randomNumberForAttackLost;
+                secondaryTitle = listId.get(0).getName() + " attacks!";
+                secondaryDesc = listId.get(0).getName() + " has attacked " + HomeData.searchNameList.get(0).getResults().get(0).getName() + "." + HomeData.searchNameList.get(0).getResults().get(0).getName() + " has lost " + specialAttack + " points for health.";
+            }else if(compChoice == 3){
+                if(totalStatsForComputer() > totalStatsForUser() || totalStatsForComputer() == totalStatsForUser()){
+                    if(sp.getInt("userChoice",0) == 0){
+                        oppHealth = oppHealth + specialAttack;
+                        secondaryDesc = listId.get(0).getName() + " is stronger then " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " so computer regains health" ;
+                        // regain health
+                    }else if(sp.getInt("userChoice",0) == 2){
+                        oppHealth = oppHealth + randomNumberForAttackLost;
+                        secondaryDesc = listId.get(0).getName() + " is stronger then " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " so computer regains health" ;
+                    }else{
+                        secondaryDesc = listId.get(0).getName() + " is stronger then " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " but there was no attack, so nothing happens. " ;
+                    }
+                }else{
+                    if(sp.getInt("userChoice",0) == 0){
+                        oppHealth = oppHealth + specialAttack - 10;
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " is stronger then " + listId.get(0).getName() + " so computer only lose 10 points for health." ;
+                    }else if(sp.getInt("userChoice",0) == 2){
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " is stronger then " + listId.get(0).getName() + " so computer only lose 10 points for health." ;
+                        oppHealth = oppHealth + randomNumberForAttackLost - 10;
+                    }else{
+                        secondaryDesc = listId.get(0).getName() + " has defended, but there was no attack! So nothing happened.";
+                    }
+                }
+                secondaryTitle = listId.get(0).getName() + " has defended it!";
+            }
+        }
         private void attackUserButton(){ // attack for user, functionality.
             attackUserButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
+                    putInUserChoice(2);
                     attackCommandForUser();
                     oppHealth = oppHealth - randomNumberForAttackLost;
+                    decidedWhatComputerShouldDo();
+                    computerMove();
                     setDataContent();
                     alertDialogForUpdateContent("You Attacked " + listId.get(0).getName(),HomeData.searchNameList.get(0).getResults().get(0).getName() + " has attacked " + listId.get(0).getName() + "." + listId.get(0).getName() + " has lost " + randomNumberForAttackLost + " points for health.");
-
                 }
             });
         }
@@ -244,9 +367,47 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v)
                 {
-
+                    putInUserChoice(3);
+                    decidedWhatComputerShouldDo();
+                    computerMove();
+                    defendFuncForUser();
                 }
             });
+        }
+        private void defendFuncForUser(){
+            System.out.println(compChoice + " here is the computer choice");
+            if(compChoice == 0 || compChoice == 2){
+                if(totalStatsForUser() > totalStatsForComputer() ||totalStatsForUser() == totalStatsForComputer()){
+                    if(compChoice == 0){
+                        userHealth = userHealth + specialAttack;
+                        alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has decided to defend",HomeData.searchNameList.get(0).getResults().get(0).getName() + " is stronger then " + listId.get(0).getName() + " , so " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " regains health");
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " has blocked the attack";
+                    }else if(compChoice == 2){
+                        userHealth = userHealth + randomNumberForAttackLost;
+                        alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has decided to defend",HomeData.searchNameList.get(0).getResults().get(0).getName() + " is stronger then " + listId.get(0).getName() + " , so " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " regains health");
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " has blocked the attack";
+                    }else{
+                        alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has decided to defend",HomeData.searchNameList.get(0).getResults().get(0).getName() + " is stronger then " + listId.get(0).getName() + " , but theirs no attack so nothing happens");
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " has blocked the attack";
+                    }
+                }else{
+                    if(compChoice == 0){
+                        userHealth = userHealth + specialAttack - 10;
+                        alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has decided to defend",listId.get(0).getName() + " is stronger then " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " , so " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " regains 10 health points");
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " has blocked the attack";
+                    }else if(compChoice == 2){
+                        userHealth = userHealth + randomNumberForAttackLost - 10;
+                        alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has decided to defend",listId.get(0).getName() + " is stronger then " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " , so " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " regains 10 health points");
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " has blocked the attack";
+                    }else{
+                        secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " has blocked the attack, so user only takes 10 Health points damage";
+                        alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has decided to defend",HomeData.searchNameList.get(0).getResults().get(0).getName() + " has defended but nothing happens since " + listId.get(0).getName() + " has not attacked!");
+                    }
+                }
+            }else{
+                alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has decided to defend",listId.get(0).getName() + " is stronger then " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " , so " + HomeData.searchNameList.get(0).getResults().get(0).getName() + " regains 10 health points");
+                secondaryDesc = HomeData.searchNameList.get(0).getResults().get(0).getName() + " has blocked the attack, but the computer did not attack! So nothing happens";
+            }
         }
         private void restoreUserButton(){ // restore health functionality.
             restoreUserButton.setOnClickListener(new View.OnClickListener()
@@ -254,7 +415,18 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v)
                 {
-
+                    putInUserChoice(1);
+                    if(userHealth == 200){
+                        // no reason to restore health, since your health is already at its max
+                    }else{
+                        restoreCommandForUser();
+                        userHealth = userHealth + randomNumberForRestoreAmount;
+                        decidedWhatComputerShouldDo();
+                        computerMove();
+                        setDataContent();
+                        alertDialogForUpdateContent(HomeData.searchNameList.get(0).getResults().get(0).getName() + " has taken the time to restore Health!","defend");
+                        // alert can go here when finished.
+                    }
                 }
             });
         }
@@ -264,32 +436,88 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v)
                 {
-                    specialCommandForUser();
-                    oppHealth = oppHealth - specialAttackForUserLost;
-                    setDataContent();
+                    putInUserChoice(0);
+                    if(!sp.getBoolean("userSpecialUsed", false))
+                    {
+                        putInSpecialForUserActivate();
+                        specialCommandForUser();
+                        oppHealth = oppHealth - specialAttack;
+                        decidedWhatComputerShouldDo();
+                        computerMove();
+                        setDataContent();
+                        alertDialogForUpdateContent("special","special");
+                    }
                 }
             });
         }
         private void checkIfComputerLoses(){ // check if computer loses.
-            if(oppHealth <= 0){
+            if(oppHealth == 0){
                 // opp loses
+                resetEverything();
+                alertDialogForWinner("Computer Lost","You Won");
+                editor.putInt("wins", sp.getInt("wins",0) + 1);
+            }
+        }
+        private void putInUserChoice(int choice){
+            editor.putInt("userChoice",choice);
+            editor.apply();
+        }
+        private void putInSpecialForUserActivate(){
+            editor.putBoolean("userSpecialUsed",true);
+            editor.apply();
+        }
+        private void putInForSpecialForCompActivate(){
+            editor.putBoolean("oppSpecialUsed",true);
+            editor.apply();
+        }
+        private void giveUserXPForWin(){
+            if(oppHealth <= 75){
+                editor.putInt("xp",sp.getInt("xp",0) + 80); // when user loses they get 30 xp
+            }else if(oppHealth <= 120){
+                editor.putInt("xp",sp.getInt("xp",0) + 100); // when user loses they get 30 xp
+            }else if(oppHealth <= 200){
+                editor.putInt("xp",sp.getInt("xp",0) + 150); // when user loses they get 30 xp
             }
         }
         private void checkIfUserLoses(){ // check if user loses
-            if(userHealth <= 0){
+            if(userHealth == 0){
                 // user loses
+                resetEverything();
+                alertDialogForWinner("User Lost","Computer Won");
+                editor.putInt("loses", + sp.getInt("loses",0) + 1);
             }
         }
         private void resetEverything(){ // reset everything back to normal.
-
+            editor.putInt("userChoice",0);
+            editor.putBoolean("userSpecialUsed",false);
+            editor.putBoolean("oppSpecialUsed",false);
+            editor.apply();
         }
         private void checkStatsForCharacterAndSetData(int statsOfCharacter){ // check stats of character for user attack.
             if(statsOfCharacter <= 300){
-                commandForLost(10,30);
+                commandRandom(10,30);
             }else if(statsOfCharacter <= 600){
-                commandForLost(50,600);
+                commandRandom(30,70);
             }else if(statsOfCharacter >= 601){
-                commandForLost(60,100);
+                commandRandom(70,100);
+            }
+        }
+        private void checkStatsForHowMuchHealthToRestore(int statsOfCharacter){
+            if(statsOfCharacter <= 300){
+                commandRandom(10,20);
+            }else if(statsOfCharacter <= 600){
+                commandRandom(30,40);
+            }else if(statsOfCharacter >= 601){
+                commandRandom(50,60);
+            }
+        }
+        private void checkStatsForHowMuchAttackForSpecial(int statsOfCharacter){
+            if(statsOfCharacter <= 300){
+                commandRandom(50,70);
+            }else if(statsOfCharacter <= 600){
+                commandRandom(70,80);
+            }else if(statsOfCharacter >= 601){
+                commandRandom(90,100);
             }
         }
         private void attackCommandForUser(){
@@ -298,6 +526,19 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private void attackCommandForComputer(){
             checkStatsForCharacterAndSetData(totalStatsForComputer());
         }
+        private void restoreCommandForUser(){
+            checkStatsForHowMuchHealthToRestore(totalStatsForUser());
+        }
+        private void restoreCommandForComputer(){
+            checkStatsForHowMuchHealthToRestore(totalStatsForComputer());
+        }
+        private void specialCommandForUser(){
+            checkStatsForCharacterAndSetData(totalStatsForUser());
+        }
+        private void specialCommandForComputer(){
+            checkStatsForHowMuchAttackForSpecial(totalStatsForComputer());
+        }
+
         private int totalStatsForUser(){
             return HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getIntelligence() + HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getStrength() +
                     HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getSpeed() + HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getDurability() +
@@ -307,13 +548,18 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return listId.get(0).getPowerStats().getIntelligence() + listId.get(0).getPowerStats().getSpeed() + listId.get(0).getPowerStats().getPower() + listId.get(0).getPowerStats().getStrength() +
                     listId.get(0).getPowerStats().getDurability() + listId.get(0).getPowerStats().getCombat();
         }
-        private void specialCommandForUser(){
-            commandForLost(50,110);
-        }
-        private void commandForLost(int low, int high){ // command for user lost, following between two random numbers.
+        private void commandRandom(int low, int high){ // command for user lost, following between two random numbers.
             Random r = new Random();
             randomNumberForAttackLost = r.nextInt(high-low) + low;
-            specialAttackForUserLost = r.nextInt(high-low) + low;
+            specialAttack = r.nextInt(high-low) + low;
+            randomNumberForRestoreAmount = r.nextInt(high-low) + low;
+        }
+        private void commandForRandomChoiceComputer(int low, int high){
+            Random r = new Random();
+            compChoice = r.nextInt(high-low) + low;
+            if(compChoice == 4){
+                compChoice = 0;
+            }
         }
         private void alertDialogForUpdateContent(String title, String body){ // alert dialog for updates on each characters.
             final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
@@ -328,19 +574,38 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                     alert.setTitle(secondaryTitle);
                     alert.setMessage(secondaryDesc);
-                    alert.setNegativeButton("Save Us", new DialogInterface.OnClickListener()
+                    alert.setNegativeButton("OK", new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
                             dialog.cancel();
-
+                            checkIfComputerLoses();
+                            checkIfUserLoses();
                         }
 
                     });
                     AlertDialog dialogs = alert.create();
                     dialogs.show();
 
+                }
+
+            });
+            AlertDialog dialogs = alert.create();
+            dialogs.show();
+        }
+        private void alertDialogForWinner(String title, String body){
+            final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+            alert.setTitle(title);
+            alert.setMessage(body);
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    dialog.cancel();
+                    ((MainActivity)mContext).setViewPagerHome();
+                    ((MainActivity)mContext).setBottomColor();
                 }
 
             });

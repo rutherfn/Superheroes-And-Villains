@@ -6,36 +6,12 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value=" here is the computer choice" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc59b92d-d8c7-4e81-a7b8-5e6962acdeed" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Activitys/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Activitys/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/ImageView/StatsImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/ImageView/StatsImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/OnBoardAdapt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/OnBoardAdapt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SearchResultsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SearchResultsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SearchView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SearchView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SettingsTitle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SettingsTitle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SettingsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SettingsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/StatsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/StatsView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/TacView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/TacView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/ViewPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/ViewPagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/VsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/VsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Battle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/PrivatePolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/PrivatePolicy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/PurchaseCharacters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/PurchaseCharacters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Search.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Search.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Stats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Stats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/TacticalVs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/TacticalVs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Vs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Vs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/YourCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/YourCharacter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Helpers/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Models/Adapter/HomeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Models/Adapter/HomeData.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +32,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/TacView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="583" column="47" selection-start-line="583" selection-start-column="47" selection-end-line="583" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#17382#17710#0" expanded="true" />
+                <element signature="e#17709#17710#0" expanded="true" />
+                <element signature="e#21488#22369#0" expanded="true" />
+                <element signature="e#22368#22369#0" expanded="true" />
+                <element signature="e#22508#23195#0" expanded="true" />
+                <element signature="e#23194#23195#0" expanded="true" />
+                <element signature="e#30405#30641#0" expanded="true" />
+                <element signature="e#30640#30641#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/VsView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="477">
+              <caret line="213" column="11" selection-start-line="213" selection-start-column="11" selection-end-line="214" selection-end-column="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Stats.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -91,11 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/StatsView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="133" column="51" selection-start-line="133" selection-start-column="51" selection-end-line="133" selection-end-column="51" />
+            <state relative-caret-position="311">
+              <caret line="245" column="36" lean-forward="true" selection-start-line="245" selection-start-column="36" selection-end-line="245" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -127,7 +135,6 @@
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/OnBoardAdapt.java" />
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SearchResultsView.java" />
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SearchView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/TacView.java" />
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/ViewPagerAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/VsView.java" />
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Fragments/Battle.java" />
@@ -145,6 +152,7 @@
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SettingsTitle.java" />
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/SettingsView.java" />
         <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/StatsView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/TacView.java" />
       </list>
     </option>
   </component>
@@ -422,10 +430,10 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Android Profiler" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.06031363" />
+      <window_info anchor="bottom" id="Terminal" order="3" weight="0.23678161" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Build" order="5" weight="0.34367815" />
-      <window_info anchor="bottom" id="Logcat" order="6" visible="true" weight="0.45057473" />
+      <window_info anchor="bottom" id="Logcat" order="6" visible="true" weight="0.03448276" />
       <window_info anchor="bottom" id="Debug" order="7" />
       <window_info anchor="bottom" id="Run" order="8" weight="0.03448276" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32873562" />
@@ -647,26 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/VsView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1584">
-          <caret line="115" column="71" selection-start-line="115" selection-start-column="71" selection-end-line="115" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/TacView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4644">
-          <caret line="292" column="13" lean-forward="true" selection-start-line="292" selection-start-column="13" selection-end-line="292" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/ViewPagerAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -866,10 +854,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/StatsView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="133" column="51" selection-start-line="133" selection-start-column="51" selection-end-line="133" selection-end-column="51" />
+        <state relative-caret-position="311">
+          <caret line="245" column="36" lean-forward="true" selection-start-line="245" selection-start-column="36" selection-end-line="245" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/VsView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="213" column="11" selection-start-line="213" selection-start-column="11" selection-end-line="214" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/android/rutheford/com/superheroesandvillainscentral/Adapters/TacView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="583" column="47" selection-start-line="583" selection-start-column="47" selection-end-line="583" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#17382#17710#0" expanded="true" />
+            <element signature="e#17709#17710#0" expanded="true" />
+            <element signature="e#21488#22369#0" expanded="true" />
+            <element signature="e#22368#22369#0" expanded="true" />
+            <element signature="e#22508#23195#0" expanded="true" />
+            <element signature="e#23194#23195#0" expanded="true" />
+            <element signature="e#30405#30641#0" expanded="true" />
+            <element signature="e#30640#30641#0" expanded="true" />
           </folding>
         </state>
       </provider>
