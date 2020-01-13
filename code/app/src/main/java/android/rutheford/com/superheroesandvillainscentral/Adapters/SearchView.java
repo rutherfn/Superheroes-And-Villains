@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Created by Nick R.
+ */
+
 public class SearchView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private Context mContext;
@@ -26,7 +30,6 @@ public class SearchView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @NonNull
     @Override
-
 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
@@ -69,7 +72,7 @@ public class SearchView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         private void listenToSearchView(){
             mainSearchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener()
-            {
+            { // if a user hits submit listen to text query change, and change view based on results.
                 @Override
                 public boolean onQueryTextSubmit(String s)
                 {

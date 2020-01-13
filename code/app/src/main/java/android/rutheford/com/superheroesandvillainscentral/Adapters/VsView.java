@@ -27,8 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Created by Nick R.
+ */
+
 public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    // declarations
     private int score = 0;
     private Context mContext;
     private int totalScore;
@@ -38,11 +43,10 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private SharedPreferences.Editor editor;
 
     public VsView(Context mContext,List<Id> listId)
-    {
+    { // constructor for context and list.
         this.mContext = mContext;
         this.listId = listId;
     }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
@@ -96,7 +100,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             sp1 = mContext.getSharedPreferences("key", 0);
             editor = sp1.edit();
         }
-        private void generateWhoWon(){
+        private void generateWhoWon(){ // looks to see who won battle. s
             if(listId != null && HomeData.searchNameList != null)
             {
 
@@ -109,7 +113,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 displayWhoWon();
             }
         }
-        private void displayWhoWon(){
+        private void displayWhoWon(){ // displays to the user who won.
             new Handler().postDelayed(new Runnable()
             {
                 @Override
@@ -166,7 +170,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 opposingUserText.setText(listId.get(0).getName());
             }
         }
-        private void generateScore(int intelligence, int strength, int speed, int durability, int power, int combat){
+        private void generateScore(int intelligence, int strength, int speed, int durability, int power, int combat){ // generate score for user.
             Random r = new Random();
             int low = 1;
             int high = 150;
@@ -174,7 +178,7 @@ public class VsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 totalScore = intelligence + strength + speed + durability + power + combat + result;
                 userScores.add(totalScore);
         }
-        private void chooseWinner(){
+        private void chooseWinner(){ // alert to choose winner for sim.
             final SharedPreferences sp1 = mContext.getSharedPreferences("key", 0);
             SharedPreferences.Editor editor1 = sp1.edit();
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);

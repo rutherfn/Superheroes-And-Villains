@@ -14,18 +14,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Created by Nick R.
+ */
 
 public class YourCharacter extends Fragment
 {
+    // declarations
     private View view;
     private RecyclerView mainCharacterRecycler, viewYourCharacterRecycler;
     private StatsView viewYourCharacter;
     private StatsImage statsImage;
-    private List<Id> list;
+    private List<Id> list = new ArrayList<>();
 
     public YourCharacter()
-    {
+    { // default const
     }
 
     @Nullable
@@ -42,13 +48,12 @@ public class YourCharacter extends Fragment
         setUpAdapters();
         setAdaptersToRecyclerView();
     }
-    private void setUpIds(){
+    private void setUpIds(){ // setting up ids for recycler views.
         mainCharacterRecycler = view.findViewById(R.id.yourcharacter_main_recyclerview);
         viewYourCharacterRecycler = view.findViewById(R.id.yourcharacter_secondary_recyclerview);
     }
     private void setUpAdapters(){
         viewYourCharacter = new StatsView(getContext(),list);
-
         statsImage = new StatsImage(list);
     }
     private void setUpRecyclerViews(){
@@ -63,7 +68,7 @@ public class YourCharacter extends Fragment
         mainCharacterRecycler.setAdapter(statsImage);
         viewYourCharacterRecycler.setAdapter(viewYourCharacter);
     }
-    public static YourCharacter newInstance(){
+    public static YourCharacter newInstance(){ // returns instance of character.
         return new YourCharacter();
     }
 }

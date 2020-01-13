@@ -12,15 +12,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.List;
+
+/**
+ * Created by Nick R.
+ */
 
 public class Vs extends Fragment
 {
     private List<Id> idList;
-    View vsView;
-    VsView vsViewAdapter;
-    RecyclerView mainVsRecyclerView;
+    private View vsView;
+    private VsView vsViewAdapter;
+    private RecyclerView mainVsRecyclerView;
     public Vs()
     {
     }
@@ -33,16 +36,31 @@ public class Vs extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        setArgumentsToList();
+        vsView = inflater.inflate(R.layout.vs_recycler_view,container,false);
+        Main();
+        return vsView;
+    }
+    protected void Main(){
+        initRecyclerView();
+        setFocusAndNestedRecycler();
+        setLayoutAndAdapter();
+    }
+    private void setArgumentsToList(){
         if(getArguments() != null){
             idList = getArguments().getParcelableArrayList("vsList");
-         }
-        vsView = inflater.inflate(R.layout.vs_recycler_view,container,false);
+        }
+    }
+    private void initRecyclerView(){
         mainVsRecyclerView = vsView.findViewById(R.id.vs_recyclerview);
+    }
+    private void setFocusAndNestedRecycler(){
         mainVsRecyclerView.setFocusable(false);
         mainVsRecyclerView.setNestedScrollingEnabled(false);
+    }
+    private void setLayoutAndAdapter(){
         vsViewAdapter = new VsView(getContext(),idList);
         mainVsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mainVsRecyclerView.setAdapter(vsViewAdapter);
-        return vsView;
     }
 }

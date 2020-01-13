@@ -19,9 +19,13 @@ import android.view.ViewGroup;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created by Nick R.
+ */
+
 public class ViewPagerAdapter extends FragmentPagerAdapter
 {
-
+    // declarations
     private Map<Integer, String> mFragmentTags;
     private FragmentManager mFragmentManager;
     @SuppressLint("UseSparseArrays")
@@ -35,7 +39,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int pos)
     {
-        switch(pos) {
+        switch(pos) { // show new Instance of items.
             case 0: return Home.newInstance();
             case 1: return Search.newInstance();
             case 2: return Battle.newInstance();
@@ -65,17 +69,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
         }
         return object;
     }
-
-
-
     public Fragment getFragment(int position) {
         Fragment fragment = null;
         String tag = mFragmentTags.get(position);
         if (tag != null) {
             fragment = mFragmentManager.findFragmentByTag(tag);
-
-            //  fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
-
         }
         return fragment;
 }

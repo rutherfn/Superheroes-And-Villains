@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     private Bundle opponentBundle = new Bundle();
     private Bundle putBool = new Bundle();
     private Bundle vsBundle = new Bundle();
-    private  Toolbar mainActivityToolBar;
+    private Toolbar mainActivityToolBar;
     private RelativeLayout relativeLayoutMain;
     private ViewPager mainViewPager;
     private ViewPagerAdapter mainAdapter;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         setViewPagerItemToSettings();
         Paper.init(getApplicationContext());
     }
-    private void setViewPagerItemToSettings(){
+    private void setViewPagerItemToSettings(){ // method to set dark mode for view pager item settings.
         if(sp1.getInt("reloadForDarkMode",0) == 1){
             mainViewPager.setCurrentItem(0,false);
         }if(sp1.getInt("reloadForNewCharacters",0) == 1){
@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity
     }
     public void restartMainActivity(){
         Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+        startActivity(intent); // create a new Instances of Main Activity
         finish();
         editor.putInt("reloadForDarkMode",0);
-        editor.putInt("reloadForNewCharacters",1);
+        editor.putInt("reloadForNewCharacters",1);  // restart all Shared Prefs used within the app.
         editor.putInt("reloadForPurchaseCharacters",0);
         editor.apply();;
     }
@@ -111,28 +111,30 @@ public class MainActivity extends AppCompatActivity
             mTextViewToolBar.setTextColor(Color.parseColor("#0000ff"));
         }
     }
-    public void changeActivitys(Intent intent){
+    public void changeActivity(Intent intent){ // method to take in a new Activity and change it.
         startActivity(intent);
     }
-    public void reloadFragmentAndSetViewPagerForSearch(String search){
-        Fragment fragment = mainAdapter.getFragment(mainViewPager.getCurrentItem());
+    private void reloadFragment(Fragment fragment){ // helper method to reload fragment for current items
         assert fragment.getFragmentManager() != null;
         fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+    }
+    public void reloadFragmentAndSetViewPagerForSearch(String search){ // reload fragment for search
+        Fragment fragment = mainAdapter.getFragment(mainViewPager.getCurrentItem());
+        reloadFragment(fragment);
         putBool.putBoolean("searchBool",true);
         putBool.putString("searchString",search);
         fragment.setArguments(putBool);
         mainViewPager.setCurrentItem(1,false);
     }
-    public void reloadFragmentViewYourCharacter(){
+    public void reloadFragmentViewYourCharacter(){ // reload fragment for viewchracter
         Fragment fragment = mainAdapter.getFragment(6);
-        assert fragment.getFragmentManager() != null;
-        fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+        reloadFragment(fragment);
         mainViewPager.setCurrentItem(6,false);
     }
-    public void reloadFragmentPurchaseCharacters(){
+    public void setViewPagerForPurchaseCharacters(){
         mainViewPager.setCurrentItem(8,false);
     }
-    private void setColorStateList(BottomNavigationView bottomNavigationView){
+    private void setColorStateList(BottomNavigationView bottomNavigationView){ // set color state list for bottom nav
         ColorStateList ColorStateList = new ColorStateList(states, colors);
         bottomNavigationView.setItemTextColor(ColorStateList);
         bottomNavigationView.setItemIconTintList(ColorStateList);
@@ -180,8 +182,8 @@ public class MainActivity extends AppCompatActivity
         };
         setColorStateList(bottomNavigationView);
     }
-    private void setUpIds(){
-       mainActivityToolBar = findViewById(R.id.toolbarMainActivity);
+    private void setUpIds(){ // set up all ids for all  items used in Activity
+        mainActivityToolBar = findViewById(R.id.toolbarMainActivity);
         mTextViewToolBar = findViewById(R.id.toolBarTitle);
         mainBottomNavigationView = findViewById(R.id.bottom_navigation);
         relativeLayoutMain = findViewById(R.id.relativeLayoutMain);
@@ -206,10 +208,9 @@ public class MainActivity extends AppCompatActivity
         mTextViewToolBar.setVisibility(View.VISIBLE);
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void switchToTac(List<Id> idList, int pos){
+    public void switchToTac(List<Id> idList, int pos){ // setting up fragment to switch to tac view.
         Fragment fragment = mainAdapter.getFragment(9);
-        assert fragment.getFragmentManager() != null;
-        fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+        reloadFragment(fragment);
         List<Id> newList = new ArrayList<>();
         newList.add(idList.get(pos));
         vsBundle.putParcelableArrayList("vsListTac", (ArrayList<? extends Parcelable>) newList);
@@ -247,15 +248,14 @@ public class MainActivity extends AppCompatActivity
         fragment.getFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
         mainViewPager.setCurrentItem(3,false);
     }
-    public void setViewPagerHome(){
+    public void setViewPagerHome(){  // setting bottom nav up with view color, and item
         setBottomColorFirst(mainBottomNavigationView);
        mainViewPager.setCurrentItem(0,false);
     }
     public void setBottomColor(){
         setBottomColorFirst(mainBottomNavigationView);
     }
-
-    public void reloadForDarkMode(){
+    public void reloadForDarkMode(){ // reloading view for dark mode, that sets the new items.
         finish();
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(intent);
@@ -264,13 +264,13 @@ public class MainActivity extends AppCompatActivity
         editor.putInt("reloadForPurchaseCharacters",0);
         editor.apply();;
     }
-    public void reloadSettings(){
+    public void reloadSettings(){ // reload for settings view.
         mainViewPager.setCurrentItem(5,false);
         mTextViewToolBar.setVisibility(View.VISIBLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
-    private void backStack(){
+    private void backStack(){ // back stack functionality.
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         if(mainViewPager.getCurrentItem() == 0){
@@ -295,19 +295,16 @@ public class MainActivity extends AppCompatActivity
             mainViewPager.setCurrentItem(5,false);
         }
     }
-
     @Override
     public void onBackPressed()
-    {
+    { // when user hits back button, sack func as back stack.
         backStack();
     }
-
-    public void setBackStackVisible(){
+    public void setBackStackVisible(){ // setting items as visible or not.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mTextViewToolBar.setVisibility(View.GONE);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -316,12 +313,10 @@ public class MainActivity extends AppCompatActivity
         mainViewPager.setCurrentItem(0,false);
         return super.onOptionsItemSelected(item);
     }
-
     public void changeViewPager(int pos){
         mainViewPager.setCurrentItem(pos,false);
     }
-
-    private void bottomNavigationViewListener(){
+    private void bottomNavigationViewListener(){ // func for switching between home, search, and settings .
         mainBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {
             @Override
@@ -359,7 +354,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    public void callApiForNewCharacterAssign(int index){
+    public void callApiForNewCharacterAssign(int index){ // if a user whats to assign a new character, api method gets called to assign a new character based on local json.
             GetDataService apiCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
             final Call<Results> searchById = apiCall.getByResults("akabab/superhero-api/0.2.0/api//id/" + index  + ".json");
             searchById.enqueue(new Callback<Results>()
@@ -381,7 +376,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onFailure(Call<Results> call, Throwable t)
                 {
-
+                    // failed to create instance of api call.
                 }
             });
     }
