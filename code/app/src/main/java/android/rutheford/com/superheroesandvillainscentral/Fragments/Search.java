@@ -31,18 +31,22 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Nick R.
+ */
+
 public class Search extends Fragment
 {
+    // declarations
     RecyclerView mainRecyclerView, secondaryRecyclerView;
     SearchView searchView;
     SearchResultsView searchResultsView;
     View mainView;
-    private SearchName searchName = new SearchName();
     private List<SearchName> searchNameList = new ArrayList<>();
     private String searchString;
 
     public Search()
-    {
+    {  // empty cons
     }
 
     public static Fragment newInstance()
@@ -56,6 +60,17 @@ public class Search extends Fragment
     {
         searchNameList.clear();
         mainView = inflater.inflate(R.layout.search_recycler_view,container,false);
+        Main();
+        return mainView;
+    }
+    protected void Main(){
+        checkArgumentsForSearch();
+        setUpIdsForRecycler();
+        setUpNestedScrollAndFocusable();
+        setUpRecyclersAndLayout();
+        setUpAdapters();
+    }
+    private void checkArgumentsForSearch(){ // if artguments is not equal to null set the search string up, and loop through json
         if(getArguments() != null){
             searchString = getArguments().getString("searchString");
         }
@@ -64,22 +79,28 @@ public class Search extends Fragment
         {
             loadASearchByName(searchString);
         }
-        mainRecyclerView = mainView.findViewById(R.id.search_recycler_view);
-        secondaryRecyclerView = mainView.findViewById(R.id.secondary_recycler_view);
+    }
+    private void setUpNestedScrollAndFocusable(){ // set up nested scrolling and focusable.
         mainRecyclerView.setNestedScrollingEnabled(false);
         mainRecyclerView.setFocusable(false);
         secondaryRecyclerView.setNestedScrollingEnabled(false);
         secondaryRecyclerView.setFocusable(false);
+    }
+    private void setUpIdsForRecycler(){ // set up ids for recycler
+        mainRecyclerView = mainView.findViewById(R.id.search_recycler_view);
+        secondaryRecyclerView = mainView.findViewById(R.id.secondary_recycler_view);
+    }
+    private void setUpRecyclersAndLayout(){ // set up recyclers and layouts.
         searchView = new SearchView(getContext());
         searchResultsView = new SearchResultsView(getContext(),HomeData.searchCharacterData);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         secondaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+    private void setUpAdapters(){ // set up adapters
         mainRecyclerView.setAdapter(searchView);
         secondaryRecyclerView.setAdapter(searchResultsView);
-
-        return mainView;
     }
-    public String loadJSONFromAsset() {
+    public String loadJSONFromAsset() { // load in actual json.
         String json = null;
         try {
             InputStream is = getActivity().getAssets().open("all.json");
@@ -95,12 +116,11 @@ public class Search extends Fragment
         return json;
     }
     private void loopThorughJson()
-    {
+    { // loop through json for given fields.
         try {
             JSONArray obj = new JSONArray(loadJSONFromAsset());
             for(int i = 0; i < obj.length(); i++){
                 JSONObject object = obj.getJSONObject(i);
-                System.out.println(object.getString("name") + " here are all of the names");
                 Id id = new Id();
                 id.setId(object.getInt("id"));
                 id.setName(object.getString("name"));
@@ -128,20 +148,7 @@ public class Search extends Fragment
                 }else{
                     biography.setAlterEgos("None");
                 }
-//                if(object.has("aliases"))
-//                {
-//                    JSONArray jsonArray = object.getJSONArray("aliases");
-//                    List<String> aliases = new ArrayList<>();
-//                    for (int k = 0; i < jsonArray.length(); k++)
-//                    {
-//                        aliases.add(jsonArray.getString(k));          // skipping allisases for now
-//                    }
-//                    biography.setAliases(aliases);
-//                }else{
-//                    List<String> aliases = new ArrayList<>();
-//                    aliases.add("");
-//                    biography.setAliases(aliases);
-//                }
+
                 if(biographyObject.has("placeOfBirth")){
                     biography.setPlaceOfBirth(biographyObject.getString("placeOfBirth"));
                 }else{
@@ -222,7 +229,7 @@ public class Search extends Fragment
             e.printStackTrace();
         }
     }
-    private void loadASearchByName(String name){
+    private void loadASearchByName(String name){ // load values by name if there is a match
         for(int i =0; i < HomeData.searchCharacterData.size(); i++){
             if(name.toUpperCase().equals(HomeData.searchCharacterData.get(i).getName().toUpperCase())){
                 Id id = new Id();
@@ -263,45 +270,6 @@ public class Search extends Fragment
                 newList.add(id);
                 HomeData.searchCharacterData = newList;
                 searchString = null;
-            }else{
-//                Id id = new Id();
-//                id.setId(0);
-//                id.setName("");
-//                id.setSlug("");
-//                PowerStats powerStats = new PowerStats();
-//                powerStats.setIntelligence(0);
-//                powerStats.setStrength(0);
-//                powerStats.setSpeed(0);
-//                powerStats.setDurability(0);
-//                powerStats.setPower(0);
-//                powerStats.setCombat(0);
-//                id.setPowerStats(powerStats);
-//                Appearance appearance = new Appearance();
-//                appearance.setGender("");
-//                appearance.setRace("");
-//                appearance.setHairColor("");
-//                appearance.setEyeColor("");
-//                id.setAppearance(appearance);
-//                Biography biography = new Biography();
-//                biography.setFullName("");
-//                biography.setAlterEgos("");
-//                biography.setPublisher("");
-//                biography.setAlignment("");
-//                biography.setPlaceOfBirth("");
-//                id.setBiography(biography);
-//                Work work = new Work();
-//                work.setOccupation("");
-//                id.setWork(work);
-//                Connections connections = new Connections();
-//                connections.setGroupAffiliation("");
-//                id.setConnections(connections);
-//                Image image = new Image();
-//                image.setMd("");
-//                List<Id> newList = new ArrayList<>();
-//                id.setImage(image);
-//                newList.add(id);
-//                HomeData.searchCharacterData = newList;
-//                searchString =null;
             }
         }
     }

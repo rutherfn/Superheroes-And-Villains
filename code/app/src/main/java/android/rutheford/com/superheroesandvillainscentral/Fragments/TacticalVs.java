@@ -14,22 +14,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.List;
+
+/**
+ * Created by Nick R.
+ */
 
 public class TacticalVs extends Fragment
 {
+    // declarations
     private View view;
     private RecyclerView mainRecyclerView;
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
     private TacView tacView;
     private List<Id> idList;
 
     public TacticalVs(){
-
+        // default cons
     }
-    public static Fragment newInstance(){
+    public static Fragment newInstance(){ // returns a instance of tac view
         return new TacticalVs();
     }
 
@@ -42,27 +44,22 @@ public class TacticalVs extends Fragment
         return view;
     }
     protected void Main(){
-        setUpSharedPrefs();
         setUpRecyclers();
         setUpArrayList();
         setUpAdaptersToRecyclers();
     }
-    private void setUpSharedPrefs(){
-        sp = (getContext()).getSharedPreferences("key",0);
-        editor = sp.edit();
-    }
-    private void setUpRecyclers(){
+    private void setUpRecyclers(){ // init items
         mainRecyclerView = view.findViewById(R.id.tac_recyclerview);
         mainRecyclerView.setNestedScrollingEnabled(false);
         mainRecyclerView.setFocusable(false);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
-    private void setUpArrayList(){
+    private void setUpArrayList(){ // set up array list for items checks arguents.
         if(getArguments() != null){
             idList = getArguments().getParcelableArrayList("vsListTac");
         }
     }
-    private void setUpAdaptersToRecyclers(){
+    private void setUpAdaptersToRecyclers(){ // set adapters to recyclers
         tacView = new TacView(getContext(),idList);
         mainRecyclerView.setAdapter(tacView);
     }

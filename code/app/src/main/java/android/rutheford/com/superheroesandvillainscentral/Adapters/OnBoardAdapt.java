@@ -62,9 +62,6 @@ public class OnBoardAdapt extends PagerAdapter
         title.setTypeface(typefaceHeader);
         desc.setTypeface(typeFaceBody);
         titleOne.setTypeface(typefaceHeader);
-      //  titleOne.setTextColor(Color.parseColor("#C3A402"));
-       // title.setTextColor(Color.parseColor("#0000ff"));
-       // desc.setTextColor(Color.parseColor("#696969"));
     }
     private void addView(ViewGroup container){ // add a new view once user swipes or press next for the next on-boarding screen
         container.addView(layoutScreen);

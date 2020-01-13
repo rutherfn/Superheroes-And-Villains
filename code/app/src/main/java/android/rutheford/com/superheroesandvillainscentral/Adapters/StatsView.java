@@ -28,16 +28,20 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 import io.paperdb.Paper;
 
+/**
+ * Created by Nick R.
+ */
+
 public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-    private int totalStatsForUser;
+    // declarations
     private Context mContext;
     private List<Id> listId;
     private SharedPreferences sp1;
     private SharedPreferences.Editor editor;
 
     public StatsView(Context mContext,List<Id> listId)
-    {
+    { // cons takes in array list and constructor
         this.mContext = mContext;
         this.listId = listId;
     }
@@ -49,14 +53,12 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.stats_man,viewGroup,false);
         return new ViewStats(itemView);
     }
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
         ViewStats viewStats = (ViewStats) holder;
         viewStats.Main(i);
     }
-
     @Override
     public int getItemCount()
     {
@@ -128,13 +130,14 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             totalStatsOfVsCharacter();
             purchaseCharacterButton();
         }
-        private void totalStatsOfVsCharacter(){
-            if(listId != null){
-                totalStatsForUser = listId.get(0).getPowerStats().getIntelligence() +
+        private void totalStatsOfVsCharacter(){ // setting up total stats for user.
+            if(listId != null && listId.size() == 1){
+                // declarations
+                int totalStatsForUser = listId.get(0).getPowerStats().getIntelligence() +
                         listId.get(0).getPowerStats().getStrength() + listId.get(0).getPowerStats().getSpeed() +
                         listId.get(0).getPowerStats().getSpeed() + listId.get(0).getPowerStats().getDurability() +
                         listId.get(0).getPowerStats().getPower() + listId.get(0).getPowerStats().getCombat();
-                editor.putInt("totalStatForVsCharacter",totalStatsForUser);
+                editor.putInt("totalStatForVsCharacter", totalStatsForUser);
                 editor.apply();
             }
         }
@@ -142,7 +145,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             sp1 = mContext.getSharedPreferences("key", 0);
             editor = sp1.edit();
         }
-        private void checkDarkMode(){
+        private void checkDarkMode(){ // if your in dark mode, set the fields first.
             if(sp1.getInt("darkMode",0) == 1){
                 superHeroVillianName.setTextColor(Color.parseColor("#FFFFFF"));
                 locationText.setTextColor(Color.parseColor("#FFFFFF"));
@@ -168,7 +171,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 alterEgosTitle.setTextColor(Color.parseColor("#FFFFFF"));
             }
         }
-        private void setUpTypeFace(){
+        private void setUpTypeFace(){ // set up type face for all fields.
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             Typeface mainBody = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
             superHeroVillianName.setTypeface(mainTextTypeFace);
@@ -227,8 +230,8 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             moreInfoCharacterButton.setBackgroundColor(Color.parseColor(colorOne));
             moreInfoCharacterButton.setTextColor(Color.parseColor(colorThree));
         }
-        private void setUpTextColorBasedOnGoodOrBadGuy(){
-            if(listId != null)
+        private void setUpTextColorBasedOnGoodOrBadGuy(){ // based on if character is good, bad, or none of the above. Set colors with paramters.
+            if(listId != null && listId.size() == 1)
             {
                 if (listId.get(0).getBiography().getAlignment().equals("good"))
                 {
@@ -241,8 +244,8 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
         @SuppressLint("SetTextI18n")
-        private void setSuperHeroVillianData(){
-            if(listId != null){
+        private void setSuperHeroVillianData(){ // sets all data for stats view.
+            if(listId != null && listId.size() == 1){
                 superHeroVillianName.setText(listId.get(0).getName());
                 if(listId.get(0).getBiography().getPlaceOfBirth().equals("-")){
                     locationTitle.setText("Unknown");
@@ -274,7 +277,6 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     for(int i = 0; i < HomeData.listPurchaseCharacters.size(); i++){
                         if(HomeData.listPurchaseCharacters.get(i).getName().equals(listId.get(0).getName())){
                            assignNewCharacterButton.setVisibility(View.GONE);
-                           // assignNewCharacterButton.setText("Assign Yourself Character");
                         }else{
                             assignNewCharacterButton.setText("Purchase Character");
                         }
@@ -282,12 +284,10 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }else{
                     assignNewCharacterButton.setText("Purchase Character");
                 }
-                System.out.println("Visibilty " + assignNewCharacterButton.getVisibility());
                 if(assignNewCharacterButton.getVisibility() == View.GONE){
                     assignNewCharacterButton.setVisibility(View.VISIBLE);
                     assignNewCharacterButton.setText("Assign Yourself Character");
                 }
-              //  assignNewCharacterButton.setText("Assign Yourself " + HomeData.opponentId.get(0).getName());
                 moreInfoCharacterButton.setText("More Info");
             }else if(HomeData.searchNameList != null){
                 superHeroVillianName.setText(HomeData.searchNameList.get(0).getResults().get(0).getName());
@@ -325,7 +325,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 moreInfoCharacterButton.setText("More Info");
             }
         }
-        private void moreInfoOnCharacter(){
+        private void moreInfoOnCharacter(){ // more info on character listener
             moreInfoCharacterButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -333,8 +333,6 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setTitle(superHeroVillianName.getText().toString());
-
-// add a list
                     if(((MainActivity)mContext).returnCurrentViewPagerItem() == 3)
                     {
                         String[] statsForCharacter = {"Publisher: " + listId.get(0).getBiography().getPublisher(), "Gender: " + listId.get(0).getAppearance().getGender(), "Race: " + listId.get(0).getAppearance().getRace(), "Work: " + listId.get(0).getWork().getOccupation(), "Group-Affiliation: " + listId.get(0).getConnections().getGroupAffiliation()};
@@ -379,7 +377,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
         }
-        private void purchaseCharacterButton(){
+        private void purchaseCharacterButton(){ // checks to see if you can purchase characters, from your xp point system.
             assignNewCharacterButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -477,7 +475,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
         }
-        private void switchToBattleCharacter(final int pos){
+        private void switchToBattleCharacter(final int pos){ // here alert that checks if your able to battle the character, and goes into battle based on settings and qualifications.
             battleCharacterButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -491,7 +489,7 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             {
                                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
                                 alertDialog.setTitle("Cant Battle Yourself");
-                                alertDialog.setMessage(HomeData.searchNameList.get(0).getResults().get(0).getName() + " vsme " + listId.get(0).getName() + " is not a option, switch character or find a new character to battle!");
+                                alertDialog.setMessage(HomeData.searchNameList.get(0).getResults().get(0).getName() + " vs " + listId.get(0).getName() + " is not a option, switch character or find a new character to battle!");
                                 alertDialog.setNegativeButton("CONTINUE", new DialogInterface.OnClickListener()
                                 {
                                     @Override
@@ -565,7 +563,6 @@ public class StatsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             dialog.show();
                         }
                     }
-
                 }
             });
         }

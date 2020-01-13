@@ -1,5 +1,6 @@
 package android.rutheford.com.superheroesandvillainscentral.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.rutheford.com.superheroesandvillainscentral.Adapters.HomeView;
@@ -22,15 +23,20 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by Nick R.
+ */
+
 public class Home extends Fragment
-{
+{ // declarations
+    private int numberTracker;
     private boolean saveString;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -45,11 +51,11 @@ public class Home extends Fragment
 
     public Home()
     {
-
+        // default constructor.
     }
 
     public static Fragment newInstance()
-    {
+    { // return a instance of Home.
         return new Home();
     }
 
@@ -62,16 +68,17 @@ public class Home extends Fragment
         return mainLayout;
     }
     protected void Main(){
-        sp = (getContext()).getSharedPreferences("key",0);
-        editor = sp.edit();
+        setUpSharedPrefs();
         idList.clear();
         callUserCharacter();
-        callApi();
-      //  callUserCharacterFirstTimePaul();
+        callApi();;
     }
-    private void callUserCharacter(){
-        int numberTracker = 0;
-        System.out.println(sp.getInt("uniqueId",0) + " here is the unique id ");
+    @SuppressLint({"CommitPrefEdits", "NewApi"})
+    private void setUpSharedPrefs(){
+        sp = (Objects.requireNonNull(getContext())).getSharedPreferences("key",0);
+        editor = sp.edit();
+    }
+    private void callUserCharacter(){ // call user character, that is saved into shared prefs.
         if(sp.getInt("uniqueId",0) != 0)
         {
             numberTracker = sp.getInt("uniqueId",0);
@@ -93,7 +100,6 @@ public class Home extends Fragment
                         searchName.setResults(resultsList);
                         HomeData.searchNameList = new ArrayList<>();
                         HomeData.searchNameList.add(searchName);
-                        System.out.println(HomeData.searchNameList.get(0).getResults().get(0).getName() + " like a g6");
                     }
                 }
 
@@ -105,40 +111,7 @@ public class Home extends Fragment
             });
 
     }
-    private void callUserCharacterFirstTimePaul(){
-        if(sp.getInt("totalCount",0) == 1)
-        {
-            GetDataService userCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
-            final Call<Results> userSearchById = userCall.getByResults("akabab/superhero-api/0.2.0/api//id/" + 510 + ".json");
-            userSearchById.enqueue(new Callback<Results>()
-            {
-                @Override
-                public void onResponse(Call<Results> call, Response<Results> response)
-                {
-                    if(response.isSuccessful()){
-                        idObjectTwo = response.body();
-                        System.out.println("Test this");
-                        resultsList.add(idObjectTwo);
-                        SearchName searchName = new SearchName();
-                        searchName.setResults(resultsList);
-                        HomeData.searchNameList = new ArrayList<>();
-                        HomeData.searchNameList.add(searchName);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Results> call, Throwable t)
-                {
-
-                }
-            });
-        }
-        editor.putInt("uniqueId",510);
-        editor.putInt("directionsTactical",0);
-        editor.putInt("simOrTac",0);
-        editor.apply();
-    }
-    private void callApi(){
+    private void callApi(){ // call api of list of characters
         Random r = new Random();
         Set<Integer> uniqueNumbers = new HashSet<>();
         while (uniqueNumbers.size()<20){
@@ -186,7 +159,6 @@ public class Home extends Fragment
                 @Override
                 public void onFailure(Call<Id> call, Throwable t)
                 {
-                  //  callApi();
                     System.out.println("Failed");
                 }
             });

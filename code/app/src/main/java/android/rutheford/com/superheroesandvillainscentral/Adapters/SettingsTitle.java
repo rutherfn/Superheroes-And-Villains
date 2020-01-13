@@ -12,8 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * Created by Nick R.
+ */
 public class SettingsTitle extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    // declarations
     private Context mContext;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -57,7 +61,7 @@ public class SettingsTitle extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             setTypeFaceMainTitle();
             setTextViewToDarkMode();
         }
-        private void setTextViewToDarkMode(){
+        private void setTextViewToDarkMode(){ // listen if dark mode is enabled or not.
             if(sp.getInt("darkMode",0) == 1){
                 mainSettingsTextView.setTextColor(Color.parseColor("#FFFFFF"));
             }else{
@@ -68,10 +72,10 @@ public class SettingsTitle extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             sp = mContext.getSharedPreferences("key", 0);
             editor = sp.edit();
         }
-        private void setMainSettingsTextView(){
+        private void setMainSettingsTextView(){ // simple setting text view.
             mainSettingsTextView.setText("Settings");
         }
-        private void setTypeFaceMainTitle(){
+        private void setTypeFaceMainTitle(){ // setting type face
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             mainSettingsTextView.setTypeface(mainTextTypeFace);
         }

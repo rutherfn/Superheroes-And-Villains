@@ -25,10 +25,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by Nick R.
+ */
+
 public class PurchaseCharacters extends Fragment
 {
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    // declarations
 
     private List<Id> idList = new ArrayList<>();
     private Id id = new Id();
@@ -53,21 +56,15 @@ public class PurchaseCharacters extends Fragment
     }
 
     protected void Main(){
-        setUpSharedPrefs();
         callUserCharacterPaul();
         fillUpArrayList();
     }
-    private void setUpSharedPrefs(){
-        sharedPreferences = (getContext()).getSharedPreferences("key",0);
-        editor = sharedPreferences.edit();
-    }
-    private void fillUpArrayList(){
+    private void fillUpArrayList(){ // fill up and view array list for purchase  characters.
         List<String> allKeys = Paper.book().getAllKeys();
         for(int i = 0; i < allKeys.size(); i++){
             final List<Id> idListTwo = Paper.book().read(allKeys.get(i),new ArrayList<Id>());
             for(int l = 0; l < idListTwo.size(); l++){
                 GetDataService apiCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
-                System.out.println(idListTwo.get(l).getId() + " here is the id");
                 final Call<Id> searchById = apiCall.getById("akabab/superhero-api/0.2.0/api//id/" + idListTwo.get(l).getId() + ".json");
                 searchById.enqueue(new Callback<Id>()
                 {
@@ -93,7 +90,7 @@ public class PurchaseCharacters extends Fragment
         }
 
         }
-    private void callUserCharacterPaul(){
+    private void callUserCharacterPaul(){ // call user character paul blart.
         GetDataService userCall = RetroFitInstance.getRetrofitInstance().create(GetDataService.class);
         final Call<Id> searchById = userCall.getById("akabab/superhero-api/0.2.0/api//id/" + 510 + ".json");
         searchById.enqueue(new Callback<Id>()
@@ -116,8 +113,7 @@ public class PurchaseCharacters extends Fragment
             }
         });
     }
-
-    private void setUpRecyclerView(){
+    private void setUpRecyclerView(){ // set up recycler view
         mainRecyclerView = view.findViewById(R.id.main_recyclerview);
         mainRecyclerView.setNestedScrollingEnabled(false);
         mainRecyclerView.setFocusable(false);

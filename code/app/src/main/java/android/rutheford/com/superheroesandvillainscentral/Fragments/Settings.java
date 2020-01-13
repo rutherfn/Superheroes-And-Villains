@@ -17,33 +17,58 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Nick R.
+ */
+
 public class Settings extends Fragment
 {
+    // declarations
     private List<SettingModel> sizeOfSettings = new ArrayList<>();
+    private View mainSettingsView;
+    private RecyclerView mainRecyclerView, secondaryRecyclerView;
+    private SettingsTitle settingsTitle;
+    private SettingsView settingsView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         addToList();
-        View mainSettingsView = inflater.inflate(R.layout.settings_recycler_view, container, false);
-        RecyclerView mainRecyclerView = mainSettingsView.findViewById(R.id.settings_recyclerview);
-        RecyclerView secondaryRecyclerView = mainSettingsView.findViewById(R.id.settings_secondary_recyclerview);
+        mainSettingsView = inflater.inflate(R.layout.settings_recycler_view, container, false);
+        Main();
+        return mainSettingsView;
+    }
+    public static Settings newInstance(){ // return a instance of settings
+        return new Settings();
+    }
+    protected void Main(){
+        addToList();
+        setUpRecyclers();
+        setNestedAndFocusableForRecyclers();
+        setUpAdaptersToLayouts();
+        setUpAdapters();
+    }
+    private void setUpRecyclers(){ // set recycler views init.
+        mainRecyclerView = mainSettingsView.findViewById(R.id.settings_recyclerview);
+        secondaryRecyclerView = mainSettingsView.findViewById(R.id.settings_secondary_recyclerview);
+    }
+    private void setNestedAndFocusableForRecyclers(){
         mainRecyclerView.setFocusable(false);
         mainRecyclerView.setNestedScrollingEnabled(false);
         secondaryRecyclerView.setFocusable(false);
         secondaryRecyclerView.setNestedScrollingEnabled(false);
-        SettingsTitle settingsTitle = new SettingsTitle(getContext());
-        SettingsView settingsView = new SettingsView(getContext(), sizeOfSettings);
+    }
+    private void setUpAdaptersToLayouts(){ // adapters to layouts
+        settingsTitle = new SettingsTitle(getContext());
+        settingsView = new SettingsView(getContext(), sizeOfSettings);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         secondaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+    private void setUpAdapters(){ // set adapters
         mainRecyclerView.setAdapter(settingsTitle);
         secondaryRecyclerView.setAdapter(settingsView);
-        return mainSettingsView;
     }
-    public static Settings newInstance(){
-        return new Settings();
-    }
-    private void addToList(){
+    private void addToList(){ // if the array list size is less then 1, go ahead and array list size to model.
         if(sizeOfSettings.size() < 1)
         {
             sizeOfSettings.add(new SettingModel("Replay OnBoarding", "Replay on-boarding for questions and concerns; to get answered thorough the app! ", R.drawable.onboard));
@@ -56,8 +81,6 @@ public class Settings extends Fragment
             sizeOfSettings.add(new SettingModel("View Purchase Characters","View current characters purchase throughout the app, and have the ability to switch between characters! ",R.drawable.characters));
             sizeOfSettings.add(new SettingModel("Change Game Mode","Choose Between Simulation Mode Or Battle Mode",R.drawable.fighting));
             sizeOfSettings.add(new SettingModel("Reset Game","Reset Stats To Start From The Ground Up!",R.drawable.restart));
-           // sizeOfSettings.add(new SettingModel("Simulation Or Tactical?","Click here to choose between Tactical battle or Simulation!",R.drawable.sword));
-          //  sizeOfSettings.add(new SettingModel("Show Directions For Tactical ","Click here to choose whether or not we give you directions on how to defeat your opponents in Tactical battles!",R.drawable.directions));
         }
     }
 }

@@ -45,14 +45,12 @@ public class SearchResultsView extends RecyclerView.Adapter<RecyclerView.ViewHol
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_screen,viewGroup,false);
         return new SearchResultsViewGroup(itemView);
     }
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i)
     {
         SearchResultsViewGroup searchResultsViewGroup = (SearchResultsViewGroup) holder;
         searchResultsViewGroup.Main();
     }
-
     @Override
     public int getItemCount()
     {

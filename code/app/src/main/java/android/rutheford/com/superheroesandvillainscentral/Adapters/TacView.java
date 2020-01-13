@@ -1,6 +1,9 @@
 package android.rutheford.com.superheroesandvillainscentral.Adapters;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -21,9 +24,15 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
+
+/**
+ * Created by Nick R.
+ */
 
 public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    // declarations
     private Context mContext;
     private List<Id> listId;
     private SharedPreferences sp;
@@ -31,9 +40,13 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private int oppHealth = 200;
     private int userHealth = 200;
     private int currentRoundValue = 0;
+    private int randomNumberForAttackLost;
+    private int specialAttackForUserLost;
+    private String secondaryTitle;
+    private String secondaryDesc;
 
     public TacView(Context mContext, List<Id> listId)
-    {
+    { // constructor for context and array list.
         this.mContext = mContext;
         this.listId = listId;
     }
@@ -78,7 +91,6 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             restoreUserButton = itemView.findViewById(R.id.restoreUserButton);
             specialUserButton = itemView.findViewById(R.id.specialUserButton);
         }
-
         protected void Main()
         {
             setUpSharedPrefs();
@@ -96,7 +108,7 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             editor = sp.edit();
         }
         private void setUpTypeFace()
-        {
+        { // set up type face for fields.
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             Typeface body = Typeface.createFromAsset(mContext.getAssets(),"OpenSans-Regular.ttf");
             mainUserTextViewcurrentHealth.setTypeface(mainTextTypeFace);
@@ -107,7 +119,7 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             restoreUserButton.setTypeface(body);
             specialUserButton.setTypeface(body);
         }
-        private void checkDarkMode(){
+        private void checkDarkMode(){ // check in for dark mode for fields.
             if(sp.getInt("darkMode",0) == 1){
                 mainUserTextViewcurrentHealth.setTextColor(Color.parseColor("#FFFFFF"));
                 mainUserTextViewCurrentHealth2.setTextColor(Color.parseColor("#FFFFFF"));
@@ -125,7 +137,7 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 setCharacterColor();
             }
         }
-        private void setContentColor(TextView currentHealth, String value){
+        private void setContentColor(TextView currentHealth, String value){ // setting up content color for dark mode.
             if(sp.getInt("darkMode",0) != 1)
             {
                 currentHealth.setTextColor(Color.parseColor(value));
@@ -138,7 +150,7 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             restoreUserButton.setBackgroundColor(Color.parseColor(value));
             specialUserButton.setBackgroundColor(Color.parseColor(value));
         }
-        private void setCharacterColor(){
+        private void setCharacterColor(){ // setting up character color.
             attackUserButton.setTextColor(Color.parseColor("#FFFFFF"));
             defendUserButton.setTextColor(Color.parseColor("#FFFFFF"));
             restoreUserButton.setTextColor(Color.parseColor("#FFFFFF"));
@@ -153,7 +165,6 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }else{
                     setContentColor(mainUserTextViewcurrentHealth,"#0000ff");
                     setBackgroundColor("#0000ff");
-                    // nothing for now
                 }
             }
             if(listId != null){
@@ -163,13 +174,11 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     setContentColor(mainUserTextViewCurrentHealth2,"#B22222");
                 }else{
                     setContentColor(mainUserTextViewCurrentHealth2,"#0000ff");
-                    // nothing for now
                 }
             }
         }
-
         private void setImageContent()
-        {
+        { // setting up image for each character, with a animation.
             if (HomeData.searchNameList != null)
             {
                 Picasso.get().load(HomeData.searchNameList.get(0).getResults().get(0).getImage().getMd()).into(mainUserSuperHeroOrVillain, new Callback()
@@ -205,7 +214,8 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 });
             }
         }
-        private void setDataContent(){
+        @SuppressLint("SetTextI18n")
+        private void setDataContent(){ // setting data content for each score updated.
             if(HomeData.searchNameList != null){
                 mainUserTextViewcurrentHealth.setText(HomeData.searchNameList.get(0).getResults().get(0).getName() + " \t\nCurrent Health: " + userHealth);
             }
@@ -214,17 +224,21 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
             currentRound.setText("Current Round: " + currentRoundValue);
         }
-        private void attackUserButton(){
+        private void attackUserButton(){ // attack for user, functionality.
             attackUserButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
+                    attackCommandForUser();
+                    oppHealth = oppHealth - randomNumberForAttackLost;
+                    setDataContent();
+                    alertDialogForUpdateContent("You Attacked " + listId.get(0).getName(),HomeData.searchNameList.get(0).getResults().get(0).getName() + " has attacked " + listId.get(0).getName() + "." + listId.get(0).getName() + " has lost " + randomNumberForAttackLost + " points for health.");
 
                 }
             });
         }
-        private void defendUserButton(){
+        private void defendUserButton(){ // defend for user, functionality.
             defendUserButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -234,7 +248,7 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
         }
-        private void restoreUserButton(){
+        private void restoreUserButton(){ // restore health functionality.
             restoreUserButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -244,28 +258,94 @@ public class TacView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
         }
-        private void specialUserButton(){
+        private void specialUserButton(){ // special for user functionality.
             specialUserButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-
+                    specialCommandForUser();
+                    oppHealth = oppHealth - specialAttackForUserLost;
+                    setDataContent();
                 }
             });
         }
-        private void checkIfComputerLoses(){
+        private void checkIfComputerLoses(){ // check if computer loses.
             if(oppHealth <= 0){
                 // opp loses
             }
         }
-        private void checkIfUserWins(){
+        private void checkIfUserLoses(){ // check if user loses
             if(userHealth <= 0){
                 // user loses
             }
         }
-        private void resetEverything(){
+        private void resetEverything(){ // reset everything back to normal.
 
+        }
+        private void checkStatsForCharacterAndSetData(int statsOfCharacter){ // check stats of character for user attack.
+            if(statsOfCharacter <= 300){
+                commandForLost(10,30);
+            }else if(statsOfCharacter <= 600){
+                commandForLost(50,600);
+            }else if(statsOfCharacter >= 601){
+                commandForLost(60,100);
+            }
+        }
+        private void attackCommandForUser(){
+            checkStatsForCharacterAndSetData(totalStatsForUser());
+        }
+        private void attackCommandForComputer(){
+            checkStatsForCharacterAndSetData(totalStatsForComputer());
+        }
+        private int totalStatsForUser(){
+            return HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getIntelligence() + HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getStrength() +
+                    HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getSpeed() + HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getDurability() +
+                    HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getPower() + HomeData.searchNameList.get(0).getResults().get(0).getPowerStats().getCombat();
+        }
+        private int totalStatsForComputer(){
+            return listId.get(0).getPowerStats().getIntelligence() + listId.get(0).getPowerStats().getSpeed() + listId.get(0).getPowerStats().getPower() + listId.get(0).getPowerStats().getStrength() +
+                    listId.get(0).getPowerStats().getDurability() + listId.get(0).getPowerStats().getCombat();
+        }
+        private void specialCommandForUser(){
+            commandForLost(50,110);
+        }
+        private void commandForLost(int low, int high){ // command for user lost, following between two random numbers.
+            Random r = new Random();
+            randomNumberForAttackLost = r.nextInt(high-low) + low;
+            specialAttackForUserLost = r.nextInt(high-low) + low;
+        }
+        private void alertDialogForUpdateContent(String title, String body){ // alert dialog for updates on each characters.
+            final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+            alert.setTitle(title);
+            alert.setMessage(body);
+            alert.setNegativeButton("OK", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    dialog.cancel();
+                    final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                    alert.setTitle(secondaryTitle);
+                    alert.setMessage(secondaryDesc);
+                    alert.setNegativeButton("Save Us", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            dialog.cancel();
+
+                        }
+
+                    });
+                    AlertDialog dialogs = alert.create();
+                    dialogs.show();
+
+                }
+
+            });
+            AlertDialog dialogs = alert.create();
+            dialogs.show();
         }
     }
 }

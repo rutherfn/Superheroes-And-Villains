@@ -27,16 +27,21 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Nick R.
+ */
+
 public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    // declarations
     private Context mContext;
-    private List<SettingModel> sizeOfSettings = new ArrayList<>();
+    private List<SettingModel> sizeOfSettings;
     private SharedPreferences sp1;
     private SharedPreferences.Editor editor1;
 
 
     public SettingsView(Context mContext, List<SettingModel> sizeOfSettings)
-    {
+    { // cons takes in a arraylist and new context.
         this.mContext = mContext;
         this.sizeOfSettings = sizeOfSettings;
     }
@@ -80,17 +85,17 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             checkIfSharedPrefsDarkIsSet();
             changeTextColorBasedOnDarkMode();
             loadData(i);
-            takeMeToASettingSectionConstriant(i);
+            takeMeToASettingSectionConst(i);
             changeImageFilterColor(i);
             setUpTypeFace();
         }
-        private void checkIfSharedPrefsDarkIsSet(){
+        private void checkIfSharedPrefsDarkIsSet(){ // check dark mode.
             if(sp1.getInt("darkMode",0) == 0 ){
                 editor1.putInt("darkMode",0);
                 editor1.apply();
             }
         }
-        private void setUpTypeFace(){
+        private void setUpTypeFace(){ // set type face.
             Typeface mainTextTypeFace = Typeface.createFromAsset(mContext.getAssets(),"Rubik-Regular.ttf");
             Typeface mainBody = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
             subHeaderTitle.setTypeface(mainTextTypeFace);
@@ -104,7 +109,7 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
         @SuppressLint("CommitPrefEdits")
-        private void setUpSharedPrefs(){
+        private void setUpSharedPrefs(){ // init shared prefs
             sp1 = mContext.getSharedPreferences("key", 0);
             editor1 = sp1.edit();
         }
@@ -114,16 +119,16 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 settingsDesc.setTextColor(Color.parseColor("#FFFFFF"));
             }
         }
-        private void sharedPrefsDarkMode(int value){
+        private void sharedPrefsDarkMode(int value){ // dark mode enabled, then go ahead and reload for dark mode.
             editor1.putInt("darkMode", value);
             editor1.apply();
            ((MainActivity)mContext).reloadForDarkMode();
         }
-        private void changeSettings(int pos){
+        private void changeSettings(int pos){ // method listens to which pos clicked on, and creates func for it.
             Intent intent;
             if(pos == 0){
                  intent = new Intent(mContext,OnBoardingActivity.class);
-                ((MainActivity)mContext).changeActivitys(intent);
+                ((MainActivity)mContext).changeActivity(intent);
             }
             else if(pos == 1){
                 if(sp1.getInt("darkMode",0) == 1){
@@ -134,19 +139,17 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
             else if(pos == 2){
                 intent = new Intent(mContext, WebView.class);
-                ((MainActivity)mContext).changeActivitys(intent);
+                ((MainActivity)mContext).changeActivity(intent);
             }else if(pos == 3){
                 ((MainActivity)mContext).reloadFragmentViewYourCharacter();
             }else if(pos == 4){
                 setUpAlertForWinsAndLoses();
             }else if(pos == 5){
                 ((MainActivity)mContext).changeViewPager(7);
-//                intent = new Intent(mContext, PrivacyPolicy.class);
-//                ((MainActivity)mContext).changeActivitys(intent);
             }else if(pos == 6){
                 ((MainActivity)mContext).restartMainActivity();
             }else if(pos == 7){
-                ((MainActivity)mContext).reloadFragmentPurchaseCharacters();
+                ((MainActivity)mContext).setViewPagerForPurchaseCharacters();
             }else if(pos == 8){
                 setUpTacOrSimSharedPrefs();
             }else if(pos == 9){
@@ -157,7 +160,7 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             }
         }
-        private void takeMeToASettingSectionConstriant(final int pos){
+        private void takeMeToASettingSectionConst(final int pos){ // click lis for setting cons
             settingCons.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -183,7 +186,7 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             AlertDialog dialogs = alert.create();
             dialogs.show();
         }
-        private void setUpDirectionsSharedPrefs(){
+        private void setUpDirectionsSharedPrefs(){ // method for directions in tac or sim
             if(sp1.getInt("directionsTactical",0) == 1){
                 System.out.println("it equals 1");
                 editor1.putInt("directionsTactical",0);
@@ -197,7 +200,7 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
 
-        private void setUpTacOrSimSharedPrefs(){
+        private void setUpTacOrSimSharedPrefs(){ // directions for tac or sim
             if(sp1.getInt("simOrTac",0) == 1){
                 editor1.putInt("simOrTac",0);
                 editor1.apply();
@@ -209,7 +212,7 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 showDialog("Tactical Battles Are Enabled, while Simulation Battles are Disabled. Press OK to continue!","Simulation Or Tactical?");
             }
         }
-        private void setUpAlertForWinsAndLoses(){
+        private void setUpAlertForWinsAndLoses(){ // display wins and losses
             final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle("Wins Losses / XP");
             String[] winsLossesXP = {"Wins:  " + sp1.getInt("wins",0), "Loses: " + sp1.getInt("loses",0), "Draws: " + sp1.getInt("ties",0), "XP:  " + sp1.getInt("xp",0)};
@@ -232,7 +235,7 @@ public class SettingsView extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             AlertDialog dialog = builder.create();
             dialog.show();
         }
-        private void loadData(int position){
+        private void loadData(int position){ // load in data from array list.
             Picasso.get().load(sizeOfSettings.get(position).getImageSetting()).into(imageSettingMain);
             subHeaderTitle.setText(sizeOfSettings.get(position).getTitle());
             settingsDesc.setText(sizeOfSettings.get(position).getDesc());
