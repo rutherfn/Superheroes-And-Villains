@@ -1,5 +1,5 @@
 # SuperHeroes And Villains
-SuperHeroes And Villains is an android application that allows collect superheroes and villains from the the the application, and battle them with other characters. It fetches data from the `SuperHero API.`
+SuperHeroes And Villains is an android application that collect superheroes and villains and battle them with other characters. It fetches data from the `SuperHero API.`
 
 ## Tech Stack Used 
 Java ([View](https://www.oracle.com/java/technologies/javase-downloads.html))
