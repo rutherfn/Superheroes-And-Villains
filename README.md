@@ -1,11 +1,11 @@
 # SuperHeroes And Villains
 SuperHeroes And Villains is an android application that allows collect superheroes and villains from the the the application, and battle them with other characters. It fetches data from the `SuperHero API.`
 
-# Tech Stack Used 
+## Tech Stack Used 
 Java ([View](https://www.oracle.com/java/technologies/javase-downloads.html))
 
 ### Prerequisites
-Be sure to run `git clone https://github.com/rutherfn/Find-My-Weather.git`, on the given repo. From there, you will be able to check out the master branch to get the up to date version of features!
+Be sure to run `git clone https://github.com/rutherfn/Superheroes-And-Villains.git`, on the given repo. From there, you will be able to check out the master branch to get the up to date version of features!
 
 ## Getting Started / Running The Project 
 
@@ -91,6 +91,8 @@ All model `classes` are used for Model types to get a return type from the Open 
 - RecyclerView ([View](https://developer.android.com/reference/android/support/v7/widget/RecyclerView))
 - Picasso ([View](https://github.com/square/picasso))
 - RetroFit ([View](https://square.github.io/retrofit/))
+- Gson ([View](https://github.com/google/gson/))
+- CircleImageView ([View](https://github.com/hdodenhof/CircleImageView/))
 
 ## APIS Used
 
