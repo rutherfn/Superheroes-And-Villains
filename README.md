@@ -100,7 +100,7 @@ All model `classes` are used for Model types to get a return type from the Open 
 
 ## Live Google Play Store
 
-- Google Play Store Page ([View](https://play.google.com/store/apps/details?id=rutheford.com.superheroesandvillainscentral/))
+- Google Play Store Page ([View](https://play.google.com/store/apps/details?id=rutheford.com.superheroesandvillainscentral))
 
 ## Project Status
 
